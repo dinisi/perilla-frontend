@@ -1,7 +1,6 @@
 import Axios, { AxiosRequestConfig } from "axios";
 
 const client = Axios.create({
-  baseURL: "http://localhost:3000",
   withCredentials: true
 });
 
