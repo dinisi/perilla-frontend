@@ -1,10 +1,11 @@
 import Axios, { AxiosRequestConfig } from "axios";
 
 const client = Axios.create({
-  baseURL: "http://localhost:3000"
+  baseURL: "http://localhost:3000",
+  withCredentials: true
 });
 
-export const request = async (config: AxiosRequestConfig) => {
+export default async (config: AxiosRequestConfig) => {
   try {
     const response = await client(config);
     if (response.data.status !== "success") {
