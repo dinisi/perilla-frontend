@@ -4,7 +4,7 @@ const client = Axios.create({
   withCredentials: true
 });
 
-export default async (config: AxiosRequestConfig) => {
+export const request = async (config: AxiosRequestConfig) => {
   try {
     const response = await client(config);
     if (response.data.status !== "success") {

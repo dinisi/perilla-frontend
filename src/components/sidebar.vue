@@ -1,35 +1,37 @@
 <template>
   <v-navigation-drawer permanent app>
-    <v-card class="fill-height fill-width">
-      <div class="fill-height fill-width sidebar">
-        <div class="sidebar-header pa-2">
-          <v-select :items="entries" label="Entry">
-            <template slot="prepend">
-              <v-avatar :size="32">
-                <img :src="avatarURL" class="pa-0"/>
-              </v-avatar>
-            </template>
-          </v-select>
+    <template>
+      <v-card class="fill-height fill-width">
+        <div class="fill-height fill-width sidebar">
+          <div class="sidebar-header pa-2">
+            <v-select :items="entries" :v-model="entry" label="Entry">
+              <template slot="prepend">
+                <v-avatar :size="32">
+                  <img :src="avatarURL" class="pa-0"/>
+                </v-avatar>
+              </template>
+            </v-select>
+          </div>
+          <div class="sidebar-main pa-2 fill-width">
+            <v-timeline dense>
+              <v-timeline-item v-for="(message, i) in messages" :key="i" right fill-dot small>
+                <v-card>
+                  <v-card-title>
+                    {{ message.creator }}
+                  </v-card-title>
+                  <v-divider/>
+                  <v-card-text class="markdown-body" v-html="render(message.content)"/>
+                  <v-card-actions>
+                    {{ (new Date(message.created)).toLocaleString() }}
+                  </v-card-actions>
+                </v-card>
+              </v-timeline-item>
+            </v-timeline>
+          </div>
+          <textarea class="sidebar-footer fill-width" placeholder="Press CTRL+ENTER to send" ref="send" v-model="newMessage"/>
         </div>
-        <div class="sidebar-main pa-2 fill-width">
-          <v-timeline dense>
-            <v-timeline-item v-for="(message, i) in messages" :key="i" right fill-dot small>
-              <v-card>
-                <v-card-title>
-                  {{ message.creator }}
-                </v-card-title>
-                <v-divider/>
-                <v-card-text class="markdown-body" v-html="render(message.content)"/>
-                <v-card-actions>
-                  {{ (new Date(message.created)).toLocaleString() }}
-                </v-card-actions>
-              </v-card>
-            </v-timeline-item>
-          </v-timeline>
-        </div>
-        <textarea class="sidebar-footer fill-width" placeholder="Press CTRL+ENTER to send" ref="send" v-model="newMessage"/>
-      </div>
-    </v-card>
+      </v-card>
+    </template>
   </v-navigation-drawer>
 </template>
 
@@ -51,12 +53,10 @@ export default {
           creator: "zzs"
         }
       ],
-      entries: ["ZhangZisu", "Administrators"],
-      newMessage: ""
+      newMessage: "",
     };
   },
   mounted() {
-    this.avatarURL = gravatar.url("admin@zhangzisu.cn");
     this.$refs.send.onkeydown = e => {
       if (e.keyCode == 13 && e.ctrlKey) {
         this.messages.push({
@@ -69,9 +69,31 @@ export default {
         this.newMessage = "";
       }
     };
+    this.avatarURL = gravatar.url("admin@zhangzisu.cn");
   },
   methods: {
     render
+  },
+  computed: {
+    login() {
+      return this.$store.state.login;
+    },
+    entries() {
+      return this.$store.state.entries;
+    },
+    entry:{
+      get(){
+        return this.$store.state.entry;
+      },
+      set(val){
+        this.$store.commit("changeEntry", val);
+      }
+    }
+  },
+  watch: {
+    '$store.state.entry'(val){
+      //
+    }
   }
 };
 </script>

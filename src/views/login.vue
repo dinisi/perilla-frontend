@@ -5,42 +5,52 @@
         <v-card>
           <v-card-title class="headline primary white--text">登录</v-card-title>
           <v-card-text>
-            <v-text-field label="用户名"/>
-            <v-text-field label="密码"/>
+            <v-text-field label="用户名" v-model="form.username"/>
+            <v-text-field label="密码" v-model="form.password"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer/>
-            <v-btn color="primary" :disabled="loading" @click="login">
-              <template v-if="loading">
-                <v-progress-circular indeterminate/>
-              </template>
-              <template v-else>
-                登录
-              </template>
+            <v-btn color="primary" @click="login" :loading="loading">
+              登录
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
+    <v-snackbar v-model="snackbar">{{ errormsg }}</v-snackbar>
   </v-container>
 </template>
 
 <script>
+import { request } from "@/http";
+
 export default {
   name: "login",
   data() {
     return {
-      username: null,
-      password: null,
-      loading: false
+      form: {
+        username: null,
+        password: null
+      },
+      loading: false,
+      snackbar: false,
+      errormsg: null
     };
   },
   methods: {
     login() {
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 500);
+      request({ url: "/api/login", method: "post", data: this.form })
+        .then(() => {
+          location.reload(true);
+        })
+        .catch(e => {
+          this.errormsg = e.message;
+          this.snackbar = true;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   }
 };

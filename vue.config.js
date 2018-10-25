@@ -8,9 +8,9 @@ module.exports = {
   css: undefined,
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000/'
+      "/api": {
+        target: "http://localhost:3000/"
       }
     }
   }
-}
+};

@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import sidebar from "./components/sidebar";
-import navbar from "./components/navbar";
-import request from "./http";
+import sidebar from "@/components/sidebar";
+import navbar from "@/components/navbar";
+import { request } from "@/http";
 
 export default {
   name: "App",
