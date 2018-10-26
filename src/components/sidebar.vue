@@ -4,7 +4,7 @@
       <v-card class="fill-height fill-width">
         <div class="fill-height fill-width sidebar">
           <div class="sidebar-header pa-2">
-            <v-select :items="entries" :v-model="entry" label="Entry">
+            <v-select :items="entries" v-model="entry" label="Entry">
               <template slot="prepend">
                 <v-avatar :size="32">
                   <img :src="avatarURL" class="pa-0"/>
@@ -37,7 +37,8 @@
 
 <script>
 import * as gravatar from "gravatar";
-import render from "../helper/markdown";
+import render from "@/helper/markdown";
+import { request } from "@/http";
 
 export default {
   name: "sidebar",
@@ -54,7 +55,12 @@ export default {
         }
       ],
       newMessage: "",
+      entry: null
     };
+  },
+  created() {
+    this.entry = this.$store.state.entry;
+    this.loadAvatar();
   },
   mounted() {
     this.$refs.send.onkeydown = e => {
@@ -69,10 +75,18 @@ export default {
         this.newMessage = "";
       }
     };
-    this.avatarURL = gravatar.url("admin@zhangzisu.cn");
   },
   methods: {
-    render
+    render,
+    loadAvatar() {
+      request({ url: "/api/private/entry?entry=" + this.entry })
+        .then(res => {
+          this.avatarURL = gravatar.url(res.email);
+        })
+        .catch(err => {
+          // Eat any error
+        });
+    }
   },
   computed: {
     login() {
@@ -80,19 +94,20 @@ export default {
     },
     entries() {
       return this.$store.state.entries;
-    },
-    entry:{
-      get(){
-        return this.$store.state.entry;
-      },
-      set(val){
-        this.$store.commit("changeEntry", val);
-      }
     }
   },
   watch: {
-    '$store.state.entry'(val){
-      //
+    "$store.state.entry": function(val) {
+      if (val != this.entry) {
+        this.entry = val;
+        this.loadAvatar();
+      }
+    },
+    entry: function(val) {
+      if (val != this.$store.state.entry) {
+        this.$store.commit("changeEntry", val);
+        this.loadAvatar();
+      }
     }
   }
 };

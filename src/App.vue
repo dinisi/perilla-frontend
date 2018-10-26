@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <sidebar/>
+    <sidebar v-if="login"/>
     <navbar/>
     <v-content>
       <router-view/>
@@ -49,6 +49,11 @@ export default {
       .finally(() => {
         this.$store.commit("toggleLoading", false);
       });
+  },
+  computed: {
+    login() {
+      return this.$store.state.login;
+    }
   }
 };
 </script>
