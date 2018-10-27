@@ -16,27 +16,56 @@
 </template>
 
 <script>
-import { request } from '@/http';
+import { request } from "@/http";
 
 export default {
   name: "problemList",
-  props: ["fetchURL"],
-  data(){
-    return{
+  props: ["URL", "query"],
+  data() {
+    return {
       headers: [
-        {text: "ID", align: "left", sortable: true, value: "id"},
-        {text: "title", value: "title"},
-        {text: "tags", value: "tags"},
-        {text: "created", value: "created"},
-        {text: "public", value: "public"}
-      ]
-    }
+        { text: "ID", align: "left", sortable: true, value: "id" },
+        { text: "title", value: "title" },
+        { text: "tags", value: "tags" },
+        { text: "created", value: "created" },
+        { text: "public", value: "public" }
+      ],
+      problems,
+      pagination: null,
+      total: 0,
+      loading: true
+    };
   },
   methods: {
-    fetchData(){
+    fetchData() {
       const { sortBy, descending, page, rowsPerPage } = this.pagination;
-      Promise
+      const params = {};
+      Object.assign(params, this.query);
+      Object.assign(params, {
+        skip: (page - 1) * rowsPerPage,
+        limit: rowsPerPage
+      });
+      Promise.all([
+        request({
+          url: this.URL + "/count",
+          params
+        }),
+        request({
+          url: this.URL + "/list",
+          params
+        })
+      ])
+        .then(([count, items]) => {
+          this.total = count;
+          this.problems = items;
+        })
+        .catch(err => {
+          // Eat any error
+        })
+        .finally(() => {
+          this.loading = true;
+        });
     }
   }
-}
+};
 </script>

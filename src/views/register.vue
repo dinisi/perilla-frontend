@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import { request } from '@/http';
+import { request } from "@/http";
 
 export default {
   name: "register",
-  data(){
-    return{
+  data() {
+    return {
       loading: false,
       form: {
         username: null,
@@ -37,24 +37,27 @@ export default {
       },
       snackbar: false,
       errormsg: null
-    }
+    };
   },
   methods: {
-    register(){
+    register() {
       this.loading = true;
       request({
         url: "/api/register",
         method: "POST",
         data: this.form
-      }).then(res => {
-        this.$router.push("/login");
-      }).catch(err => {
-        this.errormsg = e.message;
-        this.snackbar = true;
-      }).finally(() => {
-        this.loading = false;
-      });
+      })
+        .then(res => {
+          this.$router.push("/login");
+        })
+        .catch(err => {
+          this.errormsg = e.message;
+          this.snackbar = true;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   }
-}
+};
 </script>
