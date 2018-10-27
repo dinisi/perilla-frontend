@@ -5,6 +5,7 @@ import about from "./views/about.vue";
 import login from "./views/login.vue";
 import error from "./views/error.vue";
 import problemlist from "./views/problemlist.vue";
+import register from "./views/register.vue";
 
 Vue.use(Router);
 
@@ -26,6 +27,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: login
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: register
     },
     {
       path: "/problem",
