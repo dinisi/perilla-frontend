@@ -16,18 +16,34 @@
     </v-toolbar-items>
     <v-spacer/>
     <v-toolbar-items>
-      <v-btn depressed to="/login" color="primary">
-        登陆
-      </v-btn>
-      <v-btn flat to="/register">
-        注册
-      </v-btn>
+      <template v-if="login">
+      </template>
+      <template v-else>
+        <v-btn depressed to="/login" color="primary">
+          登陆
+        </v-btn>
+        <v-btn flat to="/register">
+          注册
+        </v-btn>
+      </template>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
 export default {
-  name: "navbar"
+  name: "navbar",
+  data() {},
+  methods: {
+    //
+  },
+  watch: {
+    //
+  },
+  computed: {
+    login: function() {
+      return this.$store.state.login;
+    }
+  }
 };
 </script>

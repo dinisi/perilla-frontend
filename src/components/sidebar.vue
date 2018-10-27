@@ -28,7 +28,7 @@
               </v-timeline-item>
             </v-timeline>
           </div>
-          <textarea class="sidebar-footer fill-width" placeholder="Press CTRL+ENTER to send" ref="send" v-model="newMessage"/>
+          <textarea class="sidebar-footer fill-width" placeholder="Press CTRL+ENTER to send" ref="send" v-model="newMessage" :disabled="disableInput"/>
         </div>
       </v-card>
     </template>
@@ -45,47 +45,79 @@ export default {
   data() {
     return {
       avatarURL: "",
-      messages: [
-        {
-          id: 0,
-          content: "DDD",
-          created: "2018-10-31",
-          owner: "ZhangZisu",
-          creator: "zzs"
-        }
-      ],
+      messages: [],
       newMessage: "",
-      entry: null
+      entry: null,
+      disableInput: false
     };
   },
   created() {
     this.entry = this.$store.state.entry;
     this.loadAvatar();
+    this.loadMessages();
   },
   mounted() {
     this.$refs.send.onkeydown = e => {
       if (e.keyCode == 13 && e.ctrlKey) {
-        this.messages.push({
-          id: 0,
-          content: this.newMessage,
-          created: new Date(),
-          owner: "ZhangZisu",
-          creator: "zzs"
-        });
-        this.newMessage = "";
+        this.createMessage();
       }
     };
   },
   methods: {
     render,
     loadAvatar() {
-      request({ url: "/api/private/entry?entry=" + this.entry })
+      request({
+        url: "/api/private/entry",
+        params: { entry: this.entry }
+      })
         .then(res => {
           this.avatarURL = gravatar.url(res.email);
         })
         .catch(err => {
           // Eat any error
         });
+    },
+    loadMessages() {
+      request({
+        url: "/api/private/message/list",
+        params: {
+          entry: this.entry,
+          sort: JSON.stringify({
+            id: -1
+          }),
+          skip: 0,
+          limit: 10
+        }
+      })
+        .then(res => {
+          this.messages = res;
+        })
+        .catch(err => {
+          // Eat any error
+        });
+    },
+    createMessage() {
+      this.disableInput = true;
+      request({
+        url: "/api/private/message/new",
+        params: {
+          entry: this.entry
+        },
+        method: "POST",
+        data: { content: this.newMessage }
+      })
+        .then(res => {
+          // Successfully created message
+          this.loadMessages();
+        })
+        .catch(err => {
+          // Eat any error
+          this.newMessage = err.message;
+        })
+        .finally(() => {
+          this.disableInput = false;
+        });
+      this.newMessage = "";
     }
   },
   computed: {
@@ -101,12 +133,14 @@ export default {
       if (val != this.entry) {
         this.entry = val;
         this.loadAvatar();
+        this.loadMessages();
       }
     },
     entry: function(val) {
       if (val != this.$store.state.entry) {
         this.$store.commit("changeEntry", val);
         this.loadAvatar();
+        this.loadMessages();
       }
     }
   }
