@@ -17,7 +17,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar v-model="snackbar">{{ errormsg }}</v-snackbar>
+    <v-snackbar v-model="snackbar" v-text="errormsg"/>
   </v-container>
 </template>
 
@@ -42,7 +42,10 @@ export default {
       this.loading = true;
       request({ url: "/api/login", method: "POST", data: this.form })
         .then(() => {
-          location.reload(true);
+          setTimeout(() => {
+            this.$router.push("/");
+            location.reload(true);
+          }, 0);
         })
         .catch(e => {
           this.errormsg = e.message;

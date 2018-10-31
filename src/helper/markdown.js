@@ -21,7 +21,7 @@ zmark.setOptions({
 
 export default function render(markdown) {
   try {
-    let result = zmark(markdown);
+    let result = zmark(markdown || "# Nothing to shown");
     return result;
   } catch (e) {
     return `<pre><code>${e.message}\nSource:\n${markdown}</code></pre>`;

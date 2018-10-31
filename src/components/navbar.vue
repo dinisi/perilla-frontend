@@ -17,6 +17,9 @@
     <v-spacer/>
     <v-toolbar-items>
       <template v-if="login">
+        <v-btn flat to="/logout">
+          登出
+        </v-btn>
       </template>
       <template v-else>
         <v-btn depressed to="/login" color="primary">
