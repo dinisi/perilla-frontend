@@ -6,6 +6,7 @@ import login from "./views/login.vue";
 import error from "./views/error.vue";
 import problemlist from "./views/problemlist.vue";
 import register from "./views/register.vue";
+import store from "./store";
 
 Vue.use(Router);
 
@@ -36,7 +37,13 @@ export default new Router({
     {
       path: "/problem",
       name: "problemListPrivate",
-      component: problemlist
+      component: problemlist,
+      props: {
+        URL: "/api/private/problem",
+        query: {
+          entry: store.state.entry
+        }
+      }
     },
     {
       path: "*",

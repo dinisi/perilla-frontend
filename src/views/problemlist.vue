@@ -30,7 +30,7 @@ export default {
         { text: "created", value: "created" },
         { text: "public", value: "public" }
       ],
-      problems,
+      problems: [],
       pagination: null,
       total: 0,
       loading: true
@@ -66,6 +66,9 @@ export default {
           this.loading = true;
         });
     }
+  },
+  mounted(){
+    this.fetchData();
   }
 };
 </script>
