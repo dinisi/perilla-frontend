@@ -8,11 +8,13 @@ import "material-design-icons-iconfont/dist/material-design-icons.css";
 import "./registerServiceWorker";
 import "./plugins/main.styl";
 import "./http";
+import i18n from "./i18n";
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount("#app");

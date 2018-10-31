@@ -5,8 +5,6 @@ import about from "./views/about.vue";
 import login from "./views/login.vue";
 import logout from "./views/logout.vue";
 import error from "./views/error.vue";
-import problemlist from "./views/problemlist.vue";
-import problemview from "./views/problemview.vue";
 import register from "./views/register.vue";
 import store from "./store";
 
@@ -44,9 +42,10 @@ export default new Router({
     {
       path: "/problem",
       name: "problemListPrivate",
-      component: problemlist,
+      component: () =>
+        import(/* webpackChunkName: "problem" */ "./views/problemlist.vue"),
       props: {
-        URL: "/api/private/problem",
+        URL: "/api/problem/list.private",
         query: {
           entry: store.state.entry
         }
@@ -55,14 +54,20 @@ export default new Router({
     {
       path: "/problem/:entry/:id",
       name: "problemPrivateView",
-      component: problemview,
+      component: () =>
+        import(/* webpackChunkName: "problem" */ "./views/problemview.vue"),
       props: route => ({
-        url: "/api/private/problem",
+        url: "/api/problem/",
         query: {
           entry: route.params.entry,
           id: route.params.id
         }
       })
+    },
+    {
+      path: "/problem/new",
+      name: "problemNewView",
+      component: () => import("./views/problemedit.vue")
     },
     {
       path: "*",

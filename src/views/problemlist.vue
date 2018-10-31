@@ -10,6 +10,9 @@
           <td class="text-xs-right">{{ props.item.protein }}</td>
           <td class="text-xs-right">{{ props.item.iron }}</td>
         </template>
+        <template slot="footer">
+          <v-btn v-text="'新建'" to="/problem/new"/>
+        </template>
       </v-data-table>
     </v-layout>
   </v-container>
@@ -40,19 +43,17 @@ export default {
     fetchData() {
       const { sortBy, descending, page, rowsPerPage } = this.pagination;
       const params = {};
-      Object.assign(params, this.query);
-      Object.assign(params, {
-        skip: (page - 1) * rowsPerPage,
-        limit: rowsPerPage
-      });
       Promise.all([
         request({
-          url: this.URL + "/count",
-          params
+          url: this.URL,
+          params: Object.assign({}, this.query, { noexec: true })
         }),
         request({
-          url: this.URL + "/list",
-          params
+          url: this.URL,
+          params: Object.assign({}, this.query, {
+            skip: (page - 1) * rowsPerPage,
+            limit: rowsPerPage
+          })
         })
       ])
         .then(([count, items]) => {
@@ -63,11 +64,11 @@ export default {
           // Eat any error
         })
         .finally(() => {
-          this.loading = true;
+          this.loading = false;
         });
     }
   },
-  mounted(){
+  mounted() {
     this.fetchData();
   }
 };

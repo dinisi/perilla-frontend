@@ -67,7 +67,7 @@ export default {
     render,
     loadAvatar() {
       request({
-        url: "/api/private/entry",
+        url: "/api/entry",
         params: { entry: this.entry }
       })
         .then(res => {
@@ -79,7 +79,7 @@ export default {
     },
     loadMessages() {
       request({
-        url: "/api/private/message/list",
+        url: "/api/message/list.private",
         params: {
           entry: this.entry,
           sort: JSON.stringify({
@@ -99,7 +99,7 @@ export default {
     createMessage() {
       this.disableInput = true;
       request({
-        url: "/api/private/message/new",
+        url: "/api/message/new",
         params: {
           entry: this.entry
         },
