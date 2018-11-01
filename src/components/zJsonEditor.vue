@@ -1,5 +1,5 @@
 <template>
-  <z-monaco-editor class="z-markdown-editor" v-model="content" language="json"/>
+  <z-monaco-editor class="z-json-editor" v-model="content" language="json"/>
 </template>
 
 <script>
@@ -20,23 +20,29 @@ export default {
       content: ""
     };
   },
-  created() {
+  mounted() {
     this.content = JSON.stringify(this.value, null, "\t");
   },
   watch: {
-    content(val) {
-      try {
-        const parsed = JSON.parse(val);
-        this.$emit("updateValue", parsed);
-      } catch (e) {
-        // Eat any error
-      }
-    }
+    // content(val) {
+    //   try {
+    //     const parsed = JSON.parse(val);
+    //     this.$emit("updateValue", parsed);
+    //   } catch (e) {
+    //     // Eat any error
+    //   }
+    // },
+    // value: {
+    //   handler: function(val){
+    //     this.content = JSON.stringify(this.value, null, "\t");
+    //   },
+    //   deep: true
+    // }
   }
 };
 </script>
 
 <style lang="stylus" scoped>
-.z-markdown-editor
+.z-json-editor
   height 500px
 </style>

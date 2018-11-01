@@ -4,30 +4,15 @@
       <v-card class="fill">
         <v-toolbar>
           <v-toolbar-items>
-            <v-btn flat v-text="$t('edit')" :disabled="!loaded || view === 0" @click="view = 0"/>
-            <v-btn flat v-text="$t('data')" :disabled="!loaded || view === 1" @click="view = 1"/>
+            <v-btn flat v-text="$t('edit')" :disabled="view === 0" @click="view = 0"/>
+            <v-btn flat v-text="$t('data')" :disabled="view === 1" @click="view = 1"/>
           </v-toolbar-items>
           <v-spacer/>
           <v-toolbar-items>
-            <v-menu offset-y>
-              <v-btn flat slot="activator" v-text="$t('auto_generate')" />
-              <v-list>
-                <v-list-tile @click="generateTraditional">
-                  <v-list-tile-title v-text="$t('traditional')" />
-                </v-list-tile>
-                <v-list-tile @click="generateDirect">
-                  <v-list-tile-title v-text="$t('direct')" />
-                </v-list-tile>
-                <v-list-tile @click="generateVirtual">
-                  <v-list-tile-title v-text="$t('virtual')" />
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-            <v-btn flat v-text="$t('show')" @click="$router.push(`/problem/show/${problem._id}`)" :disabled="!id"/>
             <v-btn flat v-text="$t('save')" @click="save"/>
           </v-toolbar-items>
         </v-toolbar>
-        <v-progress-linear indeterminate query v-if="showProgressBar"/>
+        <v-progress-linear indeterminate query v-if="loading"/>
         <template v-if="view === 0">
           <v-card-text>
             <v-text-field :label="$t('title')" v-model="problem.title"/>
@@ -36,7 +21,7 @@
           </v-card-text>
         </template>
         <template v-if="view === 1">
-          <!--  -->
+          <z-json-editor v-model="problem.data"/>
         </template>
       </v-card>
     </v-flex>
@@ -66,9 +51,9 @@ export default {
       problem: {
         id: null,
         title: null,
-        content: null,
+        content: "",
         files: [],
-        data: null,
+        data: {},
         channel: null,
         tags: [],
         created: null,
