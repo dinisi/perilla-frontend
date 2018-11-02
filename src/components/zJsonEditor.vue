@@ -4,6 +4,7 @@
 
 <script>
 import zMonacoEditor from "./zMonacoEditor";
+import { deepCompare } from "@/utils";
 
 export default {
   name: "zJsonEditor",
@@ -24,20 +25,24 @@ export default {
     this.content = JSON.stringify(this.value, null, "\t");
   },
   watch: {
-    // content(val) {
-    //   try {
-    //     const parsed = JSON.parse(val);
-    //     this.$emit("updateValue", parsed);
-    //   } catch (e) {
-    //     // Eat any error
-    //   }
-    // },
-    // value: {
-    //   handler: function(val){
-    //     this.content = JSON.stringify(this.value, null, "\t");
-    //   },
-    //   deep: true
-    // }
+    content(val) {
+      try {
+        const parsed = JSON.parse(val);
+        this.$emit("updateValue", parsed);
+      } catch (e) {
+        // Eat any error
+      }
+    },
+    value: {
+      handler: function(val) {
+        let newContent = JSON.stringify(this.value, null, "\t");
+        let obj = JSON.parse(this.content);
+        if (!deepCompare(val, obj)) {
+          this.content = newContent;
+        }
+      },
+      deep: true
+    }
   }
 };
 </script>

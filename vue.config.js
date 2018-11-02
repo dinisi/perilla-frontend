@@ -1,3 +1,5 @@
+const MonocoEditorPlugin = require("monaco-editor-webpack-plugin");
+
 module.exports = {
   outputDir: undefined,
   baseUrl: undefined,
@@ -13,6 +15,10 @@ module.exports = {
         target: "http://localhost:3000/"
       }
     }
+  },
+
+  configureWebpack: {
+    plugins: [new MonocoEditorPlugin()]
   },
 
   pluginOptions: {
