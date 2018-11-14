@@ -3,13 +3,16 @@
     <v-flex wrap>
       <v-card class="fill">
         <v-toolbar>
+          <v-toolbar-title v-text="$t('edit_problem', [problem.id])"/>
           <v-toolbar-items>
             <v-btn flat v-text="$t('edit')" :disabled="view === 0" @click="view = 0"/>
             <v-btn flat v-text="$t('data')" :disabled="view === 1" @click="view = 1"/>
           </v-toolbar-items>
           <v-spacer/>
           <v-toolbar-items>
-            <v-btn flat v-text="$t('save')" @click="save"/>
+            <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
+            <v-btn flat v-text="$t('save')" @click="save" color="primary"/>
+            <v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/problem/show/' + id"/>
           </v-toolbar-items>
         </v-toolbar>
         <v-progress-linear indeterminate query v-if="loading"/>
@@ -21,11 +24,14 @@
           </v-card-text>
         </template>
         <template v-if="view === 1">
-          <z-json-editor v-model="problem.data"/>
+          <v-card-text>
+            <v-text-field :label="$t('channel')" v-model="problem.channel"/>
+            <z-json-editor v-model="problem.data"/>
+          </v-card-text>
         </template>
       </v-card>
     </v-flex>
-    <v-snackbar v-model="showSnackbar">
+    <v-snackbar v-model="showSnackbar" absolute>
       {{ snackbarText }}
     </v-snackbar>
   </v-container>
@@ -36,30 +42,25 @@ import zJsonEditor from "@/components/zJsonEditor.vue";
 import zMarkdownEditor from "@/components/zMarkdownEditor.vue";
 import { request } from "@/http";
 
-const programExts = ["c", "cpp", "java", "js"];
-const testcaseExts = ["in", "out", "ans"];
-
 export default {
   name: "problemEditView",
   components: {
     zJsonEditor,
     zMarkdownEditor
   },
-  props: ["URL", "query"],
+  props: ["id"],
   data() {
     return {
       problem: {
         id: null,
-        title: null,
+        title: "New problem",
         content: "",
-        files: [],
         data: {},
         channel: null,
         tags: [],
         created: null,
         owner: null,
-        creator: null,
-        public: null
+        creator: null
       },
       loading: true,
       showSnackbar: false,
@@ -69,34 +70,76 @@ export default {
     };
   },
   async mounted() {
-    request({
-      url: this.URL,
-      params: this.query
-    })
-      .then(problem => {
-        this.problem = problem;
+    if (this.id) {
+      request({
+        url: "/api/problem",
+        params: { entry: this.$store.state.entry, id: this.id }
       })
-      .catch(err => {
-        this.isnew = true;
-      })
-      .finally(() => {
-        this.loading = false;
-      });
+        .then(problem => {
+          this.problem = problem;
+        })
+        .catch(err => {
+          this.showSnackbar = true;
+          this.snackbarText = err.message;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    } else {
+      this.isnew = true;
+      this.loading = false;
+    }
   },
   methods: {
     async save() {
-      this.showProgressBar = true;
+      this.loading = true;
+      if (this.isnew) {
+        request({
+          url: "/api/problem",
+          params: { entry: this.$store.state.entry },
+          method: "POST",
+          data: this.problem
+        })
+          .then(id => {
+            this.$router.push("/problem/show/" + id);
+          })
+          .catch(err => {
+            this.showSnackbar = true;
+            this.snackbarText = err.message;
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      } else {
+        request({
+          url: "/api/problem",
+          params: { entry: this.$store.state.entry, id: this.id },
+          method: "PUT",
+          data: this.problem
+        })
+          .catch(err => {
+            this.showSnackbar = true;
+            this.snackbarText = err.message;
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
+    },
+    async remove() {
+      this.loading = true;
       request({
-        url: this.URL,
-        params: this.query,
-        method: "POST",
-        data: this.problem
+        url: "/api/problem",
+        params: { entry: this.$store.state.entry, id: this.id },
+        method: "DELETE"
       })
         .catch(err => {
-          //
+          this.showSnackbar = true;
+          this.snackbarText = err.message;
         })
         .finally(() => {
-          this.loaded = false;
+          this.$router.push("/problem");
+          this.loading = false;
         });
     }
   }

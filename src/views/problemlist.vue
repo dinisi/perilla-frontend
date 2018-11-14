@@ -3,15 +3,16 @@
     <v-layout align-center justify-center>
       <v-data-table :headers="headers" :items="problems" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
+          <tr @click="$router.push('/problem/show/' + props.item.id)">
+            <td>{{ props.item.id }}</td>
+            <td class="text-xs-right">{{ props.item.title }}</td>
+            <td class="text-xs-right">{{ props.item.tags.join(',') }}</td>
+            <td class="text-xs-right">{{ props.item.created }}</td>
+            <td class="text-xs-right">{{ props.item.creator }}</td>
+          </tr>
         </template>
         <template slot="footer">
-          <v-btn v-text="'新建'" to="/problem/new"/>
+          <v-btn v-text="$t('new')" to="/problem/new"/>
         </template>
       </v-data-table>
     </v-layout>
@@ -23,15 +24,14 @@ import { request } from "@/http";
 
 export default {
   name: "problemList",
-  props: ["URL", "query"],
   data() {
     return {
       headers: [
-        { text: "ID", align: "left", sortable: true, value: "id" },
-        { text: "title", value: "title" },
-        { text: "tags", value: "tags" },
-        { text: "created", value: "created" },
-        { text: "public", value: "public" }
+        { text: this.$t("ID"), align: "left", sortable: true, value: "id" },
+        { text: this.$t("title"), value: "title" },
+        { text: this.$t("tags"), value: "tags" },
+        { text: this.$t("created"), value: "created" },
+        { text: this.$t("creator"), value: "creator" }
       ],
       problems: [],
       pagination: null,
@@ -45,15 +45,20 @@ export default {
       const params = {};
       Promise.all([
         request({
-          url: this.URL,
-          params: Object.assign({}, this.query, { noexec: true })
+          url: "/api/problem/list",
+          params: Object.assign(
+            {},
+            { entry: this.$store.state.entry },
+            { noexec: true }
+          )
         }),
         request({
-          url: this.URL,
-          params: Object.assign({}, this.query, {
-            skip: (page - 1) * rowsPerPage,
-            limit: rowsPerPage
-          })
+          url: "/api/problem/list",
+          params: Object.assign(
+            {},
+            { entry: this.$store.state.entry },
+            { skip: (page - 1) * rowsPerPage, limit: rowsPerPage }
+          )
         })
       ])
         .then(([count, items]) => {

@@ -6,13 +6,19 @@
           <v-card-title>
             <div>
               <div class="headline" v-text="problem.title"/>
+              <div class="subheading">
+                {{ problem.creator }}
+              </div>
             </div>
           </v-card-title>
           <v-card-text>
             <article class="markdown-body" v-html="rendered"/>
           </v-card-text>
           <v-card-actions>
+            <v-chip label v-for="(tag, i) in problem.tags" v-text="tag" :key="i"/>
             <v-spacer/>
+            <v-btn v-text="$t('submit')" color="primary"/>
+            <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id"/>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -35,21 +41,19 @@ import render from "@/helper/markdown";
 
 export default {
   name: "problemView",
-  props: ["url", "query"],
+  props: ["id"],
   data() {
     return {
       problem: {
         id: null,
-        title: null,
-        content: null,
-        files: [],
-        data: null,
+        title: "Loading",
+        content: "",
+        data: {},
         channel: null,
         tags: [],
         created: null,
         owner: null,
-        creator: null,
-        public: false
+        creator: null
       },
       loading: true,
       snackbar: false,
@@ -58,8 +62,8 @@ export default {
   },
   mounted() {
     request({
-      url: this.url,
-      params: this.query
+      url: "/api/problem",
+      params: { entry: this.$store.state.entry, id: this.id }
     })
       .then(problem => {
         this.problem = problem;

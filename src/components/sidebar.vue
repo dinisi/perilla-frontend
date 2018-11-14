@@ -79,7 +79,7 @@ export default {
     },
     loadMessages() {
       request({
-        url: "/api/message/list.private",
+        url: "/api/message/list",
         params: {
           entry: this.entry,
           sort: JSON.stringify({
@@ -99,7 +99,7 @@ export default {
     createMessage() {
       this.disableInput = true;
       request({
-        url: "/api/message/new",
+        url: "/api/message/",
         params: {
           entry: this.entry
         },

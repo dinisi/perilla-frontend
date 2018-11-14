@@ -1,3 +1,11 @@
 {
-  "message": "hello i18n !!"
+  "ID": "ID",
+  "created": "Created",
+  "data": "Data",
+  "edit": "Edit",
+  "edit_problem": "Editing problem {0}",
+  "new": "New",
+  "save": "Save",
+  "tags": "Tags",
+  "title": "Title"
 }

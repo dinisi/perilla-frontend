@@ -59,7 +59,13 @@ export default {
   },
   watch: {
     content(val) {
+      if (val == this.value) return;
       this.$emit("updateValue", val);
+      this.rendered = render(val);
+    },
+    value(val) {
+      if (val == this.content) return;
+      this.content = val;
       this.rendered = render(val);
     }
   },
