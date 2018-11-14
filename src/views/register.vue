@@ -18,7 +18,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar v-model="snackbar">{{ errormsg }}</v-snackbar>
+    <v-snackbar absolute v-model="snackbar">{{ errormsg }}</v-snackbar>
   </v-container>
 </template>
 

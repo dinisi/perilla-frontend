@@ -14,6 +14,12 @@ export const fileRoutes: RouteConfig[] = [
       import(/* webpackChunkName: "file" */ "../views/fileedit.vue")
   },
   {
+    path: "/file/upload",
+    name: "fileUploadView",
+    component: () =>
+      import(/* webpackChunkName: "file" */ "../views/batchupload.vue")
+  },
+  {
     path: "/file/show/:id",
     name: "fileView",
     component: () =>

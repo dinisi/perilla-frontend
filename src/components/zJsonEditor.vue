@@ -1,5 +1,5 @@
 <template>
-  <z-monaco-editor class="z-json-editor" v-model="content" language="json"/>
+  <z-monaco-editor class="z-json-editor" v-model="content" language="json" :readonly="readonly"/>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
   components: {
     zMonacoEditor
   },
-  props: ["value"],
+  props: ["value", "readonly"],
   model: {
     prop: "value",
     event: "updateValue"

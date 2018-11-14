@@ -2,7 +2,7 @@
   <v-container fluid justify-space-around>
     <v-flex>
       <div class="error-title">
-        错误
+        {{ $t("error") }}
       </div>
     </v-flex>
   </v-container>

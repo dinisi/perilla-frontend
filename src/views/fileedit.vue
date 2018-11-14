@@ -16,23 +16,20 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-progress-linear indeterminate query v-if="loading"/>
-        <template v-if="view === 0">
-          <v-card-text>
-            <v-text-field :label="$t('name')" v-model="file.name"/>
-            <z-markdown-editor v-model="file.description"/>
-            <v-combobox v-model="file.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
-          </v-card-text>
-        </template>
-        <template v-if="view === 1">
-          <v-card-text>
-            <b>{{ $t("hash") }}:</b><pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre><br/>
-            <b>{{ $t("size") }}:</b><pre>{{ file.size }}</pre><br/>
-            <input ref="file" type="file">
-          </v-card-text>
-        </template>
+        <v-card-text v-show="view === 0">
+          <v-text-field :label="$t('name')" v-model="file.name"/>
+          <v-text-field :label="$t('type')" v-model="file.type"/>
+          <z-markdown-editor v-model="file.description"/>
+          <v-combobox v-model="file.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
+        </v-card-text>
+        <v-card-text v-show="view === 1">
+          <b>{{ $t("hash") }}:</b><pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre><br/>
+          <b>{{ $t("size") }}:</b><pre>{{ file.size }}</pre><br/>
+          <input ref="file" type="file">
+        </v-card-text>
       </v-card>
     </v-flex>
-    <v-snackbar v-model="showSnackbar" absolute>
+    <v-snackbar absolute v-model="showSnackbar">
       {{ snackbarText }}
     </v-snackbar>
   </v-container>
@@ -43,7 +40,7 @@ import zMarkdownEditor from "@/components/zMarkdownEditor.vue";
 import { request } from "@/http";
 
 export default {
-  name: "fileEditView",
+  name: "fileEdit",
   props: ["id"],
   components: {
     zMarkdownEditor
@@ -94,7 +91,7 @@ export default {
     async save() {
       let form = new FormData();
       form.append("name", this.file.name);
-      form.append("type", this.file.name);
+      form.append("type", this.file.type);
       form.append("description", this.file.description);
       form.append("tags", JSON.stringify(this.file.tags));
       if (this.$refs.file && this.$refs.file.files) {

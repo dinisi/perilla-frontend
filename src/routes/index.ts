@@ -6,7 +6,8 @@ import login from "../views/login.vue";
 import logout from "../views/logout.vue";
 import error from "../views/error.vue";
 import register from "../views/register.vue";
-import { fileRoutes } from './file';
+import { fileRoutes } from "./file";
+import { solutionRoutes } from './solution';
 
 let routes: RouteConfig[] = [
   {
@@ -37,6 +38,7 @@ let routes: RouteConfig[] = [
 ];
 routes = routes.concat(problemRoutes);
 routes = routes.concat(fileRoutes);
+routes = routes.concat(solutionRoutes);
 routes.push({
   path: "*",
   name: "error",

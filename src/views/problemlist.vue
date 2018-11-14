@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table :headers="headers" :items="problems" :pagination.sync="pagination" :total-items="total" :loading="loading">
+      <v-data-table class="fullwidth" :headers="headers" :items="problems" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
           <tr @click="$router.push('/problem/show/' + props.item.id)">
             <td>{{ props.item.id }}</td>
@@ -11,8 +11,8 @@
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
-        <template slot="footer">
-          <v-btn v-text="$t('new')" to="/problem/new"/>
+        <template slot="actions-prepend">
+          <v-btn flat v-text="$t('new')" to="/problem/new" color="primary"/>
         </template>
       </v-data-table>
     </v-layout>
@@ -39,8 +39,17 @@ export default {
       loading: true
     };
   },
+  watch: {
+    pagination: {
+      handler: function() {
+        this.fetchData();
+      },
+      deep: true
+    }
+  },
   methods: {
     fetchData() {
+      this.loading = true;
       const { sortBy, descending, page, rowsPerPage } = this.pagination;
       const params = {};
       Promise.all([
@@ -78,3 +87,8 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus" scoped>
+.fullwidth
+  width 100%
+</style>

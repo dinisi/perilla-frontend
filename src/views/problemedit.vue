@@ -16,22 +16,18 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-progress-linear indeterminate query v-if="loading"/>
-        <template v-if="view === 0">
-          <v-card-text>
-            <v-text-field :label="$t('title')" v-model="problem.title"/>
-            <z-markdown-editor v-model="problem.content"/>
-            <v-combobox v-model="problem.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
-          </v-card-text>
-        </template>
-        <template v-if="view === 1">
-          <v-card-text>
-            <v-text-field :label="$t('channel')" v-model="problem.channel"/>
-            <z-json-editor v-model="problem.data"/>
-          </v-card-text>
-        </template>
+        <v-card-text v-show="view === 0">
+          <v-text-field :label="$t('title')" v-model="problem.title"/>
+          <z-markdown-editor v-model="problem.content"/>
+          <v-combobox v-model="problem.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
+        </v-card-text>
+        <v-card-text v-show="view === 1">
+          <v-text-field :label="$t('channel')" v-model="problem.channel"/>
+          <z-json-editor v-model="problem.data"/>
+        </v-card-text>
       </v-card>
     </v-flex>
-    <v-snackbar v-model="showSnackbar" absolute>
+    <v-snackbar absolute v-model="showSnackbar">
       {{ snackbarText }}
     </v-snackbar>
   </v-container>
@@ -43,7 +39,7 @@ import zMarkdownEditor from "@/components/zMarkdownEditor.vue";
 import { request } from "@/http";
 
 export default {
-  name: "problemEditView",
+  name: "problemEdit",
   components: {
     zJsonEditor,
     zMarkdownEditor

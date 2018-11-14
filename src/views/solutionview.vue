@@ -5,24 +5,20 @@
         <v-card>
           <v-card-title>
             <div>
-              <div class="headline" v-text="file.name"/>
+              <div class="headline" v-text="solution.id"/>
               <div class="subheading">
-                {{ file.creator }}
+                {{ solution.creator }}
               </div>
             </div>
           </v-card-title>
           <v-card-text>
-            <b>{{ $t("hash") }}:</b><pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre><br/>
-            <b>{{ $t("size") }}:</b><pre>{{ file.size }}</pre><br/>
-            <b>{{ $t("type") }}:</b><pre>{{ file.type }}</pre><br/>
-            <article class="markdown-body" v-html="rendered"/>
+            <b>{{ $t("problem") }}:</b><pre>{{ solution.problem }}</pre><br/>
+            <b>{{ $t("status") }}:</b><pre>{{ result }}</pre><br/>
+            <b>{{ $t("details") }}:</b><br/>
+            <z-json-editor v-model="solution.details" :readonly="true"/>
+            <b>{{ $t("data") }}:</b><br/>
+            <z-json-editor v-model="solution.data" :readonly="true"/>
           </v-card-text>
-          <v-card-actions>
-            <v-chip label v-for="(tag, i) in file.tags" v-text="tag" :key="i"/>
-            <v-spacer/>
-            <v-btn v-text="$t('download')" color="primary"/>
-            <v-btn v-text="$t('edit')" :to="'/file/edit/' + id"/>
-          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
@@ -41,21 +37,25 @@
 <script>
 import { request } from "@/http";
 import render from "@/helper/markdown";
+import {SolutionResult}from "@/interfaces";
+import zJsonEditor from "@/components/zJsonEditor.vue";
 
 export default {
-  name: "fileView",
+  name: "solutionView",
   props: ["id"],
+  components:{
+    zJsonEditor
+  },
   data() {
     return {
-      file: {
+      solution: {
         id: null,
-        name: "Loading",
-        type: "",
-        description: "",
-        hash: "",
-        size: 0,
+        problem: null,
+        status: 0,
+        score: 0,
+        data: {},
+        details: {},
         created: null,
-        tags: [],
         owner: null,
         creator: null
       },
@@ -66,11 +66,11 @@ export default {
   },
   mounted() {
     request({
-      url: "/api/file",
+      url: "/api/solution",
       params: { entry: this.$store.state.entry, id: this.id }
     })
-      .then(file => {
-        this.file = file;
+      .then(solution => {
+        this.solution = solution;
       })
       .catch(err => {
         this.snack = err.message;
@@ -81,8 +81,8 @@ export default {
       });
   },
   computed: {
-    rendered: function() {
-      return render(this.file.description);
+    result: function(){
+      return SolutionResult[this.solution.status];
     }
   }
 };
