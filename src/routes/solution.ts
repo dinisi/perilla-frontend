@@ -13,5 +13,5 @@ export const solutionRoutes: RouteConfig[] = [
     component: () =>
       import(/* webpackChunkName: "solution" */ "../views/solutionview.vue"),
     props: route => ({ id: route.params.id })
-  },
+  }
 ];

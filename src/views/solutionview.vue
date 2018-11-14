@@ -37,13 +37,13 @@
 <script>
 import { request } from "@/http";
 import render from "@/helper/markdown";
-import {SolutionResult}from "@/interfaces";
+import { SolutionResult } from "@/interfaces";
 import zJsonEditor from "@/components/zJsonEditor.vue";
 
 export default {
   name: "solutionView",
   props: ["id"],
-  components:{
+  components: {
     zJsonEditor
   },
   data() {
@@ -81,7 +81,7 @@ export default {
       });
   },
   computed: {
-    result: function(){
+    result: function() {
       return SolutionResult[this.solution.status];
     }
   }
