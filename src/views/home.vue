@@ -1,13 +1,13 @@
 <template>
-  <v-container fluid> </v-container>
+  <v-container fluid/>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       //
-    };
+    }
   }
-};
+}
 </script>

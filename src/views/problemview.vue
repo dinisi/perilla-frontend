@@ -13,25 +13,17 @@
             <article class="markdown-body" v-html="rendered" />
           </v-card-text>
           <v-card-actions>
-            <v-chip
-              label
-              v-for="(tag, i) in problem.tags"
-              v-text="tag"
-              :key="i"
-            />
+            <v-chip label v-for="(tag, i) in problem.tags" v-text="tag" :key="i"/>
             <v-spacer />
-            <v-btn
-              v-text="$t('show_submit_form')"
-              color="primary"
-              @click="showSubmit = true;"
-              :disabled="showSubmit"
-            />
+            <v-btn v-text="$t('show_submit_form')" color="primary" @click="showSubmit = true;" :disabled="showSubmit"/>
             <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id" />
           </v-card-actions>
         </v-card>
         <v-card v-if="showSubmit">
           <v-card-title class="headline" v-text="$t('submit')" />
-          <v-card-text> <z-json-editor v-model="solution.data" /> </v-card-text>
+          <v-card-text>
+            <z-json-editor v-model="solution.data" />
+          </v-card-text>
           <v-card-actions>
             <v-spacer />
             <v-btn v-text="$t('submit')" @click="submit" color="primary" />
@@ -39,11 +31,10 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar" v-text="snack" />
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          Please stand by
+          {{ $t('please_wait') }}
           <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
@@ -52,22 +43,22 @@
 </template>
 
 <script>
-import { request } from "@/http";
-import render from "@/helper/markdown";
-import zJsonEditor from "@/components/zJsonEditor.vue";
+import { request } from '@/http'
+import render from '@/helper/markdown'
+import zJsonEditor from '@/components/zJsonEditor.vue'
 
 export default {
-  name: "problemView",
-  props: ["id"],
+  name: 'ProblemView',
+  props: ['id'],
   components: {
     zJsonEditor
   },
-  data() {
+  data () {
     return {
       problem: {
         id: null,
-        title: "Loading",
-        content: "",
+        title: 'Loading',
+        content: '',
         data: {},
         channel: null,
         tags: [],
@@ -79,52 +70,48 @@ export default {
         data: {}
       },
       loading: true,
-      snackbar: false,
-      snack: null,
       showSubmit: false
-    };
+    }
   },
-  mounted() {
+  mounted () {
     request({
-      url: "/api/problem",
+      url: '/api/problem',
       params: { entry: this.$store.state.entry, id: this.id }
     })
       .then(problem => {
-        this.problem = problem;
+        this.problem = problem
       })
-      .catch(err => {
-        this.snack = err.message;
-        this.snackbar = true;
+      .catch(e => {
+        this.$store.commit('updateMessage', e.message)
       })
       .finally(() => {
-        this.loading = false;
-      });
+        this.loading = false
+      })
   },
   computed: {
-    rendered: function() {
-      return render(this.problem.content);
+    rendered: function () {
+      return render(this.problem.content)
     }
   },
   methods: {
-    submit() {
-      this.loading = true;
+    submit () {
+      this.loading = true
       request({
-        url: "/api/problem/submit",
+        url: '/api/problem/submit',
         params: { entry: this.$store.state.entry, id: this.id },
         data: this.solution,
-        method: "POST"
+        method: 'POST'
       })
         .then(id => {
           //
         })
-        .catch(err => {
-          this.snack = err.message;
-          this.snackbar = true;
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     }
   }
-};
+}
 </script>

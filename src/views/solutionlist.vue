@@ -1,14 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table
-        class="fullwidth"
-        :headers="headers"
-        :items="solutions"
-        :pagination.sync="pagination"
-        :total-items="total"
-        :loading="loading"
-      >
+      <v-data-table class="fullwidth" :headers="headers" :items="solutions" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
           <tr @click="$router.push('/solution/show/' + props.item.id);">
             <td>{{ props.item.id }}</td>
@@ -25,42 +18,42 @@
 </template>
 
 <script>
-import { request } from "@/http";
+import { request } from '@/http'
 
 export default {
-  name: "solutionList",
-  data() {
+  name: 'SolutionList',
+  data () {
     return {
       headers: [
-        { text: this.$t("ID"), align: "left", sortable: true, value: "id" },
-        { text: this.$t("problem"), value: "problem" },
-        { text: this.$t("status"), value: "status" },
-        { text: this.$t("score"), value: "score" },
-        { text: this.$t("created"), value: "created" },
-        { text: this.$t("creator"), value: "creator" }
+        { text: this.$t('ID'), align: 'left', sortable: true, value: 'id' },
+        { text: this.$t('problem'), value: 'problem' },
+        { text: this.$t('status'), value: 'status' },
+        { text: this.$t('score'), value: 'score' },
+        { text: this.$t('created'), value: 'created' },
+        { text: this.$t('creator'), value: 'creator' }
       ],
       solutions: [],
       pagination: null,
       total: 0,
       loading: true
-    };
+    }
   },
   watch: {
     pagination: {
-      handler: function() {
-        this.fetchData();
+      handler: function () {
+        this.fetchData()
       },
       deep: true
     }
   },
   methods: {
-    fetchData() {
-      this.loading = true;
-      const { sortBy, descending, page, rowsPerPage } = this.pagination;
-      const params = {};
+    fetchData () {
+      this.loading = true
+      const { sortBy, descending, page, rowsPerPage } = this.pagination
+      const params = {}
       Promise.all([
         request({
-          url: "/api/solution/list",
+          url: '/api/solution/list',
           params: Object.assign(
             {},
             { entry: this.$store.state.entry },
@@ -68,7 +61,7 @@ export default {
           )
         }),
         request({
-          url: "/api/solution/list",
+          url: '/api/solution/list',
           params: Object.assign(
             {},
             { entry: this.$store.state.entry },
@@ -77,21 +70,21 @@ export default {
         })
       ])
         .then(([count, items]) => {
-          this.total = count;
-          this.solutions = items;
+          this.total = count
+          this.solutions = items
         })
         .catch(err => {
           // Eat any error
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     }
   },
-  mounted() {
-    this.fetchData();
+  mounted () {
+    this.fetchData()
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

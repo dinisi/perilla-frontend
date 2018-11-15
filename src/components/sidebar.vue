@@ -7,27 +7,18 @@
             <v-select :items="entries" v-model="entry" label="Entry">
               <template slot="prepend">
                 <v-avatar :size="32">
-                  <img :src="avatarURL" class="pa-0" />
+                  <img :src="avatarURL" class="pa-0" >
                 </v-avatar>
               </template>
             </v-select>
           </div>
           <div class="sidebar-main pa-2 fill-width">
             <v-timeline dense>
-              <v-timeline-item
-                v-for="(message, i) in messages"
-                :key="i"
-                right
-                fill-dot
-                small
-              >
+              <v-timeline-item v-for="(message, i) in messages" :key="i" right fill-dot small>
                 <v-card>
                   <v-card-title> {{ message.creator }} </v-card-title>
                   <v-divider />
-                  <v-card-text
-                    class="markdown-body"
-                    v-html="render(message.content)"
-                  />
+                  <v-card-text class="markdown-body" v-html="render(message.content)"/>
                   <v-card-actions>
                     {{ new Date(message.created).toLocaleString() }}
                   </v-card-actions>
@@ -35,13 +26,7 @@
               </v-timeline-item>
             </v-timeline>
           </div>
-          <textarea
-            class="sidebar-footer fill-width"
-            placeholder="Press CTRL+ENTER to send"
-            ref="send"
-            v-model="newMessage"
-            :disabled="disableInput"
-          />
+          <textarea class="sidebar-footer fill-width" placeholder="Press CTRL+ENTER to send" ref="send" v-model="newMessage" :disabled="disableInput"/>
         </div>
       </v-card>
     </template>
@@ -49,51 +34,51 @@
 </template>
 
 <script>
-import * as gravatar from "gravatar";
-import render from "@/helper/markdown";
-import { request } from "@/http";
+import * as gravatar from 'gravatar'
+import render from '@/helper/markdown'
+import { request } from '@/http'
 
 export default {
-  name: "sidebar",
-  data() {
+  name: 'Sidebar',
+  data () {
     return {
-      avatarURL: "",
+      avatarURL: '',
       messages: [],
-      newMessage: "",
+      newMessage: '',
       entry: null,
       disableInput: false
-    };
+    }
   },
-  created() {
-    this.entry = this.$store.state.entry;
-    this.loadAvatar();
-    this.loadMessages();
-    this.show = this.value;
+  created () {
+    this.entry = this.$store.state.entry
+    this.loadAvatar()
+    this.loadMessages()
+    this.show = this.value
   },
-  mounted() {
+  mounted () {
     this.$refs.send.onkeydown = e => {
-      if (e.keyCode == 13 && e.ctrlKey) {
-        this.createMessage();
+      if (e.keyCode === 13 && e.ctrlKey) {
+        this.createMessage()
       }
-    };
+    }
   },
   methods: {
     render,
-    loadAvatar() {
+    loadAvatar () {
       request({
-        url: "/api/entry",
+        url: '/api/entry',
         params: { entry: this.entry }
       })
         .then(res => {
-          this.avatarURL = gravatar.url(res.email);
+          this.avatarURL = gravatar.url(res.email)
         })
         .catch(err => {
           // Eat any error
-        });
+        })
     },
-    loadMessages() {
+    loadMessages () {
       request({
-        url: "/api/message/list",
+        url: '/api/message/list',
         params: {
           entry: this.entry,
           sort: JSON.stringify({
@@ -104,61 +89,61 @@ export default {
         }
       })
         .then(res => {
-          this.messages = res;
+          this.messages = res
         })
         .catch(err => {
           // Eat any error
-        });
+        })
     },
-    createMessage() {
-      this.disableInput = true;
+    createMessage () {
+      this.disableInput = true
       request({
-        url: "/api/message/",
+        url: '/api/message/',
         params: {
           entry: this.entry
         },
-        method: "POST",
+        method: 'POST',
         data: { content: this.newMessage }
       })
         .then(res => {
           // Successfully created message
-          this.loadMessages();
+          this.loadMessages()
         })
         .catch(err => {
           // Eat any error
-          this.newMessage = err.message;
+          this.newMessage = err.message
         })
         .finally(() => {
-          this.disableInput = false;
-        });
-      this.newMessage = "";
+          this.disableInput = false
+        })
+      this.newMessage = ''
     }
   },
   computed: {
-    login() {
-      return this.$store.state.login;
+    login () {
+      return this.$store.state.login
     },
-    entries() {
-      return this.$store.state.entries;
+    entries () {
+      return this.$store.state.entries
     }
   },
   watch: {
-    "$store.state.entry": function(val) {
-      if (val != this.entry) {
-        this.entry = val;
-        this.loadAvatar();
-        this.loadMessages();
+    '$store.state.entry': function (val) {
+      if (val !== this.entry) {
+        this.entry = val
+        this.loadAvatar()
+        this.loadMessages()
       }
     },
-    entry: function(val) {
-      if (val != this.$store.state.entry) {
-        this.$store.commit("changeEntry", val);
-        this.loadAvatar();
-        this.loadMessages();
+    entry: function (val) {
+      if (val !== this.$store.state.entry) {
+        this.$store.commit('changeEntry', val)
+        this.loadAvatar()
+        this.loadMessages()
       }
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

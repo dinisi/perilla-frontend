@@ -10,48 +10,57 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-snackbar v-model="snackbar" bottom right>
+      {{ errormsg }}
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
-import sidebar from "@/components/sidebar";
-import navbar from "@/components/navbar";
-import { request } from "@/http";
+import sidebar from '@/components/sidebar'
+import navbar from '@/components/navbar'
+import { request } from '@/http'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     sidebar,
     navbar
   },
-  data() {
+  data () {
     return {
       loading: false,
-      showsidebar: true
-    };
-  },
-  watch: {
-    "$store.state.loading": function(val) {
-      this.loading = val;
+      showsidebar: true,
+      snackbar: false,
+      errormsg: null
     }
   },
-  mounted() {
-    this.$store.commit("toggleLoading", true);
-    request({ url: "/api/session" })
+  watch: {
+    '$store.state.loading': function (val) {
+      this.loading = val
+    },
+    '$store.state.timestamp': function () {
+      this.snackbar = true
+      this.errormsg = this.$store.state.message
+    }
+  },
+  mounted () {
+    this.$store.commit('toggleLoading', true)
+    request({ url: '/api/session' })
       .then(info => {
-        this.$store.commit("login", info);
+        this.$store.commit('login', info)
       })
       .catch(err => {
         // Eat any error
       })
       .finally(() => {
-        this.$store.commit("toggleLoading", false);
-      });
+        this.$store.commit('toggleLoading', false)
+      })
   },
   computed: {
-    login() {
-      return this.$store.state.login;
+    login () {
+      return this.$store.state.login
     }
   }
-};
+}
 </script>

@@ -22,37 +22,37 @@
 
 <script>
 export default {
-  name: "navbar",
-  props: ["value"],
+  name: 'Navbar',
+  props: ['value'],
   model: {
-    prop: "value",
-    event: "update"
+    prop: 'value',
+    event: 'update'
   },
   watch: {
-    value: function(val) {
-      if (val === this.show) return;
-      this.show = val;
+    value: function (val) {
+      if (val === this.show) return
+      this.show = val
     },
-    show: function(val) {
-      if (val === this.value) return;
-      this.$emit("update", val);
+    show: function (val) {
+      if (val === this.value) return
+      this.$emit('update', val)
     }
   },
-  data() {
+  data () {
     return {
       show: false
-    };
+    }
   },
-  created() {
-    this.show = this.value;
+  created () {
+    this.show = this.value
   },
   methods: {
     //
   },
   computed: {
-    login: function() {
-      return this.$store.state.login;
+    login: function () {
+      return this.$store.state.login
     }
   }
-};
+}
 </script>

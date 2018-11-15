@@ -11,16 +11,14 @@
           </v-card-title>
           <v-card-text>
             <b>{{ $t("hash") }}:</b>
-            <pre style="white-space: pre-wrap; word-wrap: break-word;">
-              {{ file.hash }}</pre
-            >
-            <br />
+            <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre>
+            <br/>
             <b>{{ $t("size") }}:</b>
             <pre>{{ file.size }}</pre>
-            <br />
+            <br/>
             <b>{{ $t("type") }}:</b>
             <pre>{{ file.type }}</pre>
-            <br />
+            <br/>
             <article class="markdown-body" v-html="rendered" />
           </v-card-text>
           <v-card-actions>
@@ -32,11 +30,10 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar" v-text="snack" />
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          Please stand by
+          {{ $t('please_wait') }}
           <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
@@ -45,51 +42,48 @@
 </template>
 
 <script>
-import { request } from "@/http";
-import render from "@/helper/markdown";
+import { request } from '@/http'
+import render from '@/helper/markdown'
 
 export default {
-  name: "fileView",
-  props: ["id"],
-  data() {
+  name: 'FileView',
+  props: ['id'],
+  data () {
     return {
       file: {
         id: null,
-        name: "Loading",
-        type: "",
-        description: "",
-        hash: "",
+        name: 'Loading',
+        type: '',
+        description: '',
+        hash: '',
         size: 0,
         created: null,
         tags: [],
         owner: null,
         creator: null
       },
-      loading: true,
-      snackbar: false,
-      snack: null
-    };
+      loading: true
+    }
   },
-  mounted() {
+  mounted () {
     request({
-      url: "/api/file",
+      url: '/api/file',
       params: { entry: this.$store.state.entry, id: this.id }
     })
       .then(file => {
-        this.file = file;
+        this.file = file
       })
-      .catch(err => {
-        this.snack = err.message;
-        this.snackbar = true;
+      .catch(e => {
+        this.$store.commit('updateMessage', e.message)
       })
       .finally(() => {
-        this.loading = false;
-      });
+        this.loading = false
+      })
   },
   computed: {
-    rendered: function() {
-      return render(this.file.description);
+    rendered: function () {
+      return render(this.file.description)
     }
   }
-};
+}
 </script>

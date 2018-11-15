@@ -5,63 +5,53 @@
         <v-card>
           <v-card-title class="headline primary white--text">注册</v-card-title>
           <v-card-text>
-            <v-text-field label="用户名" v-model="form.username" />
-            <v-text-field
-              label="密码"
-              v-model="form.password"
-              type="password"
-            />
-            <v-text-field label="邮箱" v-model="form.email" type="email" />
+            <v-text-field :label="$t('username')" v-model="form.username" />
+            <v-text-field :label="$t('password')" v-model="form.password" type="password"/>
+            <v-text-field :label="$t('email')" v-model="form.email" type="email" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" @click="register" :loading="loading">
-              注册
-            </v-btn>
+            <v-btn color="primary" @click="register" :loading="loading" v-text="$t('register')"/>
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar">{{ errormsg }}</v-snackbar>
   </v-container>
 </template>
 
 <script>
-import { request } from "@/http";
+import { request } from '@/http'
 
 export default {
-  name: "register",
-  data() {
+  name: 'Register',
+  data () {
     return {
       loading: false,
       form: {
         username: null,
         password: null,
         email: null
-      },
-      snackbar: false,
-      errormsg: null
-    };
+      }
+    }
   },
   methods: {
-    register() {
-      this.loading = true;
+    register () {
+      this.loading = true
       request({
-        url: "/api/register",
-        method: "POST",
+        url: '/api/register',
+        method: 'POST',
         data: this.form
       })
         .then(res => {
-          this.$router.push("/login");
+          this.$router.push('/login')
         })
-        .catch(err => {
-          this.errormsg = e.message;
-          this.snackbar = true;
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     }
   }
-};
+}
 </script>

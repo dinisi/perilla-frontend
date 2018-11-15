@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: "error"
-};
+  name: 'Error'
+}
 </script>
 
 <style lang="stylus" scoped>

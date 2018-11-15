@@ -12,23 +12,23 @@
           <v-card-text>
             <b>{{ $t("problem") }}:</b>
             <pre>{{ solution.problem }}</pre>
-            <br />
+            <br/>
             <b>{{ $t("status") }}:</b>
             <pre>{{ result }}</pre>
-            <br />
-            <b>{{ $t("details") }}:</b><br />
+            <br/>
+            <b>{{ $t("details") }}:</b><br >
             <z-json-editor v-model="solution.details" :readonly="true" />
-            <b>{{ $t("data") }}:</b><br />
+            <b>{{ $t("data") }}:</b><br >
             <z-json-editor v-model="solution.data" :readonly="true" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
+            <v-btn v-text="$t('remove')" @click="remove" />
             <v-btn color="primary" v-text="$t('rejudge')" @click="rejudge" />
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar" v-text="snack" />
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
@@ -41,18 +41,18 @@
 </template>
 
 <script>
-import { request } from "@/http";
-import render from "@/helper/markdown";
-import { SolutionResult } from "@/interfaces";
-import zJsonEditor from "@/components/zJsonEditor.vue";
+import { request } from '@/http'
+import render from '@/helper/markdown'
+import { SolutionResult } from '@/interfaces'
+import zJsonEditor from '@/components/zJsonEditor.vue'
 
 export default {
-  name: "solutionView",
-  props: ["id"],
+  name: 'SolutionView',
+  props: ['id'],
   components: {
     zJsonEditor
   },
-  data() {
+  data () {
     return {
       solution: {
         id: null,
@@ -66,61 +66,73 @@ export default {
         creator: null
       },
       loading: true,
-      snackbar: false,
-      snack: null,
       intervalID: null
-    };
+    }
   },
-  mounted() {
-    this.fetch();
-    this.intervalID = setInterval(this.fetch, 5000);
+  mounted () {
+    this.fetch()
+    this.intervalID = setInterval(this.fetch, 5000)
   },
-  beforeDestroy() {
+  beforeDestroy () {
     if (this.intervalID !== null) {
-      clearInterval(this.intervalID);
+      clearInterval(this.intervalID)
     }
   },
   computed: {
-    result: function() {
-      return SolutionResult[this.solution.status];
+    result: function () {
+      return SolutionResult[this.solution.status]
     }
   },
   methods: {
-    fetch: function() {
+    fetch: function () {
       request({
-        url: "/api/solution",
+        url: '/api/solution',
         params: { entry: this.$store.state.entry, id: this.id }
       })
         .then(solution => {
-          this.solution = solution;
+          this.solution = solution
         })
-        .catch(err => {
-          this.snack = err.message;
-          this.snackbar = true;
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     },
-    rejudge: function() {
-      this.loading = true;
+    rejudge: function () {
+      this.loading = true
       request({
-        url: "/api/solution",
-        method: "POST",
+        url: '/api/solution',
+        method: 'POST',
         params: { entry: this.$store.state.entry, id: this.id }
       })
         .then(() => {
-          this.snack = this.$t("rejudge_succeeded");
-          this.snackbar = true;
+          this.$store.commit('updateMessage', this.$t('rejudge_succeeded'))
         })
-        .catch(err => {
-          this.snack = err.message;
-          this.snackbar = true;
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
+    },
+    remove: function () {
+      this.loading = true
+      request({
+        url: '/api/solution',
+        method: 'DELETE',
+        params: { entry: this.$store.state.entry, id: this.id }
+      })
+        .then(() => {
+          this.$router.push('/solution')
+        })
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     }
   }
-};
+}
 </script>

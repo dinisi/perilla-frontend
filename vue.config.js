@@ -1,4 +1,4 @@
-const MonocoEditorPlugin = require("monaco-editor-webpack-plugin");
+const MonocoEditorPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   outputDir: undefined,
@@ -11,8 +11,8 @@ module.exports = {
 
   devServer: {
     proxy: {
-      "/api": {
-        target: "http://localhost:8680/"
+      '/api': {
+        target: 'http://localhost:8680/'
       }
     }
   },
@@ -23,10 +23,12 @@ module.exports = {
 
   pluginOptions: {
     i18n: {
-      locale: "en",
-      fallbackLocale: "en",
-      localeDir: "locales",
+      locale: 'en',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
       enableInSFC: false
     }
-  }
-};
+  },
+
+  lintOnSave: undefined
+}

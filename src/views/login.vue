@@ -3,62 +3,52 @@
     <v-layout align-center justify-center>
       <v-flex sm12 md6>
         <v-card>
-          <v-card-title class="headline primary white--text">登录</v-card-title>
+          <v-card-title class="headline primary white--text" v-text="$t('login')"/>
           <v-card-text>
-            <v-text-field label="用户名" v-model="form.username" />
-            <v-text-field
-              label="密码"
-              v-model="form.password"
-              type="password"
-            />
+            <v-text-field :label="$t('username')" v-model="form.username" />
+            <v-text-field :label="$t('password')" v-model="form.password" type="password"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" @click="login" :loading="loading">
-              登录
-            </v-btn>
+            <v-btn color="primary" @click="login" :loading="loading" v-text="$t('login')"/>
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar" v-text="errormsg" />
   </v-container>
 </template>
 
 <script>
-import { request } from "@/http";
+import { request } from '@/http'
 
 export default {
-  name: "login",
-  data() {
+  name: 'Login',
+  data () {
     return {
       form: {
         username: null,
         password: null
       },
-      loading: false,
-      snackbar: false,
-      errormsg: null
-    };
+      loading: false
+    }
   },
   methods: {
-    login() {
-      this.loading = true;
-      request({ url: "/api/login", method: "POST", data: this.form })
+    login () {
+      this.loading = true
+      request({ url: '/api/login', method: 'POST', data: this.form })
         .then(() => {
           setTimeout(() => {
-            this.$router.push("/");
-            location.reload(true);
-          }, 0);
+            this.$router.push('/')
+            location.reload(true)
+          }, 0)
         })
         .catch(e => {
-          this.errormsg = e.message;
-          this.snackbar = true;
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     }
   }
-};
+}
 </script>

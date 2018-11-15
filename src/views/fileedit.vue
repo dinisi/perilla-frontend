@@ -5,35 +5,14 @@
         <v-toolbar>
           <v-toolbar-title v-text="$t('edit_file', [file.id])" />
           <v-toolbar-items>
-            <v-btn
-              flat
-              v-text="$t('edit')"
-              :disabled="view === 0"
-              @click="view = 0;"
-            />
-            <v-btn
-              flat
-              v-text="$t('raw')"
-              :disabled="view === 1"
-              @click="view = 1;"
-            />
+            <v-btn flat v-text="$t('edit')" :disabled="view === 0" @click="view = 0;"/>
+            <v-btn flat v-text="$t('raw')" :disabled="view === 1" @click="view = 1;"/>
           </v-toolbar-items>
           <v-spacer />
           <v-toolbar-items>
-            <v-btn
-              flat
-              v-text="$t('remove')"
-              :disabled="isnew"
-              @click="remove"
-              color="accent"
-            />
+            <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
             <v-btn flat v-text="$t('save')" @click="save" color="primary" />
-            <v-btn
-              flat
-              v-text="$t('show')"
-              :disabled="isnew"
-              :to="'/file/show/' + id"
-            />
+            <v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/file/show/' + id"/>
           </v-toolbar-items>
         </v-toolbar>
         <v-progress-linear indeterminate query v-if="loading" />
@@ -41,52 +20,40 @@
           <v-text-field :label="$t('name')" v-model="file.name" />
           <v-text-field :label="$t('type')" v-model="file.type" />
           <z-markdown-editor v-model="file.description" />
-          <v-combobox
-            v-model="file.tags"
-            :label="$t('tags')"
-            hide-selected
-            multiple
-            chips
-            clearable
-          />
+          <v-combobox v-model="file.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
         </v-card-text>
         <v-card-text v-show="view === 1">
           <b>{{ $t("hash") }}:</b>
-          <pre style="white-space: pre-wrap; word-wrap: break-word;">
-            {{ file.hash }}</pre
-          >
-          <br />
+          <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre>
+          <br/>
           <b>{{ $t("size") }}:</b>
           <pre>{{ file.size }}</pre>
-          <br />
-          <input ref="file" type="file" />
+          <br/>
+          <input ref="file" type="file"/>
         </v-card-text>
       </v-card>
     </v-flex>
-    <v-snackbar absolute v-model="showSnackbar">
-      {{ snackbarText }}
-    </v-snackbar>
   </v-container>
 </template>
 
 <script>
-import zMarkdownEditor from "@/components/zMarkdownEditor.vue";
-import { request } from "@/http";
+import zMarkdownEditor from '@/components/zMarkdownEditor.vue'
+import { request } from '@/http'
 
 export default {
-  name: "fileEdit",
-  props: ["id"],
+  name: 'FileEdit',
+  props: ['id'],
   components: {
     zMarkdownEditor
   },
-  data() {
+  data () {
     return {
       file: {
         id: null,
-        name: "New file",
-        type: "",
-        description: "",
-        hash: "",
+        name: 'New file',
+        type: '',
+        description: '',
+        hash: '',
         size: 0,
         created: null,
         tags: [],
@@ -94,97 +61,91 @@ export default {
         creator: null
       },
       loading: true,
-      showSnackbar: false,
-      snackbarText: "",
       view: 0,
       isnew: false
-    };
+    }
   },
-  async mounted() {
+  async mounted () {
     if (this.id) {
       request({
-        url: "/api/file",
+        url: '/api/file',
         params: { entry: this.$store.state.entry, id: this.id }
       })
         .then(file => {
-          this.file = file;
+          this.file = file
         })
-        .catch(err => {
-          this.showSnackbar = true;
-          this.snackbarText = err.message;
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     } else {
-      this.isnew = true;
-      this.loading = false;
+      this.isnew = true
+      this.loading = false
     }
   },
   methods: {
-    async save() {
-      let form = new FormData();
-      form.append("name", this.file.name);
-      form.append("type", this.file.type);
-      form.append("description", this.file.description);
-      form.append("tags", JSON.stringify(this.file.tags));
+    async save () {
+      let form = new FormData()
+      form.append('name', this.file.name)
+      form.append('type', this.file.type)
+      form.append('description', this.file.description)
+      form.append('tags', JSON.stringify(this.file.tags))
       if (this.$refs.file && this.$refs.file.files) {
-        form.append("file", this.$refs.file.files[0]);
+        form.append('file', this.$refs.file.files[0])
       }
-      this.loading = true;
+      this.loading = true
       if (this.isnew) {
         request({
-          url: "/api/file",
+          url: '/api/file',
           params: { entry: this.$store.state.entry },
-          method: "POST",
+          method: 'POST',
           data: form
         })
           .then(id => {
-            this.$router.push("/file/show/" + id);
+            this.$router.push('/file/show/' + id)
           })
-          .catch(err => {
-            this.showSnackbar = true;
-            this.snackbarText = err.message;
+          .catch(e => {
+            this.$store.commit('updateMessage', e.message)
           })
           .finally(() => {
-            this.loading = false;
-            this.$refs.file.files = null;
-          });
+            this.loading = false
+            this.$refs.file.files = null
+          })
       } else {
         request({
-          url: "/api/file",
+          url: '/api/file',
           params: { entry: this.$store.state.entry, id: this.id },
-          method: "PUT",
+          method: 'PUT',
           data: form
         })
-          .catch(err => {
-            this.showSnackbar = true;
-            this.snackbarText = err.message;
+          .catch(e => {
+            this.$store.commit('updateMessage', e.message)
           })
           .finally(() => {
-            this.loading = false;
-            this.$refs.file.files = null;
-          });
+            this.loading = false
+            this.$refs.file.files = null
+          })
       }
     },
-    async remove() {
-      this.loading = true;
+    async remove () {
+      this.loading = true
       request({
-        url: "/api/file",
+        url: '/api/file',
         params: { entry: this.$store.state.entry, id: this.id },
-        method: "DELETE"
+        method: 'DELETE'
       })
-        .catch(err => {
-          this.showSnackbar = true;
-          this.snackbarText = err.message;
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
-          this.$router.push("/file");
-          this.loading = false;
-        });
+          this.$router.push('/file')
+          this.loading = false
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

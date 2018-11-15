@@ -1,30 +1,30 @@
-import { RouteConfig } from "vue-router";
+import { RouteConfig } from 'vue-router'
 
 export const problemRoutes: RouteConfig[] = [
   {
-    path: "/problem",
-    name: "problemList",
+    path: '/problem',
+    name: 'problemList',
     component: () =>
-      import(/* webpackChunkName: "problem" */ "../views/problemlist.vue")
+      import(/* webpackChunkName: "problem" */ '../views/problemlist.vue')
   },
   {
-    path: "/problem/new",
-    name: "problemNewView",
+    path: '/problem/new',
+    name: 'problemNewView',
     component: () =>
-      import(/* webpackChunkName: "problem" */ "../views/problemedit.vue")
+      import(/* webpackChunkName: "problem" */ '../views/problemedit.vue')
   },
   {
-    path: "/problem/edit/:id",
-    name: "problemEditView",
+    path: '/problem/edit/:id',
+    name: 'problemEditView',
     component: () =>
-      import(/* webpackChunkName: "problem" */ "../views/problemedit.vue"),
+      import(/* webpackChunkName: "problem" */ '../views/problemedit.vue'),
     props: route => ({ id: route.params.id })
   },
   {
-    path: "/problem/show/:id",
-    name: "problemView",
+    path: '/problem/show/:id',
+    name: 'problemView',
     component: () =>
-      import(/* webpackChunkName: "problem" */ "../views/problemview.vue"),
+      import(/* webpackChunkName: "problem" */ '../views/problemview.vue'),
     props: route => ({ id: route.params.id })
   }
-];
+]
