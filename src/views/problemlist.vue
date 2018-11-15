@@ -1,18 +1,25 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table class="fullwidth" :headers="headers" :items="problems" :pagination.sync="pagination" :total-items="total" :loading="loading">
+      <v-data-table
+        class="fullwidth"
+        :headers="headers"
+        :items="problems"
+        :pagination.sync="pagination"
+        :total-items="total"
+        :loading="loading"
+      >
         <template slot="items" slot-scope="props">
-          <tr @click="$router.push('/problem/show/' + props.item.id)">
+          <tr @click="$router.push('/problem/show/' + props.item.id);">
             <td>{{ props.item.id }}</td>
             <td class="text-xs-right">{{ props.item.title }}</td>
-            <td class="text-xs-right">{{ props.item.tags.join(',') }}</td>
+            <td class="text-xs-right">{{ props.item.tags.join(",") }}</td>
             <td class="text-xs-right">{{ props.item.created }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
         <template slot="actions-prepend">
-          <v-btn flat v-text="$t('new')" to="/problem/new" color="primary"/>
+          <v-btn flat v-text="$t('new')" to="/problem/new" color="primary" />
         </template>
       </v-data-table>
     </v-layout>

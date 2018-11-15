@@ -5,33 +5,39 @@
         <v-card>
           <v-card-title>
             <div>
-              <div class="headline" v-text="file.name"/>
-              <div class="subheading">
-                {{ file.creator }}
-              </div>
+              <div class="headline" v-text="file.name" />
+              <div class="subheading">{{ file.creator }}</div>
             </div>
           </v-card-title>
           <v-card-text>
-            <b>{{ $t("hash") }}:</b><pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre><br/>
-            <b>{{ $t("size") }}:</b><pre>{{ file.size }}</pre><br/>
-            <b>{{ $t("type") }}:</b><pre>{{ file.type }}</pre><br/>
-            <article class="markdown-body" v-html="rendered"/>
+            <b>{{ $t("hash") }}:</b>
+            <pre style="white-space: pre-wrap; word-wrap: break-word;">
+              {{ file.hash }}</pre
+            >
+            <br />
+            <b>{{ $t("size") }}:</b>
+            <pre>{{ file.size }}</pre>
+            <br />
+            <b>{{ $t("type") }}:</b>
+            <pre>{{ file.type }}</pre>
+            <br />
+            <article class="markdown-body" v-html="rendered" />
           </v-card-text>
           <v-card-actions>
-            <v-chip label v-for="(tag, i) in file.tags" v-text="tag" :key="i"/>
-            <v-spacer/>
-            <v-btn v-text="$t('download')" color="primary"/>
-            <v-btn v-text="$t('edit')" :to="'/file/edit/' + id"/>
+            <v-chip label v-for="(tag, i) in file.tags" v-text="tag" :key="i" />
+            <v-spacer />
+            <v-btn v-text="$t('download')" color="primary" />
+            <v-btn v-text="$t('edit')" :to="'/file/edit/' + id" />
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar" v-text="snack"/>
+    <v-snackbar absolute v-model="snackbar" v-text="snack" />
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Please stand by
-          <v-progress-linear indeterminate color="white" class="mb-0"/>
+          <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>

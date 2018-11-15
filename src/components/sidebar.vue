@@ -7,28 +7,41 @@
             <v-select :items="entries" v-model="entry" label="Entry">
               <template slot="prepend">
                 <v-avatar :size="32">
-                  <img :src="avatarURL" class="pa-0"/>
+                  <img :src="avatarURL" class="pa-0" />
                 </v-avatar>
               </template>
             </v-select>
           </div>
           <div class="sidebar-main pa-2 fill-width">
             <v-timeline dense>
-              <v-timeline-item v-for="(message, i) in messages" :key="i" right fill-dot small>
+              <v-timeline-item
+                v-for="(message, i) in messages"
+                :key="i"
+                right
+                fill-dot
+                small
+              >
                 <v-card>
-                  <v-card-title>
-                    {{ message.creator }}
-                  </v-card-title>
-                  <v-divider/>
-                  <v-card-text class="markdown-body" v-html="render(message.content)"/>
+                  <v-card-title> {{ message.creator }} </v-card-title>
+                  <v-divider />
+                  <v-card-text
+                    class="markdown-body"
+                    v-html="render(message.content)"
+                  />
                   <v-card-actions>
-                    {{ (new Date(message.created)).toLocaleString() }}
+                    {{ new Date(message.created).toLocaleString() }}
                   </v-card-actions>
                 </v-card>
               </v-timeline-item>
             </v-timeline>
           </div>
-          <textarea class="sidebar-footer fill-width" placeholder="Press CTRL+ENTER to send" ref="send" v-model="newMessage" :disabled="disableInput"/>
+          <textarea
+            class="sidebar-footer fill-width"
+            placeholder="Press CTRL+ENTER to send"
+            ref="send"
+            v-model="newMessage"
+            :disabled="disableInput"
+          />
         </div>
       </v-card>
     </template>
@@ -48,7 +61,7 @@ export default {
       messages: [],
       newMessage: "",
       entry: null,
-      disableInput: false,
+      disableInput: false
     };
   },
   created() {

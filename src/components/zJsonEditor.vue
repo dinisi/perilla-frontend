@@ -1,5 +1,10 @@
 <template>
-  <z-monaco-editor class="z-json-editor" v-model="content" language="json" :readonly="readonly"/>
+  <z-monaco-editor
+    class="z-json-editor"
+    v-model="content"
+    language="json"
+    :readonly="readonly"
+  />
 </template>
 
 <script>

@@ -1,15 +1,12 @@
 <template>
   <v-app>
-    <sidebar v-if="login && showsidebar"/>
-    <navbar v-model="showsidebar"/>
-    <v-content>
-      <router-view/>
-    </v-content>
+    <sidebar v-if="login && showsidebar" /> <navbar v-model="showsidebar" />
+    <v-content> <router-view /> </v-content>
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Please stand by
-          <v-progress-linear indeterminate color="white" class="mb-0"/>
+          <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>

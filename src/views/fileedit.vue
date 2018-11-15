@@ -3,29 +3,63 @@
     <v-flex wrap>
       <v-card class="fill">
         <v-toolbar>
-          <v-toolbar-title v-text="$t('edit_file', [file.id])"/>
+          <v-toolbar-title v-text="$t('edit_file', [file.id])" />
           <v-toolbar-items>
-            <v-btn flat v-text="$t('edit')" :disabled="view === 0" @click="view = 0"/>
-            <v-btn flat v-text="$t('raw')" :disabled="view === 1" @click="view = 1"/>
+            <v-btn
+              flat
+              v-text="$t('edit')"
+              :disabled="view === 0"
+              @click="view = 0;"
+            />
+            <v-btn
+              flat
+              v-text="$t('raw')"
+              :disabled="view === 1"
+              @click="view = 1;"
+            />
           </v-toolbar-items>
-          <v-spacer/>
+          <v-spacer />
           <v-toolbar-items>
-            <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
-            <v-btn flat v-text="$t('save')" @click="save" color="primary"/>
-            <v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/file/show/' + id"/>
+            <v-btn
+              flat
+              v-text="$t('remove')"
+              :disabled="isnew"
+              @click="remove"
+              color="accent"
+            />
+            <v-btn flat v-text="$t('save')" @click="save" color="primary" />
+            <v-btn
+              flat
+              v-text="$t('show')"
+              :disabled="isnew"
+              :to="'/file/show/' + id"
+            />
           </v-toolbar-items>
         </v-toolbar>
-        <v-progress-linear indeterminate query v-if="loading"/>
+        <v-progress-linear indeterminate query v-if="loading" />
         <v-card-text v-show="view === 0">
-          <v-text-field :label="$t('name')" v-model="file.name"/>
-          <v-text-field :label="$t('type')" v-model="file.type"/>
-          <z-markdown-editor v-model="file.description"/>
-          <v-combobox v-model="file.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
+          <v-text-field :label="$t('name')" v-model="file.name" />
+          <v-text-field :label="$t('type')" v-model="file.type" />
+          <z-markdown-editor v-model="file.description" />
+          <v-combobox
+            v-model="file.tags"
+            :label="$t('tags')"
+            hide-selected
+            multiple
+            chips
+            clearable
+          />
         </v-card-text>
         <v-card-text v-show="view === 1">
-          <b>{{ $t("hash") }}:</b><pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre><br/>
-          <b>{{ $t("size") }}:</b><pre>{{ file.size }}</pre><br/>
-          <input ref="file" type="file">
+          <b>{{ $t("hash") }}:</b>
+          <pre style="white-space: pre-wrap; word-wrap: break-word;">
+            {{ file.hash }}</pre
+          >
+          <br />
+          <b>{{ $t("size") }}:</b>
+          <pre>{{ file.size }}</pre>
+          <br />
+          <input ref="file" type="file" />
         </v-card-text>
       </v-card>
     </v-flex>

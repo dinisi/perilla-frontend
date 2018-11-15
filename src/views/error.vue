@@ -1,9 +1,7 @@
 <template>
   <v-container fluid justify-space-around>
     <v-flex>
-      <div class="error-title">
-        {{ $t("error") }}
-      </div>
+      <div class="error-title">{{ $t("error") }}</div>
     </v-flex>
   </v-container>
 </template>

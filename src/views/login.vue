@@ -5,11 +5,15 @@
         <v-card>
           <v-card-title class="headline primary white--text">登录</v-card-title>
           <v-card-text>
-            <v-text-field label="用户名" v-model="form.username"/>
-            <v-text-field label="密码" v-model="form.password" type="password"/>
+            <v-text-field label="用户名" v-model="form.username" />
+            <v-text-field
+              label="密码"
+              v-model="form.password"
+              type="password"
+            />
           </v-card-text>
           <v-card-actions>
-            <v-spacer/>
+            <v-spacer />
             <v-btn color="primary" @click="login" :loading="loading">
               登录
             </v-btn>
@@ -17,7 +21,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar" v-text="errormsg"/>
+    <v-snackbar absolute v-model="snackbar" v-text="errormsg" />
   </v-container>
 </template>
 

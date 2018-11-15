@@ -1,9 +1,16 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table class="fullwidth" :headers="headers" :items="solutions" :pagination.sync="pagination" :total-items="total" :loading="loading">
+      <v-data-table
+        class="fullwidth"
+        :headers="headers"
+        :items="solutions"
+        :pagination.sync="pagination"
+        :total-items="total"
+        :loading="loading"
+      >
         <template slot="items" slot-scope="props">
-          <tr @click="$router.push('/solution/show/' + props.item.id)">
+          <tr @click="$router.push('/solution/show/' + props.item.id);">
             <td>{{ props.item.id }}</td>
             <td class="text-xs-right">{{ props.item.problem }}</td>
             <td class="text-xs-right">{{ props.item.status }}</td>

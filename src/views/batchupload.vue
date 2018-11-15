@@ -2,17 +2,17 @@
   <v-container>
     <v-flex wrap>
       <v-card class="fill">
-        <v-card-title class="headline" v-text="$t('batch_upload')"/>
+        <v-card-title class="headline" v-text="$t('batch_upload')" />
         <v-card-text>
-          <input ref="file" type="file" multiple/>
+          <input ref="file" type="file" multiple />
           <div v-for="(details, i) in uploadDetails" :key="i">
-            {{details.origin}}→{{details.id}}
-            <v-progress-linear v-model="details.progress"/>
+            {{ details.origin }}→{{ details.id }}
+            <v-progress-linear v-model="details.progress" />
           </div>
         </v-card-text>
         <v-card-actions>
-          <v-spacer/>
-          <v-btn color="primary" @click="upload" v-text="$t('upload')"/>
+          <v-spacer />
+          <v-btn color="primary" @click="upload" v-text="$t('upload')" />
         </v-card-actions>
       </v-card>
     </v-flex>

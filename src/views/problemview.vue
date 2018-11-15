@@ -5,40 +5,46 @@
         <v-card>
           <v-card-title>
             <div>
-              <div class="headline" v-text="problem.title"/>
-              <div class="subheading">
-                {{ problem.creator }}
-              </div>
+              <div class="headline" v-text="problem.title" />
+              <div class="subheading">{{ problem.creator }}</div>
             </div>
           </v-card-title>
           <v-card-text>
-            <article class="markdown-body" v-html="rendered"/>
+            <article class="markdown-body" v-html="rendered" />
           </v-card-text>
           <v-card-actions>
-            <v-chip label v-for="(tag, i) in problem.tags" v-text="tag" :key="i"/>
-            <v-spacer/>
-            <v-btn v-text="$t('show_submit_form')" color="primary" @click="showSubmit = true" :disabled="showSubmit"/>
-            <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id"/>
+            <v-chip
+              label
+              v-for="(tag, i) in problem.tags"
+              v-text="tag"
+              :key="i"
+            />
+            <v-spacer />
+            <v-btn
+              v-text="$t('show_submit_form')"
+              color="primary"
+              @click="showSubmit = true;"
+              :disabled="showSubmit"
+            />
+            <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id" />
           </v-card-actions>
         </v-card>
         <v-card v-if="showSubmit">
-          <v-card-title class="headline" v-text="$t('submit')"/>
-          <v-card-text>
-            <z-json-editor v-model="solution.data"/>
-          </v-card-text>
+          <v-card-title class="headline" v-text="$t('submit')" />
+          <v-card-text> <z-json-editor v-model="solution.data" /> </v-card-text>
           <v-card-actions>
-            <v-spacer/>
-            <v-btn v-text="$t('submit')" @click="submit" color="primary"/>
+            <v-spacer />
+            <v-btn v-text="$t('submit')" @click="submit" color="primary" />
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar absolute v-model="snackbar" v-text="snack"/>
+    <v-snackbar absolute v-model="snackbar" v-text="snack" />
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Please stand by
-          <v-progress-linear indeterminate color="white" class="mb-0"/>
+          <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>

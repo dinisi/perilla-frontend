@@ -1,23 +1,43 @@
 <template>
   <div>
     <div class="z-markdown-editor-main" v-if="view === 1">
-      <z-monaco-editor class="z-markdown-editor-left" v-model="content" language="markdown"/>
+      <z-monaco-editor
+        class="z-markdown-editor-left"
+        v-model="content"
+        language="markdown"
+      />
       <div class="z-markdown-editor-right">
-        <article id="rendered" class="markdown-body" v-html="rendered"/>
+        <article id="rendered" class="markdown-body" v-html="rendered" />
       </div>
     </div>
-    <z-monaco-editor class="z-markdown-editor-editor" v-model="content" language="markdown" v-else-if="view === 0"/>
+    <z-monaco-editor
+      class="z-markdown-editor-editor"
+      v-model="content"
+      language="markdown"
+      v-else-if="view === 0"
+    />
     <div v-else>
       <div class="z-markdown-editor-preview">
-        <article id="rendered" class="markdown-body" v-html="rendered"/>
+        <article id="rendered" class="markdown-body" v-html="rendered" />
       </div>
     </div>
     <v-menu :close-on-content-click="false" offset-x>
-      <v-btn slot="activator" color="primary" v-text="$t('operations')"/>
+      <v-btn slot="activator" color="primary" v-text="$t('operations')" />
       <v-card>
         <v-card-text>
-          <v-slider v-model="view" :tick-labels="ticksLabels" :max="2" step="1" ticks="always"/>
-          <v-btn color="primary" v-text="$t('export_to_pdf')" @click="pdf" :disabled="view === 0"/>
+          <v-slider
+            v-model="view"
+            :tick-labels="ticksLabels"
+            :max="2"
+            step="1"
+            ticks="always"
+          />
+          <v-btn
+            color="primary"
+            v-text="$t('export_to_pdf')"
+            @click="pdf"
+            :disabled="view === 0"
+          />
         </v-card-text>
       </v-card>
     </v-menu>
