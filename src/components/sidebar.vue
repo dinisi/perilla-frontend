@@ -48,13 +48,14 @@ export default {
       messages: [],
       newMessage: "",
       entry: null,
-      disableInput: false
+      disableInput: false,
     };
   },
   created() {
     this.entry = this.$store.state.entry;
     this.loadAvatar();
     this.loadMessages();
+    this.show = this.value;
   },
   mounted() {
     this.$refs.send.onkeydown = e => {

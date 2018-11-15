@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <sidebar v-if="login"/>
-    <navbar/>
+    <sidebar v-if="login && showsidebar"/>
+    <navbar v-model="showsidebar"/>
     <v-content>
       <router-view/>
     </v-content>
@@ -29,7 +29,8 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      showsidebar: true
     };
   },
   watch: {

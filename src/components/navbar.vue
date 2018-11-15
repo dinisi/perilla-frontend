@@ -1,5 +1,6 @@
 <template>
   <v-toolbar app>
+    <v-toolbar-side-icon @click="show = !show"/>
     <v-toolbar-items>
       <v-btn class="headline text-uppercase" flat to="/">
         Perilla
@@ -24,15 +25,30 @@
 <script>
 export default {
   name: "navbar",
-  data() {
-    return {
-      //
-    };
-  },
-  methods: {
-    //
+  props: ["value"],
+  model: {
+    prop: "value",
+    event: "update"
   },
   watch: {
+    value:function(val){
+      if(val===this.show)return;
+      this.show = val;
+    },
+    show:function(val){
+      if(val===this.value)return;
+      this.$emit("update", val);
+    }
+  },
+  data() {
+    return {
+      show: false
+    };
+  },
+  created(){
+    this.show = this.value;
+  },
+  methods: {
     //
   },
   computed: {
