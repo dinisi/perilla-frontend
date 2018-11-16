@@ -6,6 +6,8 @@
       <v-btn flat to="/problem" v-text="$t('problem')" />
       <v-btn flat to="/file" v-text="$t('file')" />
       <v-btn flat to="/solution" v-text="$t('solution')" />
+      <v-btn flat to="/article" v-text="$t('article')" />
+      <v-btn flat to="/message" v-text="$t('message')" />
     </v-toolbar-items>
     <v-spacer />
     <v-toolbar-items>

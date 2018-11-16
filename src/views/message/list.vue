@@ -1,18 +1,17 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table class="fullwidth" :headers="headers" :items="problems" :pagination.sync="pagination" :total-items="total" :loading="loading">
+      <v-data-table class="fullwidth" :headers="headers" :items="messages" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
-          <tr @click="$router.push('/problem/show/' + props.item.id);">
+          <tr>
             <td>{{ props.item.id }}</td>
-            <td class="text-xs-right">{{ props.item.title }}</td>
-            <td class="text-xs-right">{{ props.item.tags.join(",") }}</td>
+            <td class="text-xs-right">{{ props.item.content }}</td>
             <td class="text-xs-right">{{ props.item.created }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
         <template slot="actions-prepend">
-          <v-btn flat v-text="$t('new')" to="/problem/new" color="primary" />
+          <v-btn flat v-text="$t('new')" to="/message/new" color="primary" />
         </template>
       </v-data-table>
     </v-layout>
@@ -23,17 +22,16 @@
 import { request } from '@/http'
 
 export default {
-  name: 'ProblemList',
+  name: 'messageList',
   data () {
     return {
       headers: [
         { text: this.$t('ID'), align: 'left', sortable: true, value: 'id' },
-        { text: this.$t('title'), value: 'title' },
-        { text: this.$t('tags'), value: 'tags' },
-        { text: this.$t('created'), value: 'created' },
-        { text: this.$t('creator'), value: 'creator' }
+        { text: this.$t('content'), value: 'content', class: 'text-xs-right' },
+        { text: this.$t('created'), value: 'created', class: 'text-xs-right' },
+        { text: this.$t('creator'), value: 'creator', class: 'text-xs-right' }
       ],
-      problems: [],
+      messages: [],
       pagination: null,
       total: 0,
       loading: true
@@ -54,7 +52,7 @@ export default {
       const params = {}
       Promise.all([
         request({
-          url: '/api/problem/list',
+          url: '/api/message/list',
           params: Object.assign(
             {},
             { entry: this.$store.state.entry },
@@ -62,7 +60,7 @@ export default {
           )
         }),
         request({
-          url: '/api/problem/list',
+          url: '/api/message/list',
           params: Object.assign(
             {},
             { entry: this.$store.state.entry },
@@ -72,7 +70,7 @@ export default {
       ])
         .then(([count, items]) => {
           this.total = count
-          this.problems = items
+          this.messages = items
         })
         .catch(err => {
           // Eat any error

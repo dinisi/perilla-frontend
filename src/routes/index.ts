@@ -8,6 +8,8 @@ import error from '../views/error.vue'
 import register from '../views/register.vue'
 import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
+import { articleRoutes } from './article'
+import { messageRoutes } from './message';
 
 let routes: RouteConfig[] = [
   {
@@ -39,6 +41,8 @@ let routes: RouteConfig[] = [
 routes = routes.concat(problemRoutes)
 routes = routes.concat(fileRoutes)
 routes = routes.concat(solutionRoutes)
+routes = routes.concat(articleRoutes)
+routes = routes.concat(messageRoutes)
 routes.push({
   path: '*',
   name: 'error',

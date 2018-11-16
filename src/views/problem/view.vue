@@ -61,7 +61,7 @@ export default {
         content: '',
         data: {},
         channel: null,
-        tags: [],
+        tags: ['Untagged'],
         created: null,
         owner: null,
         creator: null
