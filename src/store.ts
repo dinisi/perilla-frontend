@@ -11,7 +11,7 @@ export default new Vuex.Store({
     user: null,
     entry: null,
     message: null,
-    timestamp: null
+    timestamp: 0
   },
   mutations: {
     toggleLoading: (state, payload) => {
@@ -33,7 +33,7 @@ export default new Vuex.Store({
     },
     updateMessage: (state, val) => {
       state.message = val
-      state.timestamp = +new Date()
+      state.timestamp++
     }
   },
   actions: {}

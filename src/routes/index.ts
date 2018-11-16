@@ -9,7 +9,7 @@ import register from '../views/register.vue'
 import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
 import { articleRoutes } from './article'
-import { messageRoutes } from './message';
+import { messageRoutes } from './message'
 
 let routes: RouteConfig[] = [
   {

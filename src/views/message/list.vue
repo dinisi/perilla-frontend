@@ -72,8 +72,8 @@ export default {
           this.total = count
           this.messages = items
         })
-        .catch(err => {
-          // Eat any error
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
           this.loading = false

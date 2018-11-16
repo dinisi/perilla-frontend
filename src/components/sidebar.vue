@@ -72,8 +72,8 @@ export default {
         .then(res => {
           this.avatarURL = gravatar.url(res.email)
         })
-        .catch(err => {
-          // Eat any error
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
     },
     loadMessages () {
@@ -91,8 +91,8 @@ export default {
         .then(res => {
           this.messages = res
         })
-        .catch(err => {
-          // Eat any error
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
     },
     createMessage () {
@@ -109,9 +109,8 @@ export default {
           // Successfully created message
           this.loadMessages()
         })
-        .catch(err => {
-          // Eat any error
-          this.newMessage = err.message
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
         })
         .finally(() => {
           this.disableInput = false

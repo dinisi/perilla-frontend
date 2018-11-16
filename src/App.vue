@@ -50,8 +50,8 @@ export default {
       .then(info => {
         this.$store.commit('login', info)
       })
-      .catch(err => {
-        // Eat any error
+      .catch(e => {
+        this.$store.commit('updateMessage', e.message)
       })
       .finally(() => {
         this.$store.commit('toggleLoading', false)
