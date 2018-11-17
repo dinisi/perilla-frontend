@@ -13,3 +13,8 @@ export enum SolutionResult {
   SystemError, // System Error     (Judge framwork & Judge plugin error)
   OtherError // Other Error
 }
+
+export enum EntryType {
+  user,
+  group,
+}

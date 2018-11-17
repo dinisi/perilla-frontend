@@ -10,19 +10,14 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <b>{{ $t("email") }}:</b>
-            <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ entry.email }}</pre>
-            <br/>
-            <b>{{ $t("created") }}:</b>
-            <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ entry.created }}</pre>
-            <br/>
+            <v-text-field type="email" v-model="entry.email" :label="$t('email')"/>
             <b>{{ $t("description") }}:</b>
-            <article class="markdown-body" v-html="rendered" />
+            <z-markdown-editor v-model="entry.description"/>
+            <v-text-field type="password" v-if="entry.type === 0" v-model="entry.password" :label="$t('password')" :placeholder="$t('leave_blank_to_remain_unchanged')"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn v-text="$t('manage')" color="primary" />
-            <v-btn v-text="$t('edit')" to='/admin/edit/' />
+            <v-btn v-text="$t('save')" color="primary" @click="update"/>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -40,11 +35,14 @@
 
 <script>
 import { request } from '@/http'
-import render from '@/helper/markdown'
+import zMarkdownEditor from '@/components/zMarkdownEditor.vue'
 import { EntryType } from '@/interfaces'
 
 export default {
-  name: 'adminMain',
+  name: 'adminEdit',
+  components: {
+    zMarkdownEditor
+  },
   data () {
     return {
       entry: {
@@ -73,9 +71,21 @@ export default {
         this.loading = false
       })
   },
-  computed: {
-    rendered: function () {
-      return render(this.entry.description)
+  methods: {
+    update () {
+      this.loading = true
+      request({
+        url: '/api/entry',
+        method: 'PUT',
+        params: { entry: this.$store.state.entry },
+        data: this.entry
+      }).then(() => {
+        this.$store.commit('updateMessage', this.$t('succeeded'))
+      }).catch(e => {
+        this.$store.commit('updateMessage', e.message)
+      }).finally(() => {
+        this.loading = false
+      })
     }
   }
 }

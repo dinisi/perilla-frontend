@@ -10,7 +10,7 @@ import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
 import { articleRoutes } from './article'
 import { messageRoutes } from './message'
-import { adminRoutes } from './admin';
+import { adminRoutes } from './admin'
 
 let routes: RouteConfig[] = [
   {

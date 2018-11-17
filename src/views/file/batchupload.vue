@@ -42,31 +42,40 @@ export default {
     async upload () {
       const files = this.$refs.file.files
       if (files) {
+        const uploads = []
         for (let file of files) {
           const details = {
             progress: 0,
             origin: file.name,
             id: 'pending'
           }
+          this.uploadDetails.push(details)
           const form = new FormData()
           form.append('file', file)
-          request({
-            url: '/api/file',
-            params: { entry: this.$store.state.entry },
-            method: 'POST',
-            data: form,
-            onUploadProgress: e => {
-              details.progress = Math.round((e.loaded * 100) / e.total)
-            }
-          })
-            .then(id => {
-              details.id = id
-            })
-            .catch(e => {
-              this.$store.commit('updateMessage', e.message)
-            })
-          this.uploadDetails.push(details)
+          if (this.description) {
+            form.append('description', this.description)
+          }
+          if (this.tags) {
+            form.append('tags', JSON.stringify(this.tags))
+          }
+          uploads.push({ form, details })
         }
+        for (let { form, details } of uploads) {
+          try {
+            details.id = await request({
+              url: '/api/file',
+              params: { entry: this.$store.state.entry },
+              method: 'POST',
+              data: form,
+              onUploadProgress: e => {
+                details.progress = Math.round((e.loaded * 100) / e.total)
+              }
+            })
+          } catch (e) {
+            this.$store.commit('updateMessage', e.message)
+          }
+        }
+        this.$store.commit('updateMessage', this.$t('upload_finished'))
       }
     }
   }
