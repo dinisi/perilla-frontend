@@ -47,7 +47,7 @@ export default {
     return {
       entry: {
         _id: null,
-        description: null,
+        description: '',
         email: null,
         created: null,
         type: null

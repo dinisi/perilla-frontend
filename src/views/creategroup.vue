@@ -3,10 +3,9 @@
     <v-layout align-center justify-center>
       <v-flex sm12 md6>
         <v-card>
-          <v-card-title class="headline primary white--text" v-text="$t('register')"/>
+          <v-card-title class="headline primary white--text" v-text="$t('create_group')"/>
           <v-card-text>
-            <v-text-field :label="$t('username')" v-model="form.username" />
-            <v-text-field :label="$t('password')" v-model="form.password" type="password"/>
+            <v-text-field :label="$t('name')" v-model="form.name" />
             <v-text-field :label="$t('email')" v-model="form.email" type="email" />
           </v-card-text>
           <v-card-actions>
@@ -23,13 +22,12 @@
 import { request } from '@/http'
 
 export default {
-  name: 'Register',
+  name: 'createGroup',
   data () {
     return {
       loading: false,
       form: {
-        username: null,
-        password: null,
+        name: null,
         email: null
       }
     }
@@ -38,12 +36,15 @@ export default {
     register () {
       this.loading = true
       request({
-        url: '/api/register',
+        url: '/api/misc/creategroup',
         method: 'POST',
         data: this.form
       })
         .then(res => {
-          this.$router.push('/login')
+          setTimeout(() => {
+            this.$router.push('/')
+            location.reload(true)
+          }, 0)
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)

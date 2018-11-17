@@ -6,6 +6,7 @@ import login from '../views/login.vue'
 import logout from '../views/logout.vue'
 import error from '../views/error.vue'
 import register from '../views/register.vue'
+import createGroup from '../views/creategroup.vue'
 import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
 import { articleRoutes } from './article'
@@ -37,6 +38,11 @@ let routes: RouteConfig[] = [
     path: '/register',
     name: 'register',
     component: register
+  },
+  {
+    path: '/creategroup',
+    name: 'createGroup',
+    component: createGroup
   }
 ]
 routes = routes.concat(problemRoutes)

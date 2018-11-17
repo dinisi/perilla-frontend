@@ -21,7 +21,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn v-text="$t('manage')" color="primary" />
+            <v-btn v-text="$t('manage')" color="primary" to="/admin/manage" />
             <v-btn v-text="$t('edit')" to='/admin/edit/' />
           </v-card-actions>
         </v-card>

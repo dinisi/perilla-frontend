@@ -13,7 +13,29 @@
     <v-spacer />
     <v-toolbar-items>
       <template v-if="login">
-        <v-btn flat to="/logout" v-text="$t('logout')" />
+        <v-menu open-on-hover bottom offset-y>
+          <v-btn flat slot="activator" v-text="$t('actions')"/>
+          <v-list>
+            <v-list-tile to="/settings">
+              <v-list-tile-avatar>
+                <v-icon>settings</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('settings')"/>
+            </v-list-tile>
+            <v-list-tile to="/creategroup">
+              <v-list-tile-avatar>
+                <v-icon>group_add</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('create_group')"/>
+            </v-list-tile>
+            <v-list-tile to="/logout">
+              <v-list-tile-avatar>
+                <v-icon>exit_to_app</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('logout')"/>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </template>
       <template v-else>
         <v-btn depressed to="/login" color="primary" v-text="$t('login')" />

@@ -4,7 +4,7 @@
       <v-card class="fill-height fill-width">
         <div class="fill-height fill-width sidebar">
           <div class="sidebar-header pa-2">
-            <v-select :items="entries" v-model="entry" label="Entry">
+            <v-select :items="entries" v-model="entry" :label="$t('act_as')">
               <template slot="prepend">
                 <v-avatar :size="32">
                   <img :src="avatarURL" class="pa-0" >
@@ -35,7 +35,7 @@
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          Please stand by
+          {{ $t('please_wait') }}
           <v-progress-linear indeterminate color="white" class="mb-0" />
         </v-card-text>
       </v-card>
