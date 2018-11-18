@@ -1,6 +1,6 @@
 <template>
   <v-toolbar app>
-    <v-toolbar-side-icon @click="show = !show;" />
+    <v-toolbar-side-icon v-if="login" @click="show = !show;" />
     <v-toolbar-items>
       <v-btn class="headline text-uppercase" flat to="/"> Perilla </v-btn>
       <v-btn flat to="/problem" v-text="$t('problem')" />

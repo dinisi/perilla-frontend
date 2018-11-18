@@ -7,9 +7,9 @@
             <td>{{ props.item.from }}</td>
             <td class="text-xs-right">{{ props.item.admin }}</td>
             <td class="text-xs-right">
-              <v-icon small @click="setAdmin(props.item)" class="mr-2">edit</v-icon>
-              <v-icon small @click="unsetAdmin(props.item)" class="mr-2">edit</v-icon>
-              <v-icon small @click="remove(props.from)" class="mr-2">delete</v-icon>
+              <v-icon small @click="setAdmin(props.item.from)" class="mr-2">edit</v-icon>
+              <v-icon small @click="unsetAdmin(props.item.from)" class="mr-2">edit</v-icon>
+              <v-icon small @click="remove(props.item.from)" class="mr-2">delete</v-icon>
             </td>
           </tr>
         </template>
@@ -50,7 +50,7 @@ export default {
       total: 0,
       loading: true,
       newEntry: null,
-      showMenu: true
+      showMenu: false
     }
   },
   watch: {
@@ -108,9 +108,11 @@ export default {
         method: 'POST',
         data: { admin: true }
       }).then(() => {
+        this.$store.commit('updateMessage', this.$t('succeeded'))
         this.fetchData()
       }).catch(e => {
         this.$store.commit('updateMessage', e.message)
+        this.loading = false
       })
     },
     unsetAdmin (from) {
@@ -121,9 +123,11 @@ export default {
         method: 'POST',
         data: { admin: false }
       }).then(() => {
+        this.$store.commit('updateMessage', this.$t('succeeded'))
         this.fetchData()
       }).catch(e => {
         this.$store.commit('updateMessage', e.message)
+        this.loading = false
       })
     },
     remove (from) {
@@ -133,9 +137,11 @@ export default {
         params: { entry: this.$store.state.entry, from },
         method: 'DELETE'
       }).then(() => {
+        this.$store.commit('updateMessage', this.$t('succeeded'))
         this.fetchData()
       }).catch(e => {
         this.$store.commit('updateMessage', e.message)
+        this.loading = false
       })
     }
   },

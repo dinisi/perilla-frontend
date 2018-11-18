@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="showsidebar" app>
+    <v-navigation-drawer v-model="showsidebar" app disable-resize-watcher disable-route-watcher>
       <v-card class="fill-height fill-width">
         <div class="fill-height fill-width sidebar">
           <div class="sidebar-header pa-2">
