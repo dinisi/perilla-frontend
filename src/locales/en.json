@@ -6,6 +6,7 @@
   "admin": "Admin",
   "all_progress": "All progress",
   "article": "Article",
+  "base_url": "Base URL",
   "batch_upload": "Batch Upload",
   "both": "Both",
   "channel": "Channel",
@@ -18,7 +19,7 @@
   "description": "Description",
   "details": "Details",
   "edit": "Edit",
-  "edit_article": "Edit Article",
+  "edit_article": "Edit Article {0}",
   "edit_problem": "Editing problem {0}",
   "editor": "Editor",
   "email": "Email",
@@ -27,7 +28,10 @@
   "file": "File",
   "from": "From",
   "group": "Group",
+  "hash": "Hash",
+  "language": "Language",
   "leave_blank_to_remain_unchanged": "Leave blank to remain unchanged",
+  "leave_blank_to_use_default": "Leave blank to use default value",
   "login": "Login",
   "logout": "Logout",
   "manage": "Manage",
@@ -48,6 +52,7 @@
   "settings": "Settings",
   "show": "Show",
   "show_submit_form": "Show submit form",
+  "size": "Size",
   "solution": "Solution",
   "status": "Status",
   "submit": "Submit",
@@ -56,7 +61,22 @@
   "title": "Title",
   "type": "Type",
   "upload": "Upload",
+  "upload_finished": "Upload finished",
   "uploading": "Uploading {0}",
   "user": "User",
-  "username": "Username"
+  "username": "Username",
+  "$vuetify": {
+    "dataIterator": {
+      "rowsPerPageText": "Items per page:",
+      "rowsPerPageAll": "All",
+      "pageText": "{0}-{1} of {2}",
+      "noResultsText": "No matching records found",
+      "nextPage": "Next page",
+      "prevPage": "Previous page"
+    },
+    "dataTable": {
+      "rowsPerPageText": "Rows per page:"
+    },
+    "noDataText": "No data available"
+  }
 }

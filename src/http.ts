@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig } from 'axios'
 
-const client = Axios.create({
+export const client = Axios.create({
   withCredentials: true
 })
 

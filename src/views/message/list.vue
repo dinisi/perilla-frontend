@@ -10,9 +10,6 @@
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
-        <template slot="actions-prepend">
-          <v-btn flat v-text="$t('new')" to="/message/new" color="primary" />
-        </template>
       </v-data-table>
     </v-layout>
   </v-container>

@@ -14,7 +14,7 @@
     <v-toolbar-items>
       <template v-if="login">
         <v-menu open-on-hover bottom offset-y>
-          <v-btn flat slot="activator" v-text="$t('actions')"/>
+          <v-btn flat slot="activator" to="/logout" v-text="$t('logout')"/>
           <v-list>
             <v-list-tile to="/settings">
               <v-list-tile-avatar>
@@ -28,18 +28,27 @@
               </v-list-tile-avatar>
               <v-list-tile-title v-text="$t('create_group')"/>
             </v-list-tile>
-            <v-list-tile to="/logout">
-              <v-list-tile-avatar>
-                <v-icon>exit_to_app</v-icon>
-              </v-list-tile-avatar>
-              <v-list-tile-title v-text="$t('logout')"/>
-            </v-list-tile>
           </v-list>
         </v-menu>
       </template>
       <template v-else>
-        <v-btn depressed to="/login" color="primary" v-text="$t('login')" />
-        <v-btn flat to="/register" v-text="$t('register')" />
+        <v-menu open-on-hover bottom offset-y>
+          <v-btn slot="activator" depressed to="/login" color="primary" v-text="$t('login')"/>
+          <v-list>
+            <v-list-tile to="/settings">
+              <v-list-tile-avatar>
+                <v-icon>settings</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('settings')"/>
+            </v-list-tile>
+            <v-list-tile to="/register">
+              <v-list-tile-avatar>
+                <v-icon>person_add</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('register')"/>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </template>
     </v-toolbar-items>
   </v-toolbar>
