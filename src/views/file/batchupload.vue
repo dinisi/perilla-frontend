@@ -8,10 +8,11 @@
           <z-markdown-editor v-model="description" />
 
           <input ref="file" type="file" multiple/>
-          <div v-for="(details, i) in uploadDetails" :key="i">
-            {{ details.origin }}→{{ details.id }}
-            <v-progress-linear v-model="details.progress"/>
-          </div>
+          <pre v-text="$t('all_progress')"/>
+          <v-progress-linear v-model="allProgress"/>
+          <pre v-text="tips"/>
+          <v-progress-linear v-model="currentProgress"/>
+          <pre v-html="log"/>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -33,23 +34,22 @@ export default {
   },
   data () {
     return {
-      uploadDetails: [],
+      allProgress: 0,
+      currentProgress: 0,
+      log: '',
       tags: ['Batch'],
-      description: ''
+      description: '',
+      tips: ''
     }
   },
   methods: {
     async upload () {
       const files = this.$refs.file.files
       if (files) {
-        const uploads = []
+        let count = 0
         for (let file of files) {
-          const details = {
-            progress: 0,
-            origin: file.name,
-            id: 'pending'
-          }
-          this.uploadDetails.push(details)
+          this.currentProgress = 0
+          this.tips = this.$t('uploading', [file.name])
           const form = new FormData()
           form.append('file', file)
           if (this.description) {
@@ -58,22 +58,21 @@ export default {
           if (this.tags) {
             form.append('tags', JSON.stringify(this.tags))
           }
-          uploads.push({ form, details })
-        }
-        for (let { form, details } of uploads) {
           try {
-            details.id = await request({
+            const id = await request({
               url: '/api/file',
               params: { entry: this.$store.state.entry },
               method: 'POST',
               data: form,
               onUploadProgress: e => {
-                details.progress = Math.round((e.loaded * 100) / e.total)
+                this.currentProgress = Math.round((e.loaded * 100) / e.total)
               }
             })
+            this.log += `${file.name} → ${id}<br/>`
           } catch (e) {
             this.$store.commit('updateMessage', e.message)
           }
+          this.allProgress = (++count) * 100 / files.length
         }
         this.$store.commit('updateMessage', this.$t('upload_finished'))
       }
