@@ -18,7 +18,15 @@ module.exports = {
   },
 
   configureWebpack: {
-    plugins: [new MonocoEditorPlugin()]
+    plugins: [new MonocoEditorPlugin()],
+    module: {
+      rules: [
+        {
+          test: /\.worker\.js$/,
+          use: { loader: 'worker-loader' }
+        }
+      ]
+    }
   },
 
   pluginOptions: {
