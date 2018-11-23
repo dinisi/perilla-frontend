@@ -9,7 +9,9 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'handle-callback-err': 'off',
-    'new-cap': 'off'
+    'new-cap': 'off',
+    'no-useless-constructor': 'off',
+    'no-callback-literal': 'off'
   },
   parserOptions: {
     parser: 'typescript-eslint-parser'

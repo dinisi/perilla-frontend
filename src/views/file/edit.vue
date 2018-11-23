@@ -39,6 +39,7 @@
 <script>
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { request } from '@/http'
+import { calcHash } from '@/utils'
 
 export default {
   name: 'FileEdit',
@@ -67,19 +68,7 @@ export default {
   },
   async mounted () {
     if (this.id) {
-      request({
-        url: '/api/file',
-        params: { entry: this.$store.state.entry, id: this.id }
-      })
-        .then(file => {
-          this.file = file
-        })
-        .catch(e => {
-          this.$store.commit('updateMessage', e.message)
-        })
-        .finally(() => {
-          this.loading = false
-        })
+      this.load()
     } else {
       this.isnew = true
       this.loading = false
@@ -87,21 +76,29 @@ export default {
   },
   methods: {
     async save () {
-      let form = new FormData()
-      form.append('name', this.file.name)
-      form.append('type', this.file.type)
-      form.append('description', this.file.description)
-      form.append('tags', JSON.stringify(this.file.tags))
-      if (this.$refs.file && this.$refs.file.files) {
-        form.append('file', this.$refs.file.files[0])
-      }
       this.loading = true
+      if (this.$refs.file && this.$refs.file.files) {
+        const hash = await calcHash(this.$refs.file.files[0])
+        this.file.hash = hash
+        try {
+          await request({ url: '/api/file/provide', params: { hash } })
+          const form = new FormData()
+          form.append('file', this.$refs.file.files[0])
+          await request({
+            url: '/api/file/provide',
+            method: 'POST',
+            data: form
+          })
+        } catch (e) {
+          console.log(e.message)
+        }
+      }
       if (this.isnew) {
         request({
           url: '/api/file',
           params: { entry: this.$store.state.entry },
           method: 'POST',
-          data: form
+          data: this.file
         })
           .then(id => {
             this.$router.push('/file/show/' + id)
@@ -112,13 +109,14 @@ export default {
           .finally(() => {
             this.loading = false
             this.$refs.file.files = null
+            this.load()
           })
       } else {
         request({
           url: '/api/file',
           params: { entry: this.$store.state.entry, id: this.id },
           method: 'PUT',
-          data: form
+          data: this.file
         })
           .catch(e => {
             this.$store.commit('updateMessage', e.message)
@@ -129,7 +127,7 @@ export default {
           })
       }
     },
-    async remove () {
+    remove () {
       this.loading = true
       request({
         url: '/api/file',
@@ -141,6 +139,21 @@ export default {
         })
         .finally(() => {
           this.$router.push('/file')
+          this.loading = false
+        })
+    },
+    load () {
+      request({
+        url: '/api/file',
+        params: { entry: this.$store.state.entry, id: this.id }
+      })
+        .then(file => {
+          this.file = file
+        })
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
+        })
+        .finally(() => {
           this.loading = false
         })
     }

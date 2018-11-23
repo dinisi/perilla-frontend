@@ -55,7 +55,6 @@ export default {
             await request({
               url: '/api/file/provide',
               method: 'POST',
-              params: { hash },
               data: form,
               onUploadProgress: e => {
                 this.currentProgress = Math.round((e.loaded * 100) / e.total)

@@ -1,5 +1,5 @@
 import { SHA3Hash } from 'sha3'
-import { Buffer } from "buffer";
+import { Buffer } from 'buffer'
 
 export const deepCompare = (a: Object, b: Object): boolean => {
   for (let key in a) {
@@ -30,7 +30,8 @@ export const calcHash = async (file: File, cb?: (progress: number) => void) => {
       console.log(`reading chunk ${currentChunk + 1}/${chunks}`)
       sha3.update(Buffer.from(e.target.result))
       currentChunk++
-      cb && cb(currentChunk / chunks)
+      // eslint-disable-next-line
+      if (cb) cb(currentChunk / chunks)
       if (currentChunk < chunks) {
         loadNext()
       } else {

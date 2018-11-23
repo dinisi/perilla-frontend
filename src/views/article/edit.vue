@@ -48,19 +48,7 @@ export default {
   },
   async mounted () {
     if (this.id) {
-      request({
-        url: '/api/article',
-        params: { entry: this.$store.state.entry, id: this.id }
-      })
-        .then(article => {
-          this.article = article
-        })
-        .catch(e => {
-          this.$store.commit('updateMessage', e.message)
-        })
-        .finally(() => {
-          this.loading = false
-        })
+      this.load()
     } else {
       this.isnew = true
       this.loading = false
@@ -100,7 +88,7 @@ export default {
           })
       }
     },
-    async remove () {
+    remove () {
       this.loading = true
       request({
         url: '/api/article',
@@ -112,6 +100,21 @@ export default {
         })
         .finally(() => {
           this.$router.push('/article')
+          this.loading = false
+        })
+    },
+    load () {
+      request({
+        url: '/api/article',
+        params: { entry: this.$store.state.entry, id: this.id }
+      })
+        .then(article => {
+          this.article = article
+        })
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
+        })
+        .finally(() => {
           this.loading = false
         })
     }
