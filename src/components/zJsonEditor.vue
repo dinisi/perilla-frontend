@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import zMonacoEditor from './zMonacoEditor'
+import zMonacoEditor from './zmonacoeditor'
 import { deepCompare } from '@/utils'
 
 export default {
-  name: 'ZJsonEditor',
+  name: 'zJsonEditor',
   components: {
     zMonacoEditor
   },

@@ -7,7 +7,6 @@ export default new Vuex.Store({
   state: {
     loading: false,
     login: false,
-    entries: null,
     user: null,
     entry: null,
     message: null,
@@ -19,14 +18,12 @@ export default new Vuex.Store({
     },
     login: (state, payload) => {
       state.login = true
-      state.entries = payload.entries
       state.user = payload.user
-      state.entry = payload.entries[0]
+      state.entry = payload.user // a entrymap to user self is always exists
     },
     logout: state => {
       state.login = false
       state.user = null
-      state.entries = null
     },
     changeEntry: (state, payload) => {
       state.entry = payload

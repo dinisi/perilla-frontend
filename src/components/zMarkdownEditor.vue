@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import zMonacoEditor from './zMonacoEditor'
+import zMonacoEditor from './zmonacoeditor'
 import render from '@/helper/markdown'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
 export default {
-  name: 'ZMarkdownEditor',
+  name: 'zMarkdownEditor',
   components: {
     zMonacoEditor
   },

@@ -45,7 +45,7 @@
 <script>
 import { request } from '@/http'
 import render from '@/helper/markdown'
-import zJsonEditor from '@/components/zJsonEditor.vue'
+import zJsonEditor from '@/components/zjsoneditor.vue'
 
 export default {
   name: 'ProblemView',
@@ -103,7 +103,7 @@ export default {
         method: 'POST'
       })
         .then(id => {
-          //
+          this.$router.push('/solution/show/'+id)
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)

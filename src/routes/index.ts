@@ -11,7 +11,6 @@ import settings from '../views/settings.vue'
 import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
 import { articleRoutes } from './article'
-import { messageRoutes } from './message'
 import { adminRoutes } from './admin'
 
 let routes: RouteConfig[] = [
@@ -55,7 +54,6 @@ routes = routes.concat(problemRoutes)
 routes = routes.concat(fileRoutes)
 routes = routes.concat(solutionRoutes)
 routes = routes.concat(articleRoutes)
-routes = routes.concat(messageRoutes)
 routes = routes.concat(adminRoutes)
 routes.push({
   path: '*',

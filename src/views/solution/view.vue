@@ -44,7 +44,7 @@
 import { request } from '@/http'
 import render from '@/helper/markdown'
 import { SolutionResult } from '@/interfaces'
-import zJsonEditor from '@/components/zJsonEditor.vue'
+import zJsonEditor from '@/components/zjsoneditor.vue'
 
 export default {
   name: 'SolutionView',

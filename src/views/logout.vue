@@ -10,7 +10,7 @@ export default {
   mounted () {
     request({
       method: 'POST',
-      url: '/api/logout'
+      url: '/api/misc/logout'
     }).then(() => {
       this.$router.push('/')
       location.reload(true)

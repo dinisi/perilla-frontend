@@ -1,0 +1,66 @@
+<template>
+  <v-autocomplete :loading="loading" :items="items" :search-input.sync="search" v-model="entry" cache-items flat hide-no-data hide-details item-text="to" item-value="to" :label="$t('select_entry')">
+    <template slot="item" slot-scope="data">
+      <v-list-tile>
+        <v-list-tile-title v-html="data.item.to"></v-list-tile-title>
+      </v-list-tile>
+    </template>
+  </v-autocomplete>
+</template>
+
+<script>
+import { request } from '@/http'
+
+export default {
+  name: 'selectAccessible',
+  props: ['value'],
+  model: {
+    prop: 'value',
+    event: 'updateValue'
+  },
+  data () {
+    return {
+      loading: false,
+      items: [],
+      search: '',
+      entry: null
+    }
+  },
+  created () {
+    this.entry = this.value
+  },
+  watch: {
+    'value': function (val) {
+      if (val!==this.entry) {
+        this.entry = val
+      }
+    },
+    'entry': function (val) {
+      if (val!==this.value) {
+        this.$emit('updateValue', val)
+      }
+    },
+    'search': function (val) {
+      if (val) this.querySelections(val)
+    }
+  },
+  methods: {
+    querySelections (search) {
+      this.loading = true
+      const params = { search, skip: 0, limit: 10 }
+      request({
+        url: '/api/misc/accessible',
+        params
+      }).then(items => {
+        this.items = items
+      })
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    }
+  }
+}
+</script>

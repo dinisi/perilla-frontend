@@ -38,7 +38,7 @@ export default {
     register () {
       this.loading = true
       request({
-        url: '/api/register',
+        url: '/api/misc/register',
         method: 'POST',
         data: this.form
       })

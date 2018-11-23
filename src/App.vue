@@ -1,34 +1,23 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="showsidebar" app disable-resize-watcher disable-route-watcher>
-      <v-card class="fill-height fill-width">
-        <div class="fill-height fill-width sidebar">
-          <div class="sidebar-header pa-2">
-            <v-select :items="entries" v-model="entry" :label="$t('act_as')">
-              <template slot="prepend">
-                <v-avatar :size="32">
-                  <img :src="avatarURL" class="pa-0" >
-                </v-avatar>
-              </template>
-            </v-select>
-          </div>
-          <div class="sidebar-main pa-2 fill-width">
-            <v-timeline dense>
-              <v-timeline-item v-for="(message, i) in messages" :key="i" right fill-dot small>
-                <v-card>
-                  <v-card-title> {{ message.creator }} </v-card-title>
-                  <v-divider />
-                  <v-card-text class="markdown-body" v-html="render(message.content)"/>
-                  <v-card-actions>
-                    {{ new Date(message.created).toLocaleString() }}
-                  </v-card-actions>
-                </v-card>
-              </v-timeline-item>
-            </v-timeline>
-          </div>
-          <textarea class="sidebar-footer fill-width" placeholder="Press CTRL+ENTER to send" ref="send" v-model="newMessage" :disabled="disableInput"/>
-        </div>
-      </v-card>
+    <v-navigation-drawer v-model="showsidebar" app v-if="login">
+      <v-toolbar>
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img :src="avatarURL">
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="entry"/>
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon @click="showSelectEntry = true">
+                <v-icon>people_outline</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
     </v-navigation-drawer>
     <navbar v-model="showsidebar" />
     <v-content> <router-view /> </v-content>
@@ -43,19 +32,32 @@
     <v-snackbar v-model="snackbar" bottom right>
       {{ errormsg }}
     </v-snackbar>
+    <v-dialog v-model="showSelectEntry" width="300">
+      <v-card>
+        <v-card-title class="headline" v-text="$t('select_entry')"/>
+        <v-card-text>
+          <select-accessible v-model="newEntry"/>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn @click="changeEntry" color="primary" v-text="$t('apply')"/>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
 import navbar from '@/components/navbar'
 import * as gravatar from 'gravatar'
-import render from '@/helper/markdown'
 import { request } from '@/http'
+import selectAccessible from '@/components/selectaccessible'
 
 export default {
   name: 'App',
   components: {
-    navbar
+    navbar,
+    selectAccessible
   },
   data () {
     return {
@@ -64,10 +66,10 @@ export default {
       snackbar: false,
       errormsg: null,
       avatarURL: '',
-      messages: [],
       newMessage: '',
-      entry: null,
-      disableInput: false
+      disableInput: false,
+      showSelectEntry: false,
+      newEntry: null
     }
   },
   watch: {
@@ -79,26 +81,12 @@ export default {
       this.errormsg = this.$store.state.message
     },
     '$store.state.entry': function (val) {
-      if (val !== this.entry) {
-        this.entry = val
-        this.loadAvatar()
-        this.loadMessages()
-      }
-    },
-    'this.$store.state.login': function (val) {
-      this.showsidebar = val
-    },
-    entry: function (val) {
-      if (val !== this.$store.state.entry) {
-        this.$store.commit('changeEntry', val)
-        this.loadAvatar()
-        this.loadMessages()
-      }
+      this.loadAvatar()
     }
   },
   mounted () {
     this.$store.commit('toggleLoading', true)
-    request({ url: '/api/session' })
+    request({ url: '/api/misc/session' })
       .then(info => {
         this.$store.commit('login', info)
       })
@@ -109,19 +97,16 @@ export default {
       .finally(() => {
         this.$store.commit('toggleLoading', false)
       })
-    this.$refs.send.onkeydown = e => {
-      if (e.keyCode === 13 && e.ctrlKey) {
-        this.createMessage()
-      }
-    }
   },
   computed: {
-    entries () {
-      return this.$store.state.entries
+    login () {
+      return this.$store.state.login
+    },
+    entry () {
+      return this.$store.state.entry
     }
   },
   methods: {
-    render,
     loadAvatar () {
       request({
         url: '/api/entry',
@@ -134,46 +119,11 @@ export default {
           this.$store.commit('updateMessage', e.message)
         })
     },
-    loadMessages () {
-      request({
-        url: '/api/message/list',
-        params: {
-          entry: this.entry,
-          sort: JSON.stringify({
-            id: -1
-          }),
-          skip: 0,
-          limit: 10
-        }
-      })
-        .then(res => {
-          this.messages = res
-        })
-        .catch(e => {
-          this.$store.commit('updateMessage', e.message)
-        })
-    },
-    createMessage () {
-      this.disableInput = true
-      request({
-        url: '/api/message/',
-        params: {
-          entry: this.entry
-        },
-        method: 'POST',
-        data: { content: this.newMessage }
-      })
-        .then(res => {
-          // Successfully created message
-          this.loadMessages()
-        })
-        .catch(e => {
-          this.$store.commit('updateMessage', e.message)
-        })
-        .finally(() => {
-          this.disableInput = false
-        })
-      this.newMessage = ''
+    changeEntry () {
+      if (this.newEntry && this.newEntry !== this.entry) {
+        this.$store.commit('changeEntry', this.newEntry)
+      }
+      this.showSelectEntry = false
     }
   }
 }

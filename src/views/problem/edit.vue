@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import zJsonEditor from '@/components/zJsonEditor.vue'
-import zMarkdownEditor from '@/components/zMarkdownEditor.vue'
+import zJsonEditor from '@/components/zjsoneditor.vue'
+import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { request } from '@/http'
 
 export default {

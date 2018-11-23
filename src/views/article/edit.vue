@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import zMarkdownEditor from '@/components/zMarkdownEditor.vue'
+import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { request } from '@/http'
 
 export default {

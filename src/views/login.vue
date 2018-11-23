@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title class="headline primary white--text" v-text="$t('login')"/>
           <v-card-text>
-            <v-text-field :label="$t('username')" v-model="form.username" />
+            <v-text-field :label="$t('username')" v-model="form.username" type="username"/>
             <v-text-field :label="$t('password')" v-model="form.password" type="password"/>
           </v-card-text>
           <v-card-actions>
@@ -35,7 +35,7 @@ export default {
   methods: {
     login () {
       this.loading = true
-      request({ url: '/api/login', method: 'POST', data: this.form })
+      request({ url: '/api/misc/login', method: 'POST', data: this.form })
         .then(() => {
           setTimeout(() => {
             this.$router.push('/')

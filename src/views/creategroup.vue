@@ -41,10 +41,8 @@ export default {
         data: this.form
       })
         .then(res => {
-          setTimeout(() => {
-            this.$router.push('/')
-            location.reload(true)
-          }, 0)
+          this.$store.commit('updateMessage', this.$t('succeeded'))
+          this.$router.push('/')
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)

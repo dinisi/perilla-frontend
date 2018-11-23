@@ -35,7 +35,7 @@
 
 <script>
 import { request } from '@/http'
-import zMarkdownEditor from '@/components/zMarkdownEditor.vue'
+import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { EntryType } from '@/interfaces'
 
 export default {

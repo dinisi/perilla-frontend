@@ -7,7 +7,7 @@
 import * as monaco from 'monaco-editor'
 
 export default {
-  name: 'ZMonacoEditor',
+  name: 'zMonacoEditor',
   props: {
     value: String,
     theme: {
