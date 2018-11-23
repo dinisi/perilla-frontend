@@ -24,7 +24,7 @@
           <v-card-actions>
             <v-chip label v-for="(tag, i) in file.tags" v-text="tag" :key="i" />
             <v-spacer />
-            <v-btn v-text="$t('download')" color="primary" />
+            <v-btn v-text="$t('download')" color="primary" @click="download"/>
             <v-btn v-text="$t('edit')" :to="'/file/edit/' + id" />
           </v-card-actions>
         </v-card>
@@ -34,7 +34,7 @@
       <v-card color="primary" dark>
         <v-card-text>
           {{ $t('please_wait') }}
-          <v-progress-linear indeterminate color="white" class="mb-0" />
+          <v-progress-linear :indeterminate="indeterminate" v-model="progress" color="white" class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { client, request } from '@/http'
 import render from '@/helper/markdown'
 
 export default {
@@ -62,7 +62,9 @@ export default {
         owner: null,
         creator: null
       },
-      loading: true
+      loading: true,
+      indeterminate: true,
+      progress: 0
     }
   },
   mounted () {
@@ -83,6 +85,30 @@ export default {
   computed: {
     rendered: function () {
       return render(this.file.description)
+    }
+  },
+  methods: {
+    download () {
+      this.indeterminate = false
+      this.loading = true
+      client({
+        url: '/api/file/raw',
+        method: 'GET',
+        params: { entry: this.$store.state.entry, id: this.id },
+        responseType: 'blob',
+        onUploadProgress: e => {
+          this.progress = Math.round((e.loaded * 100) / e.total)
+        }
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', this.file.name)
+        document.body.appendChild(link)
+        link.click()
+        this.progress = 100 // OCD
+        this.loading = false
+      })
     }
   }
 }
