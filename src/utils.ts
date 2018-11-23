@@ -14,10 +14,10 @@ export const deepCompare = (a: Object, b: Object): boolean => {
   return true
 }
 
-export const calcHash = async (file: File) => {
+export const calcHash = async (file: File, cb?: (progress: number) => void) => {
   return new Promise<string>((resolve, reject) => {
     const sha3 = new SHA3Hash()
-    const chunkSize = 2097152
+    const chunkSize = 1048576
     const chunks = Math.ceil(file.size / chunkSize)
     let currentChunk = 0
     let fileReader = new FileReader()
@@ -28,9 +28,9 @@ export const calcHash = async (file: File) => {
     }
     fileReader.onload = function (e: any) {
       console.log(`reading chunk ${currentChunk + 1}/${chunks}`)
-      console.log(e.target.result)
       sha3.update(Buffer.from(e.target.result))
       currentChunk++
+      cb && cb(currentChunk / chunks)
       if (currentChunk < chunks) {
         loadNext()
       } else {

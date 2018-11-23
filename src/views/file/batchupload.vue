@@ -44,7 +44,9 @@ export default {
         for (let file of files) {
           this.currentProgress = 0
           this.tips = this.$t('hashing', [file.name])
-          const hash = await calcHash(file)
+          const hash = await calcHash(file, (p) => {
+            this.currentProgress = Math.round(p * 100)
+          })
           try {
             await request({ url: '/api/file/provide', params: { hash } })
             const form = new FormData()

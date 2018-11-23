@@ -1,4 +1,18 @@
 {
+  "$vuetify": {
+    "dataIterator": {
+      "nextPage": "下一页",
+      "noResultsText": "没有找到匹配记录",
+      "pageText": "{0}-{1} 共 {2} 条",
+      "prevPage": "上一页",
+      "rowsPerPageAll": "全部",
+      "rowsPerPageText": "每页记录数："
+    },
+    "dataTable": {
+      "rowsPerPageText": "每页行数："
+    },
+    "noDataText": "无可用数据"
+  },
   "ID": "编号",
   "act_as": "作为",
   "actions": "操作",
@@ -14,6 +28,7 @@
   "create": "创建",
   "create_group": "创建用户组",
   "created": "创建完成",
+  "creating": "",
   "creator": "创建者",
   "data": "数据",
   "description": "描述",
@@ -29,6 +44,7 @@
   "from": "从",
   "group": "用户组",
   "hash": "散列",
+  "hashing": "",
   "language": "语言",
   "leave_blank_to_remain_unchanged": "留空以不变",
   "leave_blank_to_use_default": "留空以使用默认值",
@@ -64,19 +80,5 @@
   "upload_finished": "上传完成",
   "uploading": "正在上传{0}",
   "user": "用户",
-  "username": "用户名",
-  "$vuetify": {
-    "dataIterator": {
-      "rowsPerPageText": "每页记录数：",
-      "rowsPerPageAll": "全部",
-      "pageText": "{0}-{1} 共 {2} 条",
-      "noResultsText": "没有找到匹配记录",
-      "nextPage": "下一页",
-      "prevPage": "上一页"
-    },
-    "dataTable": {
-      "rowsPerPageText": "每页行数："
-    },
-    "noDataText": "无可用数据"
-  }
+  "username": "用户名"
 }

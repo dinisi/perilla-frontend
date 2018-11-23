@@ -1,4 +1,18 @@
 {
+  "$vuetify": {
+    "dataIterator": {
+      "nextPage": "Next page",
+      "noResultsText": "No matching records found",
+      "pageText": "{0}-{1} of {2}",
+      "prevPage": "Previous page",
+      "rowsPerPageAll": "All",
+      "rowsPerPageText": "Items per page:"
+    },
+    "dataTable": {
+      "rowsPerPageText": "Rows per page:"
+    },
+    "noDataText": "No data available"
+  },
   "ID": "ID",
   "act_as": "Act as",
   "actions": "Actions",
@@ -14,6 +28,7 @@
   "create": "Create",
   "create_group": "Create group",
   "created": "Created",
+  "creating": "Creating {0}",
   "creator": "Creator",
   "data": "Data",
   "description": "Description",
@@ -29,6 +44,7 @@
   "from": "From",
   "group": "Group",
   "hash": "Hash",
+  "hashing": "Hashing {0}",
   "language": "Language",
   "leave_blank_to_remain_unchanged": "Leave blank to remain unchanged",
   "leave_blank_to_use_default": "Leave blank to use default value",
@@ -64,19 +80,5 @@
   "upload_finished": "Upload finished",
   "uploading": "Uploading {0}",
   "user": "User",
-  "username": "Username",
-  "$vuetify": {
-    "dataIterator": {
-      "rowsPerPageText": "Items per page:",
-      "rowsPerPageAll": "All",
-      "pageText": "{0}-{1} of {2}",
-      "noResultsText": "No matching records found",
-      "nextPage": "Next page",
-      "prevPage": "Previous page"
-    },
-    "dataTable": {
-      "rowsPerPageText": "Rows per page:"
-    },
-    "noDataText": "No data available"
-  }
+  "username": "Username"
 }
