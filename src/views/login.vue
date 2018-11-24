@@ -10,7 +10,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" to="/register" v-text="$t('register')"/>
+            <v-btn to="/register" v-text="$t('register')"/>
             <v-btn color="primary" @click="login" :loading="loading" v-text="$t('login')"/>
           </v-card-actions>
         </v-card>

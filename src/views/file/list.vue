@@ -8,9 +8,7 @@
             <td class="text-xs-right">{{ props.item.name }}</td>
             <td class="text-xs-right">{{ props.item.type }}</td>
             <td class="text-xs-right">{{ props.item.tags.join(",") }}</td>
-            <td class="text-xs-right" style="width:128px;">
-              {{ props.item.created }}
-            </td>
+            <td class="text-xs-right">{{ props.item.created }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
@@ -57,7 +55,7 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
-      const params = {}
+      const params = { sortBy, descending }
       Promise.all([
         request({
           url: '/api/file/list',

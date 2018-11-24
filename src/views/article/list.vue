@@ -51,7 +51,7 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
-      const params = {}
+      const params = { sortBy, descending }
       Promise.all([
         request({
           url: '/api/article/list',

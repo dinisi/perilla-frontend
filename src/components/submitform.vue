@@ -1,15 +1,34 @@
 <template>
-  <z-monaco-editor class="z-json-editor" v-model="content" language="json" :readonly="readonly"/>
+  <div>
+    <div v-if="channel === 'bzoj' || channel === 'uoj' || channel === 'loj' || channel === 'hdu' || channel === 'poj' || channel === 'traditional'">
+      <selector-file v-model="realval.id"/>
+      <v-select :items="languages" v-model="realval.language" :label="$t('language')"/>
+    </div>
+    <z-json-editor v-model="realval" v-else/>
+  </div>
 </template>
 
 <script>
-import zMonacoEditor from './zmonacoeditor'
+import zJsonEditor from '@/components/zjsoneditor.vue'
+import selectorFile from '@/components/selectfile.vue'
 import { deepCompare } from '@/utils'
 
+const languages = [
+  'c',
+  'cpp98',
+  'cpp11',
+  'java',
+  'csharp',
+  'python2',
+  'python3',
+  'node'
+]
+
 export default {
-  name: 'ZJsonEditor',
+  name: 'submitForm',
   components: {
-    zMonacoEditor
+    zJsonEditor,
+    selectorFile
   },
   props: ['value', 'channel'],
   model: {
@@ -18,7 +37,10 @@ export default {
   },
   data () {
     return {
-      content: ''
+      realval: {
+        //
+      },
+      languages
     }
   },
   mounted () {

@@ -6,7 +6,7 @@
           <tr @click="$router.push('/solution/show/' + props.item.id);">
             <td>{{ props.item.id }}</td>
             <td class="text-xs-right">{{ props.item.problem }}</td>
-            <td class="text-xs-right">{{ props.item.status }}</td>
+            <td class="text-xs-right">{{ SolutionResult[props.item.status] }}</td>
             <td class="text-xs-right">{{ props.item.score }}</td>
             <td class="text-xs-right">{{ props.item.created }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
@@ -19,6 +19,7 @@
 
 <script>
 import { request } from '@/http'
+import { SolutionResult } from '@/interfaces'
 
 export default {
   name: 'SolutionList',
@@ -35,7 +36,8 @@ export default {
       solutions: [],
       pagination: null,
       total: 0,
-      loading: true
+      loading: true,
+      SolutionResult
     }
   },
   watch: {
@@ -50,7 +52,7 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
-      const params = {}
+      const params = { sortBy, descending }
       Promise.all([
         request({
           url: '/api/solution/list',

@@ -10,12 +10,18 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <b>{{ $t("problem") }}:</b>
-            <pre>{{ solution.problem }}</pre>
-            <br/>
-            <b>{{ $t("status") }}:</b>
-            <pre>{{ result }}</pre>
-            <br/>
+            <v-data-table class="fullwidth" :headers="headers" :items="solutions" :loading="loading">
+              <template slot="items" slot-scope="props">
+                <tr>
+                  <td>{{ props.item.id }}</td>
+                  <td class="text-xs-right">{{ props.item.problem }}</td>
+                  <td class="text-xs-right">{{ SolutionResult[props.item.status] }}</td>
+                  <td class="text-xs-right">{{ props.item.score }}</td>
+                  <td class="text-xs-right">{{ props.item.created }}</td>
+                  <td class="text-xs-right">{{ props.item.creator }}</td>
+                </tr>
+              </template>
+            </v-data-table>
             <b>{{ $t("details") }}:</b><br >
             <z-json-editor v-model="solution.details" :readonly="true" />
             <b>{{ $t("data") }}:</b><br >
@@ -29,14 +35,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="loading" persistent width="300">
-      <v-card color="primary" dark>
-        <v-card-text>
-          Please stand by
-          <v-progress-linear indeterminate color="white" class="mb-0" />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
@@ -54,6 +52,14 @@ export default {
   },
   data () {
     return {
+      headers: [
+        { text: this.$t('ID'), align: 'left', sortable: true, value: 'id' },
+        { text: this.$t('problem'), value: 'problem', class: 'text-xs-right' },
+        { text: this.$t('status'), value: 'status', class: 'text-xs-right' },
+        { text: this.$t('score'), value: 'score', class: 'text-xs-right' },
+        { text: this.$t('created'), value: 'created', class: 'text-xs-right' },
+        { text: this.$t('creator'), value: 'creator', class: 'text-xs-right' }
+      ],
       solution: {
         id: null,
         problem: null,
@@ -65,17 +71,28 @@ export default {
         owner: null,
         creator: null
       },
+      solutions: [],
       loading: true,
-      intervalID: null
+      intervalID: null,
+      SolutionResult
     }
   },
   mounted () {
     this.fetch()
     this.intervalID = setInterval(this.fetch, 5000)
+    this.solutions = [this.solution]
   },
   beforeDestroy () {
     if (this.intervalID !== null) {
       clearInterval(this.intervalID)
+    }
+  },
+  watch: {
+    solution: {
+      handler (val) {
+        this.solutions = [val]
+      },
+      deep: true
     }
   },
   computed: {

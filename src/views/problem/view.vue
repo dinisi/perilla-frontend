@@ -22,10 +22,21 @@
         <v-card v-if="showSubmit">
           <v-card-title class="headline" v-text="$t('submit')" />
           <v-card-text>
-            <z-json-editor v-model="solution.data" />
+            <submit-form v-model="solution.data" :channel="problem.channel"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
+            <v-menu offset-y>
+              <v-btn v-text="$t('create_file')" slot="activator"/>
+              <v-list>
+                <v-list-tile to="/file/upload">
+                  <v-list-tile-title v-text="$t('upload')"/>
+                </v-list-tile>
+                <v-list-tile to="/file/new">
+                  <v-list-tile-title v-text="$t('create')"/>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
             <v-btn v-text="$t('submit')" @click="submit" color="primary" />
           </v-card-actions>
         </v-card>
@@ -45,13 +56,13 @@
 <script>
 import { request } from '@/http'
 import render from '@/helper/markdown'
-import zJsonEditor from '@/components/zjsoneditor.vue'
+import submitForm from '@/components/submitform.vue'
 
 export default {
   name: 'ProblemView',
   props: ['id'],
   components: {
-    zJsonEditor
+    submitForm
   },
   data () {
     return {
