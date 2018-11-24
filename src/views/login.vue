@@ -5,11 +5,12 @@
         <v-card>
           <v-card-title class="headline primary white--text" v-text="$t('login')"/>
           <v-card-text>
-            <v-text-field :label="$t('username')" v-model="form.username" type="username"/>
+            <v-text-field :label="$t('username')" v-model="form.username" type="text"/>
             <v-text-field :label="$t('password')" v-model="form.password" type="password"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
+            <v-btn color="primary" to="/register" v-text="$t('register')"/>
             <v-btn color="primary" @click="login" :loading="loading" v-text="$t('login')"/>
           </v-card-actions>
         </v-card>

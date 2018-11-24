@@ -96,7 +96,7 @@ export default {
         method: 'GET',
         params: { entry: this.$store.state.entry, id: this.id },
         responseType: 'blob',
-        onUploadProgress: e => {
+        onDownloadProgress: e => {
           this.progress = Math.round((e.loaded * 100) / e.total)
         }
       }).then((response) => {
