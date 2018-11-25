@@ -7,7 +7,9 @@
             <td>{{ props.item.id }}</td>
             <td class="text-xs-right">{{ props.item.name }}</td>
             <td class="text-xs-right">{{ props.item.type }}</td>
-            <td class="text-xs-right">{{ props.item.tags.join(",") }}</td>
+            <td class="text-xs-right">
+              <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>
+            </td>
             <td class="text-xs-right">{{ props.item.created }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>

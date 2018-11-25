@@ -35,12 +35,7 @@ export default {
   components: {
     zMonacoEditor
   },
-  props: {
-    value: {
-      type: String,
-      required: true
-    }
-  },
+  props: ['value'],
   model: {
     prop: 'value',
     event: 'updateValue'
@@ -54,7 +49,7 @@ export default {
     }
   },
   created () {
-    this.content = this.value
+    this.content = this.value || this.content
     this.rendered = render(this.content)
   },
   watch: {

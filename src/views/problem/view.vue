@@ -13,7 +13,7 @@
             <article class="markdown-body" v-html="rendered" />
           </v-card-text>
           <v-card-actions>
-            <v-chip label v-for="(tag, i) in problem.tags" v-text="tag" :key="i"/>
+            <v-chip v-for="(tag, i) in problem.tags" :key="i">{{ tag }}</v-chip>
             <v-spacer />
             <v-btn v-text="$t('show_submit_form')" color="primary" @click="showSubmit = true;" :disabled="showSubmit"/>
             <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id" />

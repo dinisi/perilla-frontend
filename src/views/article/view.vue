@@ -13,7 +13,7 @@
             <article class="markdown-body" v-html="rendered" />
           </v-card-text>
           <v-card-actions>
-            <v-chip label v-for="(tag, i) in article.tags" v-text="tag" :key="i"/>
+            <v-chip v-for="(tag, i) in article.tags" :key="i">{{ tag }}</v-chip>
             <v-spacer />
             <v-btn v-text="$t('edit')" :to="'/article/edit/' + id" />
           </v-card-actions>

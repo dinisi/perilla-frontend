@@ -7,8 +7,8 @@
             <td>{{ props.item.from }}</td>
             <td class="text-xs-right">{{ props.item.admin }}</td>
             <td class="text-xs-right">
-              <v-icon small @click="setAdmin(props.item.from)" class="mr-2">edit</v-icon>
-              <v-icon small @click="unsetAdmin(props.item.from)" class="mr-2">edit</v-icon>
+              <v-icon small @click="setAdmin(props.item.from)" class="mr-2">check</v-icon>
+              <v-icon small @click="unsetAdmin(props.item.from)" class="mr-2">close</v-icon>
               <v-icon small @click="remove(props.item.from)" class="mr-2">delete</v-icon>
             </td>
           </tr>
