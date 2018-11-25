@@ -6,7 +6,7 @@ module.exports = {
   assetsDir: undefined,
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
-  parallel: undefined,
+  parallel: false,
   css: undefined,
 
   devServer: {
@@ -26,7 +26,7 @@ module.exports = {
           use: {
             loader: 'worker-loader',
             options: {
-              inline: true
+              inline: false
             }
           }
         }

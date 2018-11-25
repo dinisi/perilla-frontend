@@ -1,9 +1,9 @@
-import { SHA3Hash } from 'sha3'
-import { Buffer } from 'buffer'
+const createKeccakHash = require('keccak')
+const Buffer = require('buffer').Buffer
 
 addEventListener('message', function (e) {
   let file = e.data
-  const sha3 = new SHA3Hash()
+  const keccak256 = createKeccakHash('keccak256')
   const chunkSize = 1048576
   const chunks = Math.ceil(file.size / chunkSize)
   let currentChunk = 0
@@ -15,14 +15,14 @@ addEventListener('message', function (e) {
   }
   fileReader.onload = function (e) {
     console.log(`reading chunk ${currentChunk + 1}/${chunks}`)
-    sha3.update(Buffer.from(e.target.result))
+    keccak256.update(Buffer.from(e.target.result))
     currentChunk++
     postMessage({ progress: currentChunk / chunks })
     if (currentChunk < chunks) {
       loadNext()
     } else {
       console.log('finished loading')
-      postMessage({ result: sha3.digest('hex') })
+      postMessage({ result: keccak256.digest('hex') })
     }
   }
   fileReader.onerror = function () {
