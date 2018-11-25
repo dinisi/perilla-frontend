@@ -60,20 +60,20 @@ export default {
                 this.currentProgress = Math.round((e.loaded * 100) / e.total)
               }
             })
-            this.tips = this.$t('creating', [file.name])
-            const id = await request({
-              url: '/api/file',
-              params: { entry: this.$store.state.entry },
-              method: 'POST',
-              data: { hash, tags: this.tags, name: file.name },
-              onUploadProgress: e => {
-                this.currentProgress = Math.round((e.loaded * 100) / e.total)
-              }
-            })
-            this.log += `${file.name} → ${id}<br/>`
           } catch (e) {
             console.log(e.message)
           }
+          this.tips = this.$t('creating', [file.name])
+          const id = await request({
+            url: '/api/file',
+            params: { entry: this.$store.state.entry },
+            method: 'POST',
+            data: { hash, tags: this.tags, name: file.name },
+            onUploadProgress: e => {
+              this.currentProgress = Math.round((e.loaded * 100) / e.total)
+            }
+          })
+          this.log += `${file.name} → ${id}<br/>`
           this.allProgress = (++count) * 100 / files.length
         }
         this.$store.commit('updateMessage', this.$t('upload_finished'))
