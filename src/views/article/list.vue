@@ -58,17 +58,17 @@ export default {
         request({
           url: '/api/article/list',
           params: Object.assign(
-            {},
             { entry: this.$store.state.entry },
-            { noexec: true }
+            { noexec: true },
+            params
           )
         }),
         request({
           url: '/api/article/list',
           params: Object.assign(
-            {},
             { entry: this.$store.state.entry },
-            { skip: (page - 1) * rowsPerPage, limit: rowsPerPage }
+            { skip: (page - 1) * rowsPerPage, limit: rowsPerPage },
+            params
           )
         })
       ])

@@ -26,7 +26,7 @@ module.exports = {
           use: {
             loader: 'worker-loader',
             options: {
-              inline: false
+              inline: true
             }
           }
         }
