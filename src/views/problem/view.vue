@@ -15,12 +15,17 @@
           <v-card-actions>
             <v-chip v-for="(tag, i) in problem.tags" :key="i">{{ tag }}</v-chip>
             <v-spacer />
-            <v-btn v-text="$t('show_submit_form')" color="primary" @click="showSubmit = true;" :disabled="showSubmit"/>
+            <v-btn v-text="$t('show_submit_form')" color="primary" @click="showSubmit = true;" :disabled="showSubmit" v-if="problem.channel"/>
             <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id" />
           </v-card-actions>
         </v-card>
         <v-card v-if="showSubmit">
-          <v-card-title class="headline" v-text="$t('submit')" />
+          <v-card-title>
+            <div>
+              <div class="headline" v-text="$t('submit')" />
+              <div class="subheading" v-text="problem.channel" />
+            </div>
+          </v-card-title>
           <v-card-text>
             <submit-form v-model="solution.data" :channel="problem.channel"/>
           </v-card-text>
