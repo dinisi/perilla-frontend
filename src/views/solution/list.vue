@@ -6,7 +6,9 @@
           <tr @click="$router.push('/solution/show/' + props.item.id);">
             <td>{{ props.item.id }}</td>
             <td class="text-xs-right">{{ props.item.problem }}</td>
-            <td class="text-xs-right">{{ SolutionResult[props.item.status] }}</td>
+            <td class="text-xs-right">
+              <solution-result :result="props.item.status"/>
+            </td>
             <td class="text-xs-right">{{ props.item.score }}</td>
             <td class="text-xs-right">{{ props.item.created }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
@@ -19,10 +21,13 @@
 
 <script>
 import { request } from '@/http'
-import { SolutionResult } from '@/interfaces'
+import solutionResult from '@/components/solutionresult.vue'
 
 export default {
   name: 'SolutionList',
+  components: {
+    solutionResult
+  },
   data () {
     return {
       headers: [
@@ -36,8 +41,7 @@ export default {
       solutions: [],
       pagination: null,
       total: 0,
-      loading: true,
-      SolutionResult
+      loading: true
     }
   },
   watch: {

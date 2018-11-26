@@ -75,7 +75,7 @@ export default {
       view: 0,
       isnew: false,
       showImport: false,
-      canImport: true,
+      canImport: false,
       importText: ''
     }
   },
@@ -179,6 +179,8 @@ export default {
             this.problem.tags = ['POJ']
           }
           break
+        default:
+          this.$store.commit('updateMessage', this.$t('not_supported'))
       }
       this.showImport = false
     }

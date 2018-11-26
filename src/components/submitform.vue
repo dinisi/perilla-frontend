@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="channel === 'bzoj' || channel === 'uoj' || channel === 'loj' || channel === 'hdu' || channel === 'poj' || channel === 'traditional'">
-      <selector-file v-model="realval.id"/>
+      <selector-file v-model="realval.file"/>
       <v-select :items="languages" v-model="realval.language" :label="$t('language')"/>
     </div>
     <z-json-editor v-model="realval" v-else/>
@@ -47,20 +47,18 @@ export default {
     this.content = JSON.stringify(this.value, null, '\t')
   },
   watch: {
-    content (val) {
-      try {
-        const parsed = JSON.parse(val)
-        this.$emit('updateValue', parsed)
-      } catch (e) {
-        // Eat any error
-      }
+    realval: {
+      handler: function (val) {
+        if (!deepCompare(val, this.value)) {
+          this.$emit('updateValue', val)
+        }
+      },
+      deep: true
     },
     value: {
       handler: function (val) {
-        let newContent = JSON.stringify(this.value, null, '\t')
-        let obj = JSON.parse(this.content)
-        if (!deepCompare(val, obj)) {
-          this.content = newContent
+        if (!deepCompare(val, this.realval)) {
+          this.realval = val
         }
       },
       deep: true

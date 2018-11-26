@@ -16,6 +16,7 @@
 
 <script>
 import { client } from '@/http'
+import { setStorage } from '@/storage'
 
 export default {
   name: 'settings',
@@ -33,11 +34,11 @@ export default {
   watch: {
     'language': function (val) {
       this.$i18n.locale = val
-      localStorage.setItem('language', val)
+      setStorage(localStorage, 'language', val)
     },
     'baseURL': function (val) {
       client.defaults.baseURL = val
-      localStorage.setItem('baseURL', val)
+      setStorage(localStorage, 'baseURL', val)
     }
   }
 }

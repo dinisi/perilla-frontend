@@ -54,6 +54,7 @@ import navbar from '@/components/navbar'
 import * as gravatar from 'gravatar'
 import { client, request } from '@/http'
 import selectAccessible from '@/components/selectaccessible'
+import { getStorage } from '@/storage'
 
 export default {
   name: 'App',
@@ -87,8 +88,8 @@ export default {
     }
   },
   created () {
-    this.$i18n.locale = localStorage.getItem('language') || this.$i18n.locale
-    client.defaults.baseURL = localStorage.getItem('baseURL') || client.defaults.baseURL
+    this.$i18n.locale = getStorage(localStorage, 'language') || this.$i18n.locale
+    client.defaults.baseURL = getStorage(localStorage, 'baseURL') || client.defaults.baseURL
   },
   mounted () {
     this.$store.commit('toggleLoading', true)

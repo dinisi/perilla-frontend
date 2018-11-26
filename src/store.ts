@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { getStorage, setStorage } from './storage'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,7 @@ export default new Vuex.Store({
     login: (state, payload) => {
       state.login = true
       state.user = payload.user
-      state.entry = sessionStorage.getItem('entry') || payload.user // a entrymap to user self is always exists
+      state.entry = getStorage(sessionStorage, 'entry') || payload.user // a entrymap to user self is always exists
     },
     logout: state => {
       state.login = false
@@ -27,7 +28,7 @@ export default new Vuex.Store({
     },
     changeEntry: (state, payload) => {
       state.entry = payload
-      sessionStorage.setItem('entry', payload)
+      setStorage(sessionStorage, 'entry', payload)
     },
     updateMessage: (state, val) => {
       state.message = val

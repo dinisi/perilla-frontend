@@ -3,19 +3,15 @@
     <v-layout fill-height>
       <v-flex>
         <v-card>
-          <v-card-title>
-            <div>
-              <div class="headline" v-text="solution.id" />
-              <div class="subheading">{{ solution.creator }}</div>
-            </div>
-          </v-card-title>
           <v-card-text>
-            <v-data-table class="fullwidth" :headers="headers" :items="solutions" :loading="loading">
+            <v-data-table class="fullwidth" :headers="headers" :items="solutions" :loading="loading" hide-actions>
               <template slot="items" slot-scope="props">
                 <tr>
                   <td>{{ props.item.id }}</td>
                   <td class="text-xs-right">{{ props.item.problem }}</td>
-                  <td class="text-xs-right">{{ SolutionResult[props.item.status] }}</td>
+                  <td class="text-xs-right">
+                    <solution-result :result="props.item.status"/>
+                  </td>
                   <td class="text-xs-right">{{ props.item.score }}</td>
                   <td class="text-xs-right">{{ props.item.created }}</td>
                   <td class="text-xs-right">{{ props.item.creator }}</td>
@@ -41,24 +37,25 @@
 <script>
 import { request } from '@/http'
 import render from '@/helper/markdown'
-import { SolutionResult } from '@/interfaces'
 import zJsonEditor from '@/components/zjsoneditor.vue'
+import solutionResult from '@/components/solutionresult.vue'
 
 export default {
   name: 'SolutionView',
   props: ['id'],
   components: {
-    zJsonEditor
+    zJsonEditor,
+    solutionResult
   },
   data () {
     return {
       headers: [
-        { text: this.$t('ID'), align: 'left', sortable: true, value: 'id' },
-        { text: this.$t('problem'), value: 'problem', class: 'text-xs-right' },
-        { text: this.$t('status'), value: 'status', class: 'text-xs-right' },
-        { text: this.$t('score'), value: 'score', class: 'text-xs-right' },
-        { text: this.$t('created'), value: 'created', class: 'text-xs-right' },
-        { text: this.$t('creator'), value: 'creator', class: 'text-xs-right' }
+        { text: this.$t('ID'), align: 'left', sortable: false, value: 'id' },
+        { text: this.$t('problem'), value: 'problem', sortable: false, class: 'text-xs-right' },
+        { text: this.$t('status'), value: 'status', sortable: false, class: 'text-xs-right' },
+        { text: this.$t('score'), value: 'score', sortable: false, class: 'text-xs-right' },
+        { text: this.$t('created'), value: 'created', sortable: false, class: 'text-xs-right' },
+        { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       solution: {
         id: null,
@@ -73,19 +70,15 @@ export default {
       },
       solutions: [],
       loading: true,
-      intervalID: null,
-      SolutionResult
+      intervalID: null
     }
   },
   mounted () {
-    this.fetch()
-    this.intervalID = setInterval(this.fetch, 5000)
     this.solutions = [this.solution]
+    this.enableAutoFetch()
   },
   beforeDestroy () {
-    if (this.intervalID !== null) {
-      clearInterval(this.intervalID)
-    }
+    this.disableAutoFetch()
   },
   watch: {
     solution: {
@@ -101,6 +94,20 @@ export default {
     }
   },
   methods: {
+    enableAutoFetch: function () {
+      if (this.intervalID === null) {
+        this.loading = true
+        this.fetch()
+        this.intervalID = setInterval(this.fetch, 5000)
+      }
+    },
+    disableAutoFetch: function () {
+      if (this.intervalID !== null) {
+        this.loading = false
+        clearInterval(this.intervalID)
+        this.intervalID = null
+      }
+    },
     fetch: function () {
       request({
         url: '/api/solution',
@@ -108,12 +115,12 @@ export default {
       })
         .then(solution => {
           this.solution = solution
+          if (this.solution.status > 1) {
+            this.disableAutoFetch()
+          }
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)
-        })
-        .finally(() => {
-          this.loading = false
         })
     },
     rejudge: function () {
@@ -125,12 +132,10 @@ export default {
       })
         .then(() => {
           this.$store.commit('updateMessage', this.$t('rejudge_succeeded'))
+          this.enableAutoFetch()
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)
-        })
-        .finally(() => {
-          this.loading = false
         })
     },
     remove: function () {
