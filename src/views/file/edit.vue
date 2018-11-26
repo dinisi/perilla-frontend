@@ -77,7 +77,7 @@ export default {
   methods: {
     async save () {
       this.loading = true
-      if (this.$refs.file && this.$refs.file.files) {
+      if (this.$refs.file && this.$refs.file.files && this.$refs.file.files.length === 1) {
         const hash = await calcHash(this.$refs.file.files[0])
         this.file.hash = hash
         try {
