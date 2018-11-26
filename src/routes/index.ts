@@ -8,6 +8,7 @@ import error from '../views/error.vue'
 import register from '../views/register.vue'
 import createGroup from '../views/creategroup.vue'
 import settings from '../views/settings.vue'
+import blank from '../views/blank.vue'
 import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
 import { articleRoutes } from './article'
@@ -48,6 +49,11 @@ let routes: RouteConfig[] = [
     path: '/settings',
     name: 'settings',
     component: settings
+  },
+  {
+    path: '/blank',
+    name: 'blank',
+    component: blank
   }
 ]
 routes = routes.concat(problemRoutes)

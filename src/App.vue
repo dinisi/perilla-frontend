@@ -20,7 +20,9 @@
       </v-toolbar>
     </v-navigation-drawer>
     <navbar v-model="showsidebar" />
-    <v-content> <router-view /> </v-content>
+    <v-content>
+      <router-view />
+    </v-content>
     <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
@@ -122,6 +124,7 @@ export default {
     changeEntry () {
       if (this.newEntry && this.newEntry !== this.entry) {
         this.$store.commit('changeEntry', this.newEntry)
+        this.$router.push('/blank')
       }
       this.showSelectEntry = false
     }

@@ -19,7 +19,7 @@ export default new Vuex.Store({
     login: (state, payload) => {
       state.login = true
       state.user = payload.user
-      state.entry = payload.user // a entrymap to user self is always exists
+      state.entry = sessionStorage.getItem('entry') || payload.user // a entrymap to user self is always exists
     },
     logout: state => {
       state.login = false
@@ -27,6 +27,7 @@ export default new Vuex.Store({
     },
     changeEntry: (state, payload) => {
       state.entry = payload
+      sessionStorage.setItem('entry', payload)
     },
     updateMessage: (state, val) => {
       state.message = val

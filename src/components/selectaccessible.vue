@@ -2,6 +2,10 @@
   <v-autocomplete :loading="loading" :items="items" :search-input.sync="search" v-model="entry" cache-items flat hide-no-data hide-details item-text="to" item-value="to" :label="$t('select_entry')">
     <template slot="item" slot-scope="data">
       <v-list-tile>
+        <v-list-tile-avatar>
+          <v-icon v-if="data.item.admin">person</v-icon>
+          <v-icon v-else>person_outline</v-icon>
+        </v-list-tile-avatar>
         <v-list-tile-title v-html="data.item.to"></v-list-tile-title>
       </v-list-tile>
     </template>

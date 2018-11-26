@@ -65,7 +65,7 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
-      const params = { sortBy, descending }
+      const params = { sortBy, descending: descending || undefined }
       Promise.all([
         request({
           url: '/api/entrymap/list',

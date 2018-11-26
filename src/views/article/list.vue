@@ -30,10 +30,10 @@ export default {
     return {
       headers: [
         { text: this.$t('ID'), align: 'left', sortable: true, value: 'id' },
-        { text: this.$t('title'), value: 'title', class: 'text-xs-right' },
-        { text: this.$t('tags'), value: 'tags', class: 'text-xs-right' },
-        { text: this.$t('created'), value: 'created', class: 'text-xs-right' },
-        { text: this.$t('creator'), value: 'creator', class: 'text-xs-right' }
+        { text: this.$t('title'), value: 'title', sortable: true, class: 'text-xs-right' },
+        { text: this.$t('tags'), value: 'tags', sortable: false, class: 'text-xs-right' },
+        { text: this.$t('created'), value: 'created', sortable: true, class: 'text-xs-right' },
+        { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       articles: [],
       pagination: null,
@@ -53,7 +53,7 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
-      const params = { sortBy, descending }
+      const params = { sortBy, descending: descending || undefined }
       Promise.all([
         request({
           url: '/api/article/list',
