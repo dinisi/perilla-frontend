@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/frontend',
   assetsDir: undefined,
   runtimeCompiler: undefined,
-  productionSourceMap: undefined,
+  productionSourceMap: false,
   parallel: false,
   css: undefined,
 
@@ -24,10 +24,7 @@ module.exports = {
         {
           test: /\.worker\.js$/,
           use: {
-            loader: 'worker-loader',
-            options: {
-              inline: true
-            }
+            loader: 'worker-loader'
           }
         }
       ]
