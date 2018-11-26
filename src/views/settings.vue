@@ -33,9 +33,11 @@ export default {
   watch: {
     'language': function (val) {
       this.$i18n.locale = val
+      localStorage.setItem('language', val)
     },
     'baseURL': function (val) {
       client.defaults.baseURL = val
+      localStorage.setItem('baseURL', val)
     }
   }
 }

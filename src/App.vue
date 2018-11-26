@@ -52,7 +52,7 @@
 <script>
 import navbar from '@/components/navbar'
 import * as gravatar from 'gravatar'
-import { request } from '@/http'
+import { client, request } from '@/http'
 import selectAccessible from '@/components/selectaccessible'
 
 export default {
@@ -85,6 +85,10 @@ export default {
     '$store.state.entry': function (val) {
       this.loadAvatar()
     }
+  },
+  created () {
+    this.$i18n.locale = localStorage.getItem('language') || this.$i18n.locale
+    client.defaults.baseURL = localStorage.getItem('baseURL') || client.defaults.baseURL
   },
   mounted () {
     this.$store.commit('toggleLoading', true)
