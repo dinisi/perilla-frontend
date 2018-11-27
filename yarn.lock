@@ -5017,10 +5017,10 @@ grapheme-splitter@^1.0.2:
   resolved "http://registry.npm.taobao.org/grapheme-splitter/download/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
   integrity sha1-nPOmZcYkdHmJaDSvNc8du0QAdn4=
 
-gravatar@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/gravatar/-/gravatar-1.7.0.tgz#9cd0273e12887b122d9c5a9f3519ef657953374a"
-  integrity sha512-md1/ORa7I0H5xC5YslH4yLxGnpIqpvJg09RGecQondnjiAxIUM2dDhdx1QJCT2OqW7zc+l/oye7LrgAR+KwZMw==
+gravatar@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/gravatar/-/gravatar-1.8.0.tgz#1dd9ce0f6bb625802377233b96796181b39af8ff"
+  integrity sha512-00KTHk0tIgOdTGShjE64JS66WHlOAnku7nRyER4OsU5ekFvWZICpV0JYgwyp9NdId2KbJWqK03rn87LXBd1U4g==
   dependencies:
     blueimp-md5 "^2.3.0"
     email-validator "^2.0.3"
