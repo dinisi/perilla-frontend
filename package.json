@@ -64,6 +64,5 @@
       "vue-cli-service lint",
       "git add"
     ]
-  },
-  "main": "background.js"
+  }
 }
