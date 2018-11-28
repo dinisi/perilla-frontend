@@ -5,7 +5,7 @@
         <template slot="items" slot-scope="props">
           <tr>
             <td>
-              <router-link  :to="'/solution/show/' + props.item.id">
+              <router-link  :to="'/problem/show/' + props.item.id">
                 {{ props.item.id }}
               </router-link>
             </td>
