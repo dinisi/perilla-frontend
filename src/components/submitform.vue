@@ -1,17 +1,31 @@
 <template>
   <div>
     <div v-if="channel === 'bzoj' || channel === 'uoj' || channel === 'loj' || channel === 'hdu' || channel === 'poj' || channel === 'traditional'">
-      <select-file v-model="realval.file"/>
-      <input type="file" ref="common_file">
-      <v-btn color="primary" @click="commonUpload" v-text="common.file.disabled ? $t('upload_finished') : $t('upload')" :disabled="common.file.disabled" :loading="common.file.loading"/>
+      <v-tabs v-model="common.tab">
+        <v-tab :key="0" ripple>{{ $t('select') }}</v-tab>
+        <v-tab :key="1" ripple>{{ $t('upload') }}</v-tab>
+        <v-tab :key="2" ripple>{{ $t('editor') }}</v-tab>
+        <v-tab-item :key="0">
+          <select-file v-model="realval.file"/>
+        </v-tab-item>
+        <v-tab-item :key="1">
+          <input type="file" ref="common_file">
+          <v-btn color="primary" @click="commonFileUpload" v-text="$t('upload')" :loading="common.loading"/>
+        </v-tab-item>
+        <v-tab-item :key="2">
+          <z-monaco-editor class="editor" v-model="common.editorContent" :language="vslanguage[realval.language] || 'plain'"/>
+          <v-btn color="primary" @click="commonTextUpload" v-text="$t('upload')" :loading="common.loading"/>
+        </v-tab-item>
+      </v-tabs>
       <v-select :items="languages" v-model="realval.language" :label="$t('language')"/>
     </div>
-    <z-json-editor v-model="realval" v-else/>
+    <z-json-editor v-model="realval"/>
   </div>
 </template>
 
 <script>
 import zJsonEditor from '@/components/zjsoneditor.vue'
+import zMonacoEditor from '@/components/zmonacoeditor.vue'
 import selectFile from '@/components/selectfile.vue'
 import { calcHash } from '@/utils'
 import { request } from '@/http'
@@ -27,11 +41,23 @@ const languages = [
   'node'
 ]
 
+const vslanguage = {
+  'c': 'cpp',
+  'cpp98': 'cpp',
+  'cpp11': 'cpp',
+  'java': 'java',
+  'csharp': 'csharp',
+  'python2': 'python',
+  'python3': 'python',
+  'node': 'javascript'
+}
+
 export default {
   name: 'submitForm',
   components: {
     zJsonEditor,
-    selectFile
+    selectFile,
+    zMonacoEditor
   },
   props: ['value', 'channel'],
   model: {
@@ -43,13 +69,13 @@ export default {
       realval: {
         //
       },
-      languages,
       common: {
-        file: {
-          disabled: false,
-          loading: false
-        }
-      }
+        loading: false,
+        tab: 1,
+        editorContent: ''
+      },
+      languages,
+      vslanguage
     }
   },
   mounted () {
@@ -70,15 +96,33 @@ export default {
     }
   },
   methods: {
-    async commonUpload () {
-      if (this.$refs.common_file && this.$refs.common_file.files) {
-        this.common.file.loading = true
+    async commonFileUpload () {
+      if (this.$refs.common_file && this.$refs.common_file.files && this.$refs.common_file.files.length === 1) {
+        this.common.loading = true
         let id = await this.upload(this.$refs.common_file.files[0])
         this.realval = {
-          file: id
+          file: id,
+          language: this.realval.language
         }
-        this.common.file.loading = false
-        this.common.file.disabled = true
+        this.common.loading = false
+        this.$store.commit('updateMessage', this.$t('upload_finished'))
+      } else {
+        this.$store.commit('updateMessage', this.$t('invalid_operation'))
+      }
+    },
+    async commonTextUpload () {
+      if (this.common.editorContent && this.common.editorContent.length) {
+        const file = new File([this.common.editorContent], 'solution'+(+new Date())+'.txt')
+        this.common.loading = true
+        let id = await this.upload(file)
+        this.realval = {
+          file: id,
+          language: this.realval.language
+        }
+        this.common.loading = false
+        this.$store.commit('updateMessage', this.$t('upload_finished'))
+      } else {
+        this.$store.commit('updateMessage', this.$t('invalid_operation'))
       }
     },
     async upload (file) {
@@ -114,6 +158,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.z-json-editor
+.editor
   height 500px
 </style>

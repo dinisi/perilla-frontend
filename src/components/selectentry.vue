@@ -44,8 +44,11 @@ export default {
         this.$emit('updateValue', val)
       }
     },
-    'search': function (val) {
-      if (val) this.querySelections(val)
+    'search': {
+      immediate: true,
+      handler: function (val) {
+        this.querySelections(val)
+      }
     }
   },
   methods: {

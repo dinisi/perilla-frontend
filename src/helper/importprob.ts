@@ -11,9 +11,9 @@ export const convertBZOJ = (text: string) => {
     let line = tokens[i]
     if (!line.trim().length) continue
     if (line === '[Submit][Status][Discuss]') break
-    if (['Description', 'Input', 'Output', 'Sample Input', 'Sample Output', 'HINT', 'Source'].includes(line)) {
+    if (['DESCRIPTION', 'INPUT', 'OUTPUT', 'SAMPLE INPUT', 'SAMPLE OUTPUT', 'HINT', 'SOURCE'].includes(line.trim().toUpperCase())) {
       if (suffix) content += suffix
-      content += '# ' + line + '\n'
+      content += '### ' + line + '\n'
       if (line === 'Sample Input' || line === 'Sample Output') {
         content += '```\n'
         suffix = '```\n'
@@ -25,7 +25,7 @@ export const convertBZOJ = (text: string) => {
     }
   }
   if (suffix) content += suffix
-  content += '## ' + tokens[1] + '\n'
+  content += '> ' + tokens[1] + '\n'
   return { id, title, content }
 }
 
@@ -40,9 +40,9 @@ export const convertPOJ = (text: string) => {
     let line = tokens[i]
     if (!line.trim().length) continue
     if (line === '[Submit]   [Go Back]   [Status]   [Discuss]') break
-    if (['Description', 'Input', 'Output', 'Sample Input', 'Sample Output', 'HINT', 'Source'].includes(line)) {
+    if (['DESCRIPTION', 'INPUT', 'OUTPUT', 'SAMPLE INPUT', 'SAMPLE OUTPUT', 'HINT', 'SOURCE'].includes(line.trim().toUpperCase())) {
       if (suffix) content += suffix
-      content += '# ' + line + '\n'
+      content += '### ' + line + '\n'
       if (line === 'Sample Input' || line === 'Sample Output') {
         content += '```\n'
         suffix = '```\n'
@@ -54,6 +54,6 @@ export const convertPOJ = (text: string) => {
     }
   }
   if (suffix) content += suffix
-  content += '## ' + tokens[1] + '\n'
+  content += '> ' + tokens[1] + '\n'
   return { title, content }
 }

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table :rows-per-page-items="[5, 10, 25, 50]" class="fullwidth" :headers="headers" :items="solutions" :pagination.sync="pagination" :total-items="total" :loading="loading">
+      <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="solutions" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
           <tr>
             <td>
@@ -30,6 +30,7 @@
 <script>
 import { request } from '@/http'
 import solutionResult from '@/components/solutionresult.vue'
+import { getStorage, setStorage } from '@/storage'
 
 export default {
   name: 'SolutionList',
@@ -47,7 +48,13 @@ export default {
         { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       solutions: [],
-      pagination: null,
+      pagination: {
+        descending: true,
+        page: 1,
+        rowsPerPage: getStorage(localStorage, 'lastSolutionListRPP') || 15,
+        sortBy: 'id',
+        totalItems: 0
+      },
       total: 0,
       loading: true
     }
@@ -64,6 +71,7 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
+      setStorage(localStorage, 'lastSolutionListRPP', rowsPerPage)
       const params = { sortBy, descending: descending || undefined }
       Promise.all([
         request({

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table :rows-per-page-items="[5, 10, 25, 50]" class="fullwidth" :headers="headers" :items="articles" :pagination.sync="pagination" :total-items="total" :loading="loading">
+      <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="articles" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
           <tr>
             <td>
@@ -27,6 +27,7 @@
 
 <script>
 import { request } from '@/http'
+import { getStorage, setStorage } from '@/storage'
 
 export default {
   name: 'articleList',
@@ -40,7 +41,13 @@ export default {
         { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       articles: [],
-      pagination: null,
+      pagination: {
+        descending: false,
+        page: 1,
+        rowsPerPage: getStorage(localStorage, 'lastArticleListRPP') || 15,
+        sortBy: 'id',
+        totalItems: 0
+      },
       total: 0,
       loading: true
     }
@@ -57,6 +64,7 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
+      setStorage(localStorage, 'lastArticleListRPP', rowsPerPage)
       const params = { sortBy, descending: descending || undefined }
       Promise.all([
         request({

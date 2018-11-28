@@ -139,8 +139,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.z-json-editor
-  height 500px
-</style>

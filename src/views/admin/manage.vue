@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table :rows-per-page-items="[5, 10, 25, 50]" class="fullwidth" :headers="headers" :items="maps" :pagination.sync="pagination" :total-items="total" :loading="loading">
+      <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="maps" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
           <tr>
             <td>{{ props.item.from }}</td>
