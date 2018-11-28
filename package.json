@@ -2,6 +2,7 @@
   "name": "perilla-frontend",
   "version": "0.4.1",
   "private": true,
+  "main": "src/main.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
