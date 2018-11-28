@@ -2,7 +2,10 @@
   <v-autocomplete :loading="loading" :items="items" :search-input.sync="search" v-model="file" cache-items flat hide-no-data hide-details item-text="name" item-value="id" :label="$t('select_file')">
     <template slot="item" slot-scope="data">
       <v-list-tile>
-        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+        <v-list-tile-content>
+          <v-list-tile-title>{{ data.item.name }}</v-list-tile-title>
+          <v-list-tile-sub-title>{{ data.item.creator }}</v-list-tile-sub-title>
+        </v-list-tile-content>
       </v-list-tile>
     </template>
   </v-autocomplete>

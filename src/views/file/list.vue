@@ -3,8 +3,12 @@
     <v-layout align-center justify-center>
       <v-data-table :rows-per-page-items="[5, 10, 25, 50]" class="fullwidth" :headers="headers" :items="files" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
-          <tr @click="$router.push('/file/show/' + props.item.id);">
-            <td>{{ props.item.id }}</td>
+          <tr>
+            <td>
+              <router-link  :to="'/file/show/' + props.item.id">
+                {{ props.item.id }}
+              </router-link>
+            </td>
             <td class="text-xs-right">{{ props.item.name }}</td>
             <td class="text-xs-right">{{ props.item.type }}</td>
             <td class="text-xs-right">

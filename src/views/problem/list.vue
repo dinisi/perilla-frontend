@@ -3,8 +3,12 @@
     <v-layout align-center justify-center>
       <v-data-table :rows-per-page-items="[5, 10, 25, 50]" class="fullwidth" :headers="headers" :items="problems" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
-          <tr @click="$router.push('/problem/show/' + props.item.id);">
-            <td>{{ props.item.id }}</td>
+          <tr>
+            <td>
+              <router-link  :to="'/solution/show/' + props.item.id">
+                {{ props.item.id }}
+              </router-link>
+            </td>
             <td class="text-xs-right">{{ props.item.title }}</td>
             <td class="text-xs-right">
               <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>

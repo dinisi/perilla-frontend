@@ -4,7 +4,6 @@
 
 <script>
 import zMonacoEditor from './zmonacoeditor'
-import { deepCompare } from '@/utils'
 
 export default {
   name: 'zJsonEditor',
@@ -35,11 +34,7 @@ export default {
     },
     value: {
       handler: function (val) {
-        let newContent = JSON.stringify(this.value, null, '\t')
-        let obj = JSON.parse(this.content)
-        if (!deepCompare(val, obj)) {
-          this.content = newContent
-        }
+        this.content = JSON.stringify(this.value, null, '\t') || '{}'
       },
       deep: true
     }

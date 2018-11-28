@@ -3,9 +3,17 @@
     <v-layout align-center justify-center>
       <v-data-table :rows-per-page-items="[5, 10, 25, 50]" class="fullwidth" :headers="headers" :items="solutions" :pagination.sync="pagination" :total-items="total" :loading="loading">
         <template slot="items" slot-scope="props">
-          <tr @click="$router.push('/solution/show/' + props.item.id);">
-            <td>{{ props.item.id }}</td>
-            <td class="text-xs-right">{{ props.item.problem }}</td>
+          <tr>
+            <td>
+              <router-link  :to="'/solution/show/' + props.item.id">
+                {{ props.item.id }}
+              </router-link>
+            </td>
+            <td class="text-xs-right">
+              <router-link :to="'/problem/show/'+ props.item.problem">
+                {{ props.item.problem }}
+              </router-link>
+            </td>
             <td class="text-xs-right">
               <solution-result :result="props.item.status"/>
             </td>

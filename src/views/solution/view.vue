@@ -7,8 +7,16 @@
             <v-data-table class="fullwidth" :headers="headers" :items="solutions" :loading="loading" hide-actions>
               <template slot="items" slot-scope="props">
                 <tr>
-                  <td>{{ props.item.id }}</td>
-                  <td class="text-xs-right">{{ props.item.problem }}</td>
+                  <td>
+                    <router-link  :to="'/solution/show/' + props.item.id">
+                      {{ props.item.id }}
+                    </router-link>
+                  </td>
+                  <td class="text-xs-right">
+                    <router-link :to="'/problem/show/'+ props.item.problem">
+                      {{ props.item.problem }}
+                    </router-link>
+                  </td>
                   <td class="text-xs-right">
                     <solution-result :result="props.item.status"/>
                   </td>

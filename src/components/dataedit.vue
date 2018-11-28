@@ -5,14 +5,14 @@
     </div>
     <div v-else-if="channel === 'traditional'">
       <input type="file" multiple ref="files">
-      <v-btn color="primary" @click="applyTrad" v-text="$t('apply')"/>
+      <v-btn color="primary" @click="applyTrad" v-text="$t('apply')" :loading="trad.apply_loading"/>
     </div>
     <z-json-editor v-model="realval"/>
   </div>
 </template>
 
 <script>
-import { deepCompare, calcHash } from '@/utils'
+import { calcHash } from '@/utils'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import { request } from '@/http'
 
@@ -31,7 +31,10 @@ export default {
       realval: {
         //
       },
-      remote_id: null
+      remote_id: null,
+      trad: {
+        apply_loading: false
+      }
     }
   },
   mounted () {
@@ -60,6 +63,7 @@ export default {
   methods: {
     async applyTrad () {
       if (this.$refs.files && this.$refs.files.files) {
+        this.trad.apply_loading = true
         const files = this.$refs.files.files
         let map = new Map()
         for (let file of files) {
@@ -71,7 +75,7 @@ export default {
           console.log(filename)
           console.log(ext)
           map[filename] = map[filename] || {}
-          if (['in'].indexOf(ext)) {
+          if (['in'].includes(ext)) {
             map[filename].input = map[filename].input || file
           }
           if (['ans', 'out'].includes(ext)) {
@@ -100,6 +104,8 @@ export default {
             }
           ]
         }
+        this.$store.commit('updateMessage', this.$t('upload_finished'))
+        this.trad.apply_loading = false
       }
     },
     async upload (file) {
