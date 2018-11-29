@@ -29,27 +29,14 @@ import zMonacoEditor from '@/components/zmonacoeditor.vue'
 import selectFile from '@/components/selectfile.vue'
 import { calcHash } from '@/utils'
 import { request } from '@/http'
+import { Languages } from 'perilla-languages'
 
-const languages = [
-  'c',
-  'cpp98',
-  'cpp11',
-  'java',
-  'csharp',
-  'python2',
-  'python3',
-  'node'
-]
+const languages = []
+const vslanguage = {}
 
-const vslanguage = {
-  'c': 'cpp',
-  'cpp98': 'cpp',
-  'cpp11': 'cpp',
-  'java': 'java',
-  'csharp': 'csharp',
-  'python2': 'python',
-  'python3': 'python',
-  'node': 'javascript'
+for (let language of Languages) {
+  languages.push(language.name)
+  vslanguage[language.name] = language.syntaxPattern
 }
 
 export default {

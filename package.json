@@ -19,6 +19,7 @@
     "keccak": "^1.4.0",
     "material-design-icons-iconfont": "^4.0.2",
     "monaco-editor": "^0.15.6",
+    "perilla-languages": "^1.0.0",
     "register-service-worker": "^1.0.0",
     "roboto-fontface": "^0.10.0",
     "vue": "^2.5.17",
