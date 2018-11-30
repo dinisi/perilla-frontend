@@ -14,7 +14,7 @@
             <td class="text-xs-right">
               <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>
             </td>
-            <td class="text-xs-right">{{ props.item.created }}</td>
+            <td class="text-xs-right">{{ props.item.updated }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
@@ -40,7 +40,7 @@ export default {
         { text: this.$t('name'), value: 'name', sortable: true, class: 'text-xs-right' },
         { text: this.$t('type'), value: 'type', sortable: false, class: 'text-xs-right' },
         { text: this.$t('tags'), value: 'tags', sortable: false, class: 'text-xs-right' },
-        { text: this.$t('created'), value: 'created', sortable: true, class: 'text-xs-right' },
+        { text: this.$t('updated'), value: 'updated', sortable: true, class: 'text-xs-right' },
         { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       files: [],

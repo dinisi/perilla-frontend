@@ -91,6 +91,7 @@
   "tags": "标签",
   "title": "标题",
   "type": "类型",
+  "updated": "最后更新",
   "upload": "上传",
   "upload_finished": "上传完成",
   "uploading": "正在上传{0}",

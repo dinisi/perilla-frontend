@@ -21,7 +21,7 @@
                     <solution-result :result="props.item.status"/>
                   </td>
                   <td class="text-xs-right">{{ props.item.score }}</td>
-                  <td class="text-xs-right">{{ props.item.created }}</td>
+                  <td class="text-xs-right">{{ props.item.updated }}</td>
                   <td class="text-xs-right">{{ props.item.creator }}</td>
                 </tr>
               </template>
@@ -62,7 +62,7 @@ export default {
         { text: this.$t('problem'), value: 'problem', sortable: false, class: 'text-xs-right' },
         { text: this.$t('status'), value: 'status', sortable: false, class: 'text-xs-right' },
         { text: this.$t('score'), value: 'score', sortable: false, class: 'text-xs-right' },
-        { text: this.$t('created'), value: 'created', sortable: false, class: 'text-xs-right' },
+        { text: this.$t('updated'), value: 'updated', sortable: false, class: 'text-xs-right' },
         { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       solution: {
@@ -72,7 +72,7 @@ export default {
         score: 0,
         data: {},
         details: {},
-        created: null,
+        updated: null,
         owner: null,
         creator: null
       },

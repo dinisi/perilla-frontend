@@ -91,6 +91,7 @@
   "tags": "Tags",
   "title": "Title",
   "type": "Type",
+  "updated": "Updated",
   "upload": "Upload",
   "upload_finished": "Upload finished",
   "uploading": "Uploading {0}",

@@ -45,7 +45,7 @@ export default {
         title: 'New article',
         content: null,
         tags: ['Untagged'],
-        created: null,
+        updated: null,
         owner: null,
         creator: null
       },

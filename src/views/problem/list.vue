@@ -13,8 +13,11 @@
             <td class="text-xs-right">
               <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>
             </td>
-            <td class="text-xs-right">{{ props.item.created }}</td>
+            <td class="text-xs-right">{{ props.item.updated }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
+            <td class="text-xs-right">
+              <last-status :id="props.item.id"/>
+            </td>
           </tr>
         </template>
         <template slot="actions-prepend">
@@ -28,17 +31,22 @@
 <script>
 import { request } from '@/http'
 import { getStorage, setStorage } from '@/storage'
+import lastStatus from '@/components/laststatus.vue'
 
 export default {
   name: 'ProblemList',
+  components: {
+    lastStatus
+  },
   data () {
     return {
       headers: [
         { text: this.$t('ID'), align: 'left', sortable: true, value: 'id' },
         { text: this.$t('title'), value: 'title', sortable: true, class: 'text-xs-right' },
         { text: this.$t('tags'), value: 'tags', sortable: false, class: 'text-xs-right' },
-        { text: this.$t('created'), value: 'created', sortable: true, class: 'text-xs-right' },
-        { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
+        { text: this.$t('updated'), value: 'updated', sortable: true, class: 'text-xs-right' },
+        { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' },
+        { text: this.$t('status'), value: 'status', sortable: false, class: 'text-xs-right' }
       ],
       problems: [],
       pagination: {

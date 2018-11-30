@@ -78,7 +78,7 @@ export default {
         data: {},
         channel: null,
         tags: ['Untagged'],
-        created: null,
+        updated: null,
         owner: null,
         creator: null
       },

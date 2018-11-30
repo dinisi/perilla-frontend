@@ -56,7 +56,7 @@ export default {
         description: '',
         hash: '',
         size: 0,
-        created: null,
+        updated: null,
         tags: ['Untagged'],
         owner: null,
         creator: null
