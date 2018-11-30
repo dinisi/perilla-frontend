@@ -26,7 +26,9 @@ export default {
         entry: this.$store.state.entry,
         skip: 0,
         limit: 1,
-        problem: this.id
+        problem: this.id,
+        sortBy: 'score',
+        descending: true
       }
     }).then(result => {
       if (result instanceof Array && result.length === 1) {

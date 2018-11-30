@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <v-layout fill-height justify-center>
-      <img src="@/assets/logo.svg"/>
+    <v-layout row fill-height justify-center>
+      <img width="64px" height="64px" src="@/assets/logo.svg"/>
     </v-layout>
   </v-container>
 </template>
