@@ -24,6 +24,7 @@ export default {
       url: '/api/solution/list',
       params: {
         entry: this.$store.state.entry,
+        creator: this.$store.state.user,
         skip: 0,
         limit: 1,
         problem: this.id,
