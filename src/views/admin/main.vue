@@ -27,14 +27,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="loading" persistent width="300">
-      <v-card color="primary" dark>
-        <v-card-text>
-          {{ $t('please_wait') }}
-          <v-progress-linear indeterminate color="white" class="mb-0" />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
@@ -54,11 +46,11 @@ export default {
         created: null,
         type: null
       },
-      loading: true,
       EntryType
     }
   },
   mounted () {
+    this.$store.commit('toggleLoading', true)
     request({
       url: '/api/entry',
       params: { entry: this.$store.state.entry }
@@ -70,7 +62,7 @@ export default {
         this.$store.commit('updateMessage', e.message)
       })
       .finally(() => {
-        this.loading = false
+        this.$store.commit('toggleLoading', false)
       })
   },
   computed: {

@@ -80,6 +80,7 @@ export default {
       this.loading = val
     },
     '$store.state.timestamp': function () {
+      this.snackbar = false
       this.snackbar = true
       this.errormsg = this.$store.state.message
     },

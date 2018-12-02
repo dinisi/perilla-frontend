@@ -30,11 +30,11 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="loading" persistent width="300">
+    <v-dialog v-model="downloading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          {{ $t('please_wait') }}
-          <v-progress-linear :indeterminate="indeterminate" v-model="progress" color="white" class="mb-0" />
+          {{ $t('downloading') }}
+          <v-progress-linear v-model="progress" color="white" class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -62,12 +62,12 @@ export default {
         owner: null,
         creator: null
       },
-      loading: true,
-      indeterminate: true,
+      downloading: true,
       progress: 0
     }
   },
   mounted () {
+    this.$store.commit('toggleLoading', true)
     request({
       url: '/api/file',
       params: { entry: this.$store.state.entry, id: this.id }
@@ -79,7 +79,7 @@ export default {
         this.$store.commit('updateMessage', e.message)
       })
       .finally(() => {
-        this.loading = false
+        this.$store.commit('toggleLoading', false)
       })
   },
   computed: {
@@ -89,8 +89,7 @@ export default {
   },
   methods: {
     download () {
-      this.indeterminate = false
-      this.loading = true
+      this.downloading = true
       client({
         url: '/api/file/raw',
         method: 'GET',
@@ -107,7 +106,7 @@ export default {
         document.body.appendChild(link)
         link.click()
         this.progress = 100 // OCD
-        this.loading = false
+        this.downloading = false
       })
     }
   }

@@ -106,7 +106,7 @@ export default {
       if (this.intervalID === null) {
         this.loading = true
         this.fetch()
-        this.intervalID = setInterval(this.fetch, 5000)
+        this.intervalID = setInterval(this.fetch, 1000)
       }
     },
     disableAutoFetch: function () {
