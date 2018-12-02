@@ -1,6 +1,6 @@
 {
   "name": "perilla-frontend",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "private": true,
   "main": "src/main.ts",
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "buffer": "^5.2.1",
+    "copy-to-clipboard": "^3.0.8",
     "gravatar": "^1.8.0",
     "highlight.js": "^9.13.1",
     "html2canvas": "^1.0.0-alpha.12",

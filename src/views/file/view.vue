@@ -25,6 +25,7 @@
             <v-chip v-for="(tag, i) in file.tags" :key="i">{{ tag }}</v-chip>
             <v-spacer />
             <v-btn v-text="$t('download')" color="primary" @click="download"/>
+            <v-btn v-text="$t('link')" color="primary" @click="safeCopy(`/api/file/raw?id=${id}&entry=${$store.state.entry}`)"/>
             <v-btn v-text="$t('edit')" :to="'/file/edit/' + id" />
           </v-card-actions>
         </v-card>
@@ -44,6 +45,7 @@
 <script>
 import { client, request } from '@/http'
 import render from '@/helper/markdown'
+import copy from 'copy-to-clipboard'
 
 export default {
   name: 'FileView',
@@ -62,7 +64,7 @@ export default {
         owner: null,
         creator: null
       },
-      downloading: true,
+      downloading: false,
       progress: 0
     }
   },
@@ -108,6 +110,13 @@ export default {
         this.progress = 100 // OCD
         this.downloading = false
       })
+    },
+    safeCopy (str) {
+      if (copy(str)) {
+        this.$store.commit('updateMessage', this.$t('copy_succeeded'))
+      } else {
+        this.$store.commit('updateMessage', this.$t('copy_failed'))
+      }
     }
   }
 }
