@@ -59,6 +59,7 @@
   "leave_blank_to_remain_unchanged": "Leave blank to remain unchanged",
   "leave_blank_to_use_default": "Leave blank to use default value",
   "link": "Link",
+  "load_preview_may_cause_error": "Load preview may cause error. Continue?",
   "login": "Login",
   "logout": "Logout",
   "manage": "Manage",

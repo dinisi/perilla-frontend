@@ -1,23 +1,25 @@
 <template>
-  <v-container>
-    <v-flex wrap>
-      <v-card class="fill">
-        <v-card-title class="headline" v-text="$t('batch_upload')" />
-        <v-card-text>
-          <v-combobox v-model="tags" :label="$t('tags')" hide-selected multiple chips clearable/>
-          <input ref="file" type="file" multiple/>
-          <pre v-text="$t('all_progress')"/>
-          <v-progress-linear v-model="allProgress"/>
-          <pre v-text="tips"/>
-          <v-progress-linear v-model="currentProgress"/>
-          <pre v-html="log"/>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" @click="upload" v-text="$t('upload')" />
-        </v-card-actions>
-      </v-card>
-    </v-flex>
+  <v-container fluid>
+    <v-layout fill-height>
+      <v-flex>
+        <v-card>
+          <v-card-title class="headline" v-text="$t('batch_upload')" />
+          <v-card-text>
+            <v-combobox v-model="tags" :label="$t('tags')" hide-selected multiple chips clearable/>
+            <input ref="file" type="file" multiple/>
+            <pre v-text="$t('all_progress')"/>
+            <v-progress-linear v-model="allProgress"/>
+            <pre v-text="tips"/>
+            <v-progress-linear v-model="currentProgress"/>
+            <pre v-html="log"/>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="primary" @click="upload" v-text="$t('upload')" />
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -82,9 +84,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.fill
-  height 100%
-  overflow hidden
-</style>

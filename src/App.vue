@@ -137,22 +137,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.sidebar-main
-  height calc(100% - 80px - 80px - 10px)
-  overflow-y scroll
-  position absolute
-  top 85px
-
-.sidebar-footer
-  max-height 80px
-  min-height 80px
-  bottom 0
-  position absolute
-
-.sidebar-header
-  height 80px
-  top 0
-  position absolute
-</style>

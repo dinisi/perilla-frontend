@@ -41,5 +41,11 @@ module.exports = {
     }
   },
 
-  lintOnSave: undefined
+  lintOnSave: undefined,
+
+  pwa: {
+    name: 'Perilla',
+    themeColor: '#4A4A4A',
+    msTileColor: '#4A90E2'
+  }
 }

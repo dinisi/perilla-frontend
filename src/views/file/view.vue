@@ -25,9 +25,13 @@
             <v-chip v-for="(tag, i) in file.tags" :key="i">{{ tag }}</v-chip>
             <v-spacer />
             <v-btn v-text="$t('download')" color="primary" @click="download"/>
-            <v-btn v-text="$t('link')" color="primary" @click="safeCopy(`/api/file/raw?id=${id}&entry=${$store.state.entry}`)"/>
+            <v-btn v-text="$t('link')" @click="safeCopy(`/api/file/raw?id=${id}&entry=${$store.state.entry}`)"/>
             <v-btn v-text="$t('edit')" :to="'/file/edit/' + id" />
+            <v-btn v-text="$t('preview')" @click="loadPreview" color="warning"/>
           </v-card-actions>
+        </v-card>
+        <v-card v-if="showPreview">
+          <iframe :src="`/api/file/raw?id=${id}&entry=${$store.state.entry}`" width="100%" height="640px"/>
         </v-card>
       </v-flex>
     </v-layout>
@@ -65,7 +69,8 @@ export default {
         creator: null
       },
       downloading: false,
-      progress: 0
+      progress: 0,
+      showPreview: false
     }
   },
   mounted () {
@@ -116,6 +121,11 @@ export default {
         this.$store.commit('updateMessage', this.$t('copy_succeeded'))
       } else {
         this.$store.commit('updateMessage', this.$t('copy_failed'))
+      }
+    },
+    loadPreview () {
+      if (confirm(this.$t('load_preview_may_cause_error'))) {
+        this.showPreview = true
       }
     }
   }

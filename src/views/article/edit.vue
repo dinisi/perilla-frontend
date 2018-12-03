@@ -1,23 +1,25 @@
 <template>
-  <v-container>
-    <v-flex wrap>
-      <v-card class="fill">
-        <v-toolbar>
-          <v-toolbar-title v-text="$t('edit_article', [article.id])" />
-          <v-spacer />
-          <v-toolbar-items>
-            <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
-            <v-btn flat v-text="$t('save')" @click="save" color="primary" /><v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/article/show/' + id"/>
-          </v-toolbar-items>
-        </v-toolbar>
-        <v-progress-linear indeterminate query v-if="loading" />
-        <v-card-text>
-          <v-text-field :label="$t('title')" v-model="article.title" />
-          <z-markdown-editor v-model="article.content" />
-          <v-combobox v-model="article.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
-        </v-card-text>
-      </v-card>
-    </v-flex>
+  <v-container fluid>
+    <v-layout fill-height>
+      <v-flex>
+        <v-card>
+          <v-toolbar>
+            <v-toolbar-title v-text="$t('edit_article', [article.id])" />
+            <v-spacer />
+            <v-toolbar-items>
+              <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
+              <v-btn flat v-text="$t('save')" @click="save" color="primary" /><v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/article/show/' + id"/>
+            </v-toolbar-items>
+          </v-toolbar>
+          <v-progress-linear indeterminate query v-if="loading" />
+          <v-card-text>
+            <v-text-field :label="$t('title')" v-model="article.title" />
+            <z-markdown-editor v-model="article.content" />
+            <v-combobox v-model="article.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -121,9 +123,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.fill
-  height 100%
-  overflow hidden
-</style>

@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-layout fill-height>
-      <v-flex sm12>
-        <v-card class="fill">
+      <v-flex>
+        <v-card>
           <v-toolbar>
             <v-toolbar-title v-text="$t('edit_problem', [problem.id])" />
             <v-toolbar-items>
@@ -187,9 +187,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.fill
-  height 100%
-  overflow hidden
-</style>

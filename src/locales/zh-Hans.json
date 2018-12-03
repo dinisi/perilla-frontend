@@ -59,6 +59,7 @@
   "leave_blank_to_remain_unchanged": "留空以不变",
   "leave_blank_to_use_default": "留空以使用默认值",
   "link": "链接",
+  "load_preview_may_cause_error": "加载预览可能会触发错误。继续？",
   "login": "登录",
   "logout": "登出",
   "manage": "管理",
