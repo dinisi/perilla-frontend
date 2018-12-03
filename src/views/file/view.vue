@@ -27,10 +27,10 @@
             <v-btn v-text="$t('download')" color="primary" @click="download"/>
             <v-btn v-text="$t('link')" @click="safeCopy(`/api/file/raw?id=${id}&entry=${$store.state.entry}`)"/>
             <v-btn v-text="$t('edit')" :to="'/file/edit/' + id" />
-            <v-btn v-text="$t('preview')" @click="loadPreview" color="warning"/>
+            <v-btn v-text="$t('preview')" @click="loadPreview" color="warning" :disabled="showPreview"/>
           </v-card-actions>
         </v-card>
-        <v-card v-if="showPreview">
+        <v-card v-if="showPreview" flat>
           <iframe :src="`/api/file/raw?id=${id}&entry=${$store.state.entry}`" width="100%" height="640px"/>
         </v-card>
       </v-flex>
