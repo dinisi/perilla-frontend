@@ -116,7 +116,7 @@ export default {
   width 50%
   float left
   height 500px
-  overflow visible
+  overflow scroll
   border-left 1px solid #c1c1c1
 
 .z-markdown-editor-editor
@@ -124,5 +124,5 @@ export default {
 
 .z-markdown-editor-preview
   height 500px
-  overflow visible
+  overflow scroll
 </style>

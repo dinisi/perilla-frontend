@@ -61,7 +61,6 @@ export default {
   methods: {
     initMonaco (monaco) {
       const options = Object.assign(
-        {},
         {
           value: this.value,
           theme: this.theme,
