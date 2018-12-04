@@ -13,7 +13,7 @@
         </v-list-tile>
         <v-divider/>
         <v-subheader>{{ $t('current_entry') }}</v-subheader>
-        <v-list-tile avatar :to="'/entry/show/' + user">
+        <v-list-tile avatar :to="'/entry/show/' + entry">
           <v-list-tile-avatar>
             <img :src="entryAvatar">
           </v-list-tile-avatar>
