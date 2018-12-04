@@ -10,13 +10,14 @@ import Vuetify from 'vuetify'
 import './styles/vuetify.styl'
 import './styles/main.styl'
 import App from './App.vue'
+import './hook'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuetify, {
   iconfont: 'md',
   lang: {
-    t: (key, ...params) => i18n.t(key, params)
+    t: (key: any, ...params: any) => i18n.t(key, params)
   }
 })
 

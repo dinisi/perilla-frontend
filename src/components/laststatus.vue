@@ -16,7 +16,7 @@ export default {
       outline: true,
       color: '#3498db',
       textColor: undefined,
-      details: this.$t('fetching')
+      details: 'fetching'
     }
   },
   mounted () {
@@ -41,13 +41,13 @@ export default {
       } else {
         this.outline = false
         this.color = '#34495e'
-        this.details = this.$t('no_data')
+        this.details = 'no_data'
         this.textColor = 'white'
       }
     }).catch(err => {
       this.outline = false
       this.color = '#e74c3c'
-      this.details = this.$t('error')
+      this.details = 'error'
       this.textColor = 'white'
     })
   }
