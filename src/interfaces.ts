@@ -23,66 +23,66 @@ export const resultDisplay = [
   {
     outline: true,
     color: '#1abc9c',
-    text: 'Waiting Judge'
+    text: 'waiting_judge'
   },
   {
     outline: true,
     color: '#f39c12',
-    text: 'Judging'
+    text: 'judging'
   },
   {
     color: '#7f8c8d',
-    text: 'Skipped',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'skipped'
   },
   {
     color: '#2ecc71',
-    text: 'Accepted',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'accepted'
   },
   {
     color: '#e74c3c',
-    text: 'Wrong Answer',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'wrong_answer'
   },
   {
     color: '#9b59b6',
-    text: 'Time Limit Exceeded',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'time_limit_exceeded'
   },
   {
     color: '#e67e22',
-    text: 'Memory Limit Exceeded',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'memory_limit_exceeded'
   },
   {
     color: '#f1c40f',
-    text: 'Runtime Error',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'runtime_error'
   },
   {
     color: '#3498db',
-    text: 'Compile Error',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'compile_error'
   },
   {
     color: '#27ae60',
-    text: 'Presentation Error',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'presentation_error'
   },
   {
     color: '#e74c3c',
-    text: 'Judgement Failed',
-    textColor: 'white'
+    textColor: 'white',
+    text: 'judgement_failed'
   },
   {
     outline: true,
     color: '#c0392b',
-    text: 'SystemError'
+    text: 'system_error'
   },
   {
     outline: true,
     color: '#2c3e50',
-    text: 'OtherError'
+    text: 'other_error'
   }
 ]

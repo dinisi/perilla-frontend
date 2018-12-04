@@ -35,12 +35,12 @@ export default {
   },
   watch: {
     'value': function (val) {
-      if (val!==this.entry) {
+      if (val !== this.entry) {
         this.entry = val
       }
     },
     'entry': function (val) {
-      if (val!==this.value) {
+      if (val !== this.value) {
         this.$emit('updateValue', val)
       }
     },

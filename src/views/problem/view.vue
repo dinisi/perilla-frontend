@@ -111,7 +111,7 @@ export default {
         method: 'POST'
       })
         .then(id => {
-          this.$router.push('/solution/show/'+id)
+          this.$router.push('/solution/show/' + id)
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)

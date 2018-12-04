@@ -1,6 +1,6 @@
 <template>
   <v-chip label :outline="outline" :color="color" :text-color="textColor">
-    {{ details }}
+    {{ $t(details) }}
   </v-chip>
 </template>
 
@@ -16,7 +16,7 @@ export default {
       outline: true,
       color: '#3498db',
       textColor: undefined,
-      details: 'Fetching'
+      details: this.$t('fetching')
     }
   },
   mounted () {
@@ -28,7 +28,7 @@ export default {
         skip: 0,
         limit: 1,
         problem: this.id,
-        sortBy: 'score',
+        sortBy: 'id',
         descending: true
       }
     }).then(result => {
@@ -41,13 +41,13 @@ export default {
       } else {
         this.outline = false
         this.color = '#34495e'
-        this.details = 'No data'
+        this.details = this.$t('no_data')
         this.textColor = 'white'
       }
     }).catch(err => {
       this.outline = false
       this.color = '#e74c3c'
-      this.details = 'Error'
+      this.details = this.$t('error')
       this.textColor = 'white'
     })
   }

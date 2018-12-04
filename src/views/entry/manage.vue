@@ -38,6 +38,7 @@ export default {
   components: {
     selectEntry
   },
+  props: ['id'],
   data () {
     return {
       headers: [
@@ -71,7 +72,7 @@ export default {
           url: '/api/entrymap/list',
           params: Object.assign(
             {},
-            { entry: this.$store.state.entry },
+            { entry: this.id },
             { noexec: true }
           )
         }),
@@ -79,7 +80,7 @@ export default {
           url: '/api/entrymap/list',
           params: Object.assign(
             {},
-            { entry: this.$store.state.entry },
+            { entry: this.id },
             { skip: (page - 1) * rowsPerPage, limit: rowsPerPage }
           )
         })
@@ -104,7 +105,7 @@ export default {
       this.loading = true
       request({
         url: '/api/entrymap/',
-        params: { entry: this.$store.state.entry, from },
+        params: { entry: this.id, from },
         method: 'POST',
         data: { admin: true }
       }).then(() => {
@@ -119,7 +120,7 @@ export default {
       this.loading = true
       request({
         url: '/api/entrymap/',
-        params: { entry: this.$store.state.entry, from },
+        params: { entry: this.id, from },
         method: 'POST',
         data: { admin: false }
       }).then(() => {
@@ -134,7 +135,7 @@ export default {
       this.loading = true
       request({
         url: '/api/entrymap/',
-        params: { entry: this.$store.state.entry, from },
+        params: { entry: this.id, from },
         method: 'DELETE'
       }).then(() => {
         this.$store.commit('updateMessage', this.$t('succeeded'))

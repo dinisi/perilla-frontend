@@ -35,6 +35,7 @@ export default {
   components: {
     zMarkdownEditor
   },
+  props: ['id'],
   data () {
     return {
       entry: {
@@ -51,7 +52,7 @@ export default {
     this.$store.commit('toggleLoading', true)
     request({
       url: '/api/entry',
-      params: { entry: this.$store.state.entry }
+      params: { entry: this.id }
     })
       .then(entry => {
         this.entry = entry
@@ -69,7 +70,7 @@ export default {
       request({
         url: '/api/entry',
         method: 'PUT',
-        params: { entry: this.$store.state.entry },
+        params: { entry: this.id },
         data: this.entry
       }).then(() => {
         this.$store.commit('updateMessage', this.$t('succeeded'))

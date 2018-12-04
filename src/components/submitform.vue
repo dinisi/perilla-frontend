@@ -99,7 +99,7 @@ export default {
     },
     async commonTextUpload () {
       if (this.common.editorContent && this.common.editorContent.length) {
-        const file = new File([this.common.editorContent], 'solution'+(+new Date())+'.txt')
+        const file = new File([this.common.editorContent], 'solution' + (+new Date()) + '.txt')
         this.common.loading = true
         let id = await this.upload(file)
         this.realval = {

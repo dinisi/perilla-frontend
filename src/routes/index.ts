@@ -12,7 +12,7 @@ import blank from '../views/blank.vue'
 import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
 import { articleRoutes } from './article'
-import { adminRoutes } from './admin'
+import { entryRoutes } from './entry'
 
 let routes: RouteConfig[] = [
   {
@@ -60,7 +60,7 @@ routes = routes.concat(problemRoutes)
 routes = routes.concat(fileRoutes)
 routes = routes.concat(solutionRoutes)
 routes = routes.concat(articleRoutes)
-routes = routes.concat(adminRoutes)
+routes = routes.concat(entryRoutes)
 routes.push({
   path: '*',
   name: 'error',

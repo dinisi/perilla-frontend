@@ -1,23 +1,48 @@
 <template>
   <v-app>
     <v-navigation-drawer v-model="showsidebar" app v-if="login">
-      <v-toolbar>
-        <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img :src="avatarURL">
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title v-text="entry"/>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn icon @click="showSelectEntry = true">
-                <v-icon>people_outline</v-icon>
-              </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list>
-      </v-toolbar>
+      <v-list subheader>
+        <v-subheader>{{ $t('logged_in_as') }}</v-subheader>
+        <v-list-tile avatar :to="'/entry/show/' + user">
+          <v-list-tile-avatar>
+            <img :src="userAvatar">
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ user }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider/>
+        <v-subheader>{{ $t('current_entry') }}</v-subheader>
+        <v-list-tile avatar :to="'/entry/show/' + user">
+          <v-list-tile-avatar>
+            <img :src="entryAvatar">
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ entry }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider/>
+        <v-subheader>{{ $t('general') }}</v-subheader>
+        <v-list-tile @click="showSelectEntry = true">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('change_entry') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider/>
+        <v-subheader>{{ $t('information') }}</v-subheader>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ frontendVer }}</v-list-tile-title>
+            <v-list-tile-sub-title>{{ $t('frontend_version') }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ serverVer }}</v-list-tile-title>
+            <v-list-tile-sub-title>{{ $t('server_version') }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
     <navbar v-model="showsidebar" />
     <v-content>
@@ -55,6 +80,7 @@ import * as gravatar from 'gravatar'
 import { client, request } from '@/http'
 import selectAccessible from '@/components/selectaccessible'
 import { getStorage } from '@/storage'
+import { version as frontendVer } from '../package.json'
 
 export default {
   name: 'App',
@@ -68,11 +94,14 @@ export default {
       showsidebar: false,
       snackbar: false,
       errormsg: null,
-      avatarURL: '',
+      entryAvatar: '',
+      userAvatar: '',
       newMessage: '',
       disableInput: false,
       showSelectEntry: false,
-      newEntry: null
+      newEntry: null,
+      frontendVer,
+      serverVer: this.$t('fetching')
     }
   },
   watch: {
@@ -85,12 +114,20 @@ export default {
       this.errormsg = this.$store.state.message
     },
     '$store.state.entry': function (val) {
-      this.loadAvatar()
+      this.loadEntryAvatar()
+    },
+    '$store.state.user': function (val) {
+      this.loadUserAvatar()
     }
   },
   created () {
     this.$i18n.locale = getStorage(localStorage, 'language') || this.$i18n.locale
     client.defaults.baseURL = getStorage(localStorage, 'baseURL') || client.defaults.baseURL
+    request({ url: '/' }).then(info => {
+      this.serverVer = info.version
+    }).catch(e => {
+      this.$store.commit('updateMessage', e.message)
+    })
   },
   mounted () {
     this.$store.commit('toggleLoading', true)
@@ -112,16 +149,31 @@ export default {
     },
     entry () {
       return this.$store.state.entry
+    },
+    user () {
+      return this.$store.state.user
     }
   },
   methods: {
-    loadAvatar () {
+    loadUserAvatar () {
+      request({
+        url: '/api/entry',
+        params: { entry: this.user }
+      })
+        .then(res => {
+          this.userAvatar = gravatar.url(res.email)
+        })
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
+        })
+    },
+    loadEntryAvatar () {
       request({
         url: '/api/entry',
         params: { entry: this.entry }
       })
         .then(res => {
-          this.avatarURL = gravatar.url(res.email)
+          this.entryAvatar = gravatar.url(res.email)
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)

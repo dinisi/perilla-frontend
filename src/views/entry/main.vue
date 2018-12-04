@@ -37,6 +37,7 @@ import { EntryType } from '@/interfaces'
 
 export default {
   name: 'adminMain',
+  props: ['id'],
   data () {
     return {
       entry: {
@@ -53,7 +54,7 @@ export default {
     this.$store.commit('toggleLoading', true)
     request({
       url: '/api/entry',
-      params: { entry: this.$store.state.entry }
+      params: { entry: this.id }
     })
       .then(entry => {
         this.entry = entry

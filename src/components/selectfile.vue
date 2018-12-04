@@ -34,12 +34,12 @@ export default {
   },
   watch: {
     'value': function (val) {
-      if (val!==this.file) {
+      if (val !== this.file) {
         this.file = val
       }
     },
     'file': function (val) {
-      if (val!==this.value) {
+      if (val !== this.value) {
         this.$emit('update', val)
       }
     },
