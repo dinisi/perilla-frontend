@@ -50,25 +50,35 @@ export default {
       EntryType
     }
   },
-  mounted () {
-    this.$store.commit('toggleLoading', true)
-    request({
-      url: '/api/entry',
-      params: { entry: this.id }
-    })
-      .then(entry => {
-        this.entry = entry
-      })
-      .catch(e => {
-        this.$store.commit('updateMessage', e.message)
-      })
-      .finally(() => {
-        this.$store.commit('toggleLoading', false)
-      })
+  watch: {
+    'id': {
+      handler: function () {
+        this.load()
+      },
+      immediate: true
+    }
   },
   computed: {
     rendered: function () {
       return render(this.entry.description)
+    }
+  },
+  methods: {
+    load () {
+      this.$store.commit('toggleLoading', true)
+      request({
+        url: '/api/entry',
+        params: { entry: this.id }
+      })
+        .then(entry => {
+          this.entry = entry
+        })
+        .catch(e => {
+          this.$store.commit('updateMessage', e.message)
+        })
+        .finally(() => {
+          this.$store.commit('toggleLoading', false)
+        })
     }
   }
 }
