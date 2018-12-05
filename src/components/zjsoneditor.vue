@@ -4,13 +4,14 @@
 
 <script>
 import zMonacoEditor from './zmonacoeditor'
+import { isEqual } from 'lodash'
 
 export default {
   name: 'zJsonEditor',
   components: {
     zMonacoEditor
   },
-  props: ['value', 'readonly'],
+  props: ['value', 'readonly', 'valid'],
   model: {
     prop: 'value',
     event: 'updateValue'
@@ -24,17 +25,19 @@ export default {
     this.content = JSON.stringify(this.value, null, '\t')
   },
   watch: {
-    content (val) {
+    content: function () {
       try {
-        const parsed = JSON.parse(val)
-        this.$emit('updateValue', parsed)
+        this.$emit('updateValue', JSON.parse(this.content))
+        this.$emit('update:valid', true)
       } catch (e) {
-        // Eat any error
+        this.$emit('update:valid', false)
       }
     },
     value: {
-      handler: function (val) {
-        this.content = JSON.stringify(this.value, null, '\t') || '{}'
+      handler: function () {
+        if (!isEqual(this.value, JSON.parse(this.content))) {
+          this.content = JSON.stringify(this.value, null, '\t')
+        }
       },
       deep: true
     }

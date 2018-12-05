@@ -8,7 +8,7 @@
             <v-toolbar-items>
               <v-btn flat v-text="$t('edit')" :disabled="view === 0" @click="view = 0;"/>
               <v-btn flat v-text="$t('data')" :disabled="view === 1" @click="view = 1;"/>
-              <v-btn flat v-text="$t('import')" v-show="canImport" @click="showImport = 1"/>
+              <v-btn flat v-text="$t('import')" @click="showImport = 1"/>
             </v-toolbar-items>
             <v-spacer />
             <v-toolbar-items>
@@ -33,7 +33,7 @@
       <v-card>
         <v-card-title class="headline" v-text="$t('import')"/>
         <v-card-text>
-          <v-textarea v-model="importText" :placeholder="$t('problem_import_tip')"/>
+          <z-json-editor v-model="importObj"/>
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import zJsonEditor from '@/components/zjsoneditor.vue'
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import dataEdit from '@/components/dataedit.vue'
 import { request } from '@/http'
@@ -54,6 +55,7 @@ import { convertBZOJ, convertPOJ } from '@/helper/importprob'
 export default {
   name: 'ProblemEdit',
   components: {
+    zJsonEditor,
     zMarkdownEditor,
     dataEdit
   },
@@ -75,8 +77,7 @@ export default {
       view: 0,
       isnew: false,
       showImport: false,
-      canImport: false,
-      importText: ''
+      importObj: {}
     }
   },
   async mounted () {
@@ -85,15 +86,6 @@ export default {
     } else {
       this.isnew = true
       this.loading = false
-    }
-  },
-  watch: {
-    'problem.channel': function (val) {
-      if (['bzoj', 'poj', 'hdu', 'uoj', 'loj'].includes(val)) {
-        this.canImport = true
-      } else {
-        this.canImport = false
-      }
     }
   },
   methods: {
@@ -161,27 +153,11 @@ export default {
         })
     },
     doImport () {
-      switch (this.problem.channel) {
-        case 'bzoj':
-          {
-            const { id, title, content } = convertBZOJ(this.importText)
-            this.problem.title = title
-            this.problem.content = content
-            this.problem.data = { id }
-            this.problem.tags = ['BZOJ']
-          }
-          break
-        case 'poj':
-          {
-            const { title, content } = convertPOJ(this.importText)
-            this.problem.title = title
-            this.problem.content = content
-            this.problem.tags = ['POJ']
-          }
-          break
-        default:
-          this.$store.commit('updateMessage', this.$t('not_supported'))
-      }
+      this.problem.title = this.importObj.title || this.problem.title
+      this.problem.content = this.importObj.content || this.problem.content
+      this.problem.data = this.importObj.data || this.problem.data
+      this.problem.channel = this.importObj.channel || this.problem.channel
+      this.problem.tags = this.importObj.tags || this.problem.tags
       this.showImport = false
     }
   }

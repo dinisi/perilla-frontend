@@ -15,7 +15,6 @@ export default {
       default: 'vs'
     },
     language: String,
-    options: Object,
     readonly: {
       type: Boolean,
       default: false
@@ -26,14 +25,6 @@ export default {
     event: 'change'
   },
   watch: {
-    options: {
-      deep: true,
-      handler (options) {
-        if (this.editor) {
-          this.editor.updateOptions(options)
-        }
-      }
-    },
     value (newValue) {
       if (this.editor) {
         if (newValue !== this.editor.getValue()) {
@@ -50,6 +41,11 @@ export default {
       if (this.editor) {
         window.monaco.editor.setTheme(newVal)
       }
+    },
+    readonly (newVal) {
+      if (this.editor) {
+        this.editor.updateOptions({ readOnly: newVal })
+      }
     }
   },
   mounted () {
@@ -60,17 +56,13 @@ export default {
   },
   methods: {
     initMonaco (monaco) {
-      const options = Object.assign(
-        {
-          value: this.value,
-          theme: this.theme,
-          language: this.language,
-          automaticLayout: true,
-          readOnly: this.readonly
-        },
-        this.options
-      )
-
+      const options = {
+        value: this.value,
+        theme: this.theme,
+        language: this.language,
+        automaticLayout: true,
+        readOnly: this.readonly
+      }
       this.editor = monaco.editor.create(this.$el, options)
       this.$emit('editorDidMount', this.editor)
       this.editor.onContextMenu(event => this.$emit('contextMenu', event))
