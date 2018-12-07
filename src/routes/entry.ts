@@ -16,7 +16,7 @@ export const entryRoutes: RouteConfig[] = [
     props: route => ({ id: route.params.id })
   },
   {
-    path: '/entry/manage',
+    path: '/entry/manage/:id',
     name: 'entryManage',
     component: () =>
       import(/* webpackChunkName: "entry" */ '../views/entry/manage.vue'),

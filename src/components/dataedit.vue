@@ -15,6 +15,7 @@
 import { calcHash } from '@/utils'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import { request } from '@/http'
+import { generateData as generateTrad } from '@/helpers/traditional'
 
 export default {
   name: 'dataEdit',
@@ -64,46 +65,15 @@ export default {
     async applyTrad () {
       if (this.$refs.files && this.$refs.files.files) {
         this.trad.apply_loading = true
-        const files = this.$refs.files.files
-        let map = new Map()
-        for (let file of files) {
-          let filename = file.name
-          filename = filename.substring(0, filename.lastIndexOf('.'))
-          if (!filename) continue
-          let ext = file.name.substr(filename.length + 1)
-          if (!ext) continue
-          console.log(filename)
-          console.log(ext)
-          map[filename] = map[filename] || {}
-          if (['in'].includes(ext)) {
-            map[filename].input = map[filename].input || file
-          }
-          if (['ans', 'out'].includes(ext)) {
-            map[filename].output = map[filename].output || file
+        let raw = await generateTrad(this.$refs.files.files)
+        if (raw.spj) raw.spj.file = await this.upload(raw.spj.file)
+        for (let subtask of raw.subtasks) {
+          for (let runcase of subtask.runcases) {
+            runcase.input = await this.upload(runcase.input)
+            runcase.output = await this.upload(runcase.output)
           }
         }
-        let runcases = []
-        for (let key in map) {
-          if (map[key].input && map[key].output) {
-            runcases.push({
-              input: await this.upload(map[key].input),
-              output: await this.upload(map[key].output),
-              desc: key
-            })
-          }
-        }
-        this.realval = {
-          subtasks: [
-            {
-              name: 'Default',
-              timeLimit: 1,
-              memoryLimit: 524288,
-              score: 100,
-              runcases,
-              dependency: []
-            }
-          ]
-        }
+        this.realval = raw
         this.$store.commit('updateMessage', this.$t('upload_finished'))
         this.trad.apply_loading = false
       }

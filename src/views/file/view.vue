@@ -48,7 +48,7 @@
 
 <script>
 import { client, request } from '@/http'
-import render from '@/helper/markdown'
+import render from '@/helpers/markdown'
 import copy from 'copy-to-clipboard'
 
 export default {

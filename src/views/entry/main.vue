@@ -21,8 +21,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn v-text="$t('manage')" color="primary" to="/admin/manage" />
-            <v-btn v-text="$t('edit')" to='/admin/edit/' />
+            <v-btn v-text="$t('manage')" color="primary" :to="'/entry/manage/' + id" />
+            <v-btn v-text="$t('edit')" :to="'/entry/edit/' + id" />
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -32,7 +32,7 @@
 
 <script>
 import { request } from '@/http'
-import render from '@/helper/markdown'
+import render from '@/helpers/markdown'
 import { EntryType } from '@/interfaces'
 
 export default {

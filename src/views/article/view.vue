@@ -25,7 +25,7 @@
 
 <script>
 import { request } from '@/http'
-import render from '@/helper/markdown'
+import render from '@/helpers/markdown'
 
 export default {
   name: 'articleView',

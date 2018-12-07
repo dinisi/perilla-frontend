@@ -44,7 +44,7 @@
 
 <script>
 import { request } from '@/http'
-import render from '@/helper/markdown'
+import render from '@/helpers/markdown'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import solutionResult from '@/components/solutionresult.vue'
 

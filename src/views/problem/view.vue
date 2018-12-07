@@ -52,7 +52,7 @@
 
 <script>
 import { request } from '@/http'
-import render from '@/helper/markdown'
+import render from '@/helpers/markdown'
 import submitForm from '@/components/submitform.vue'
 
 export default {
