@@ -65,16 +65,20 @@ export default {
     async applyTrad () {
       if (this.$refs.files && this.$refs.files.files) {
         this.trad.apply_loading = true
-        let raw = await generateTrad(this.$refs.files.files)
-        if (raw.spj) raw.spj.file = await this.upload(raw.spj.file)
-        for (let subtask of raw.subtasks) {
-          for (let runcase of subtask.runcases) {
-            runcase.input = await this.upload(runcase.input)
-            runcase.output = await this.upload(runcase.output)
+        try {
+          let raw = await generateTrad(this.$refs.files.files)
+          if (raw.spj) raw.spj.file = await this.upload(raw.spj.file)
+          for (let subtask of raw.subtasks) {
+            for (let runcase of subtask.runcases) {
+              runcase.input = await this.upload(runcase.input)
+              runcase.output = await this.upload(runcase.output)
+            }
           }
+          this.realval = raw
+          this.$store.commit('updateMessage', this.$t('upload_finished'))
+        } catch (e) {
+          this.$store.commit('updateMessage', e.message)
         }
-        this.realval = raw
-        this.$store.commit('updateMessage', this.$t('upload_finished'))
         this.trad.apply_loading = false
       }
     },
@@ -95,7 +99,7 @@ export default {
           }
         })
       } catch (e) {
-        console.log(e.message)
+        this.$store.commit('updateMessage', e.message)
       }
       this.$store.commit('updateMessage', this.$t('creating', [file.name]))
       const id = await request({

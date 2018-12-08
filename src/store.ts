@@ -31,6 +31,7 @@ export default new Vuex.Store({
       setStorage(sessionStorage, 'entry', payload)
     },
     updateMessage: (state, val) => {
+      console.log(val)
       state.message = val
       state.timestamp++
     }

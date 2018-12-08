@@ -56,7 +56,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar" bottom right>
+    <v-snackbar v-model="snackbar" bottom right :timeout="0">
       {{ errormsg }}
     </v-snackbar>
     <v-dialog v-model="showSelectEntry" width="300">
@@ -101,7 +101,8 @@ export default {
       showSelectEntry: false,
       newEntry: null,
       frontendVer,
-      serverVer: this.$t('fetching')
+      serverVer: this.$t('fetching'),
+      snackbarRestTime: 0
     }
   },
   watch: {
@@ -109,7 +110,7 @@ export default {
       this.loading = val
     },
     '$store.state.timestamp': function () {
-      this.snackbar = false
+      this.snackbarRestTime = 6
       this.snackbar = true
       this.errormsg = this.$store.state.message
     },
@@ -121,6 +122,11 @@ export default {
     }
   },
   created () {
+    setInterval(() => {
+      if (this.snackbarRestTime && !--this.snackbarRestTime) {
+        this.snackbar = false
+      }
+    }, 1000)
     this.$i18n.locale = getStorage(localStorage, 'language') || this.$i18n.locale
     client.defaults.baseURL = getStorage(localStorage, 'baseURL') || client.defaults.baseURL
     request({ url: '/' }).then(info => {
