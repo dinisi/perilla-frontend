@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import { request } from '@/http'
-import render from '@/helpers/markdown'
-import { EntryType } from '@/interfaces'
+import { request } from '../..//http'
+import render from '../..//helpers/markdown'
+import { EntryType } from '../..//interfaces'
 
 export default {
   name: 'adminMain',

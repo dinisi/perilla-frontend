@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getStorage, setStorage } from './storage'
+import { setStorage } from './storage'
+import { parseJwt } from './utils'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     loading: false,
-    login: false,
+    token: null,
     user: null,
     entry: null,
     message: null,
@@ -18,13 +20,12 @@ export default new Vuex.Store({
       state.loading = payload
     },
     login: (state, payload) => {
-      state.login = true
-      state.user = payload.user
-      state.entry = getStorage(sessionStorage, 'entry') || payload.user // a entrymap to user self is always exists
+      state.token = payload
+      state.user = parseJwt(payload)._id
+      state.entry = state.user
     },
     logout: state => {
-      state.login = false
-      state.user = null
+      state.token = state.user = state.entry = null
     },
     changeEntry: (state, payload) => {
       state.entry = payload
@@ -36,5 +37,6 @@ export default new Vuex.Store({
       state.timestamp++
     }
   },
-  actions: {}
+  actions: {},
+  plugins: [createPersistedState()]
 })

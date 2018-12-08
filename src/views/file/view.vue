@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import { client, request } from '@/http'
-import render from '@/helpers/markdown'
+import { client, request } from '../..//http'
+import render from '../..//helpers/markdown'
 import copy from 'copy-to-clipboard'
 
 export default {

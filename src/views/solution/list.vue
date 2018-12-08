@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import { request } from '@/http'
-import solutionResult from '@/components/solutionresult.vue'
-import { getStorage, setStorage } from '@/storage'
+import { request } from '../..//http'
+import solutionResult from '../..//components/solutionresult.vue'
+import { getStorage, setStorage } from '../..//storage'
 
 export default {
   name: 'SolutionList',

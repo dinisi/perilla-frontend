@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import { request } from '@/http'
-import selectEntry from '@/components/selectentry'
+import { request } from '../..//http'
+import selectEntry from '../..//components/selectentry'
 
 export default {
   name: 'manage',

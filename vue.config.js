@@ -2,7 +2,7 @@ const MonocoEditorPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   outputDir: undefined,
-  baseUrl: '/frontend',
+  baseUrl: '',
   assetsDir: undefined,
   runtimeCompiler: undefined,
   productionSourceMap: false,
@@ -12,6 +12,9 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
+        target: process.env.TARGET || 'http://localhost:8680/'
+      },
+      '/auth': {
         target: process.env.TARGET || 'http://localhost:8680/'
       }
     }

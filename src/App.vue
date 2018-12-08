@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="showsidebar" app v-if="login">
+    <v-navigation-drawer v-model="showsidebar" app v-if="!!token">
       <v-list subheader>
         <v-subheader>{{ $t('logged_in_as') }}</v-subheader>
         <v-list-tile avatar :to="'/entry/show/' + user">
@@ -114,11 +114,17 @@ export default {
       this.snackbar = true
       this.errormsg = this.$store.state.message
     },
-    '$store.state.entry': function (val) {
-      this.loadEntryAvatar()
+    '$store.state.entry': {
+      handler: function (val) {
+        this.loadEntryAvatar()
+      },
+      immediate: true
     },
-    '$store.state.user': function (val) {
-      this.loadUserAvatar()
+    '$store.state.user': {
+      handler: function () {
+        this.loadUserAvatar()
+      },
+      immediate: true
     }
   },
   created () {
@@ -135,23 +141,9 @@ export default {
       this.$store.commit('updateMessage', e.message)
     })
   },
-  mounted () {
-    this.$store.commit('toggleLoading', true)
-    request({ url: '/api/misc/session' })
-      .then(info => {
-        this.$store.commit('login', info)
-      })
-      .catch(e => {
-        // Not logged in
-        // Ignore this error
-      })
-      .finally(() => {
-        this.$store.commit('toggleLoading', false)
-      })
-  },
   computed: {
-    login () {
-      return this.$store.state.login
+    token () {
+      return this.$store.state.token
     },
     entry () {
       return this.$store.state.entry

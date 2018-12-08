@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '..//http'
 
 export default {
   name: 'createGroup',

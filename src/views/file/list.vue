@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import { request } from '@/http'
-import { getStorage, setStorage } from '@/storage'
+import { request } from '../..//http'
+import { getStorage, setStorage } from '../..//storage'
 
 export default {
   name: 'FileList',

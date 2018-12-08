@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
-import { request } from '@/http'
-import { calcHash } from '@/utils'
+import zMarkdownEditor from '../..//components/zmarkdowneditor.vue'
+import { request } from '../..//http'
+import { calcHash } from '../..//utils'
 
 export default {
   name: 'FileEdit',

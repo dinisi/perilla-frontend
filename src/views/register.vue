@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '..//http'
 
 export default {
   name: 'Register',
@@ -38,7 +38,7 @@ export default {
     register () {
       this.loading = true
       request({
-        url: '/api/misc/register',
+        url: '/auth/register',
         method: 'POST',
         data: this.form
       })

@@ -1,6 +1,6 @@
 <template>
   <v-toolbar app>
-    <v-toolbar-side-icon v-if="login" @click="show = !show;" />
+    <v-toolbar-side-icon v-if="token" @click="show = !show;" />
     <v-toolbar-items>
       <v-btn class="headline" flat to="/">Perilla</v-btn>
       <v-btn flat to="/problem" v-text="$t('problem')" />
@@ -10,7 +10,7 @@
     </v-toolbar-items>
     <v-spacer />
     <v-toolbar-items>
-      <template v-if="login">
+      <template v-if="token">
         <v-menu open-on-hover bottom offset-y>
           <v-btn flat slot="activator" to="/logout" v-text="$t('logout')"/>
           <v-list>
@@ -82,8 +82,8 @@ export default {
     //
   },
   computed: {
-    login: function () {
-      return this.$store.state.login
+    token: function () {
+      return this.$store.state.token
     }
   }
 }

@@ -3,18 +3,13 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '..//http'
 
 export default {
   name: 'Logout',
   mounted () {
-    request({
-      method: 'POST',
-      url: '/api/misc/logout'
-    }).then(() => {
-      this.$router.push('/')
-      location.reload(true)
-    })
+    this.$store.commit('logout')
+    this.$router.push('/')
   }
 }
 </script>

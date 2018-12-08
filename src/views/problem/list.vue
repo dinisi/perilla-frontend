@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import { request } from '@/http'
-import { getStorage, setStorage } from '@/storage'
-import lastStatus from '@/components/laststatus.vue'
+import { request } from '../..//http'
+import { getStorage, setStorage } from '../..//storage'
+import lastStatus from '../..//components/laststatus.vue'
 
 export default {
   name: 'ProblemList',

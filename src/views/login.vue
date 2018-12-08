@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '..//http'
 
 export default {
   name: 'Login',
@@ -36,12 +36,10 @@ export default {
   methods: {
     login () {
       this.loading = true
-      request({ url: '/api/misc/login', method: 'POST', data: this.form })
-        .then(() => {
-          setTimeout(() => {
-            this.$router.push('/')
-            location.reload(true)
-          }, 0)
+      request({ url: '/auth/login', method: 'POST', data: this.form })
+        .then((jwt) => {
+          this.$store.commit('login', jwt)
+          this.$router.push('/')
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)
