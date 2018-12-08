@@ -16,7 +16,7 @@ Vue.config.productionTip = false
 Vue.use(Vuetify, {
   iconfont: 'md',
   lang: {
-    t: (key, ...params) => i18n.t(key, params)
+    t: (key: any, ...params: any) => i18n.t(key, params)
   }
 })
 
