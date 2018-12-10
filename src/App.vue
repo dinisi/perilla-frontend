@@ -154,6 +154,7 @@ export default {
   },
   methods: {
     loadUserAvatar () {
+      if (!this.user) return
       request({
         url: '/api/entry',
         params: { entry: this.user }
@@ -166,6 +167,7 @@ export default {
         })
     },
     loadEntryAvatar () {
+      if (!this.entry) return
       request({
         url: '/api/entry',
         params: { entry: this.entry }

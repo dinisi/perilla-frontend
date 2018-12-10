@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     querySelections (search) {
+      if (!this.$store.state.user) return
       this.loading = true
       const params = { search, skip: 0, limit: 10 }
       request({
