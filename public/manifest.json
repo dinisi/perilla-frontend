@@ -3,17 +3,17 @@
   "short_name": "Perilla",
   "icons": [
     {
-      "src": "/frontend/img/icons/android-chrome-192x192.png",
+      "src": "/img/icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/frontend/img/icons/android-chrome-512x512.png",
+      "src": "/img/icons/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "/frontend/index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#4A90E2",
   "theme_color": "#4A4A4A"
