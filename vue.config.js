@@ -2,10 +2,10 @@ const MonocoEditorPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   outputDir: undefined,
-  baseUrl: '',
+  baseUrl: undefined,
   assetsDir: undefined,
   runtimeCompiler: undefined,
-  productionSourceMap: false,
+  productionSourceMap: undefined,
   parallel: false,
   css: undefined,
 
