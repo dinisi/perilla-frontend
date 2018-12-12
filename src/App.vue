@@ -117,14 +117,12 @@ export default {
     '$store.state.entry': {
       handler: function (val) {
         this.loadEntryAvatar()
-      },
-      immediate: true
+      }
     },
     '$store.state.user': {
       handler: function () {
         this.loadUserAvatar()
-      },
-      immediate: true
+      }
     }
   },
   created () {
@@ -181,12 +179,12 @@ export default {
       this.showSelectEntry = false
     },
     async loadSettings () {
-      this.$i18n.locale = getStorage(localStorage, 'language') || this.$i18n.locale
-      client.defaults.baseURL = getStorage(localStorage, 'baseURL') || prompt(this.$t('base_url'))
       while (true) {
         try {
           this.serverInfo = await request({ url: '/' })
           setStorage(localStorage, 'baseURL', client.defaults.baseURL)
+          this.loadUserAvatar()
+          this.loadEntryAvatar()
           break
         } catch (e) {
           this.$store.commit('updateMessage', e.message)
