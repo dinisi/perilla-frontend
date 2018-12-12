@@ -91,6 +91,7 @@
   "problem_import_tip": "Ctrl+A,Ctrl+C and paste it here",
   "raw": "Raw",
   "register": "Register",
+  "refresh": "Refresh",
   "rejudge": "Rejudge",
   "rejudge_succeeded": "Rejudge succeeded",
   "remove": "Remove",

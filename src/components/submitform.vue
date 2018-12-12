@@ -5,6 +5,7 @@
         <v-tab :key="0" ripple>{{ $t('select') }}</v-tab>
         <v-tab :key="1" ripple>{{ $t('upload') }}</v-tab>
         <v-tab :key="2" ripple>{{ $t('editor') }}</v-tab>
+        <v-tab :key="3" ripple>{{ $t('raw') }}</v-tab>
         <v-tab-item :key="0">
           <select-file v-model="realval.file"/>
         </v-tab-item>
@@ -16,10 +17,13 @@
           <z-monaco-editor class="editor" v-model="common.editorContent" :language="vslanguage[realval.language] || 'plain'"/>
           <v-btn color="primary" @click="commonTextUpload" v-text="$t('upload')" :loading="common.loading"/>
         </v-tab-item>
+        <v-tab-item :key="3">
+          <z-json-editor v-model="realval"/>
+        </v-tab-item>
       </v-tabs>
       <v-select :items="languages" v-model="realval.language" :label="$t('language')"/>
     </div>
-    <z-json-editor v-model="realval"/>
+    <z-json-editor v-else v-model="realval"/>
   </div>
 </template>
 
@@ -58,7 +62,7 @@ export default {
       },
       common: {
         loading: false,
-        tab: 1,
+        tab: 2,
         editorContent: ''
       },
       languages,

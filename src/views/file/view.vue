@@ -30,8 +30,8 @@
             <v-btn v-text="$t('preview')" @click="loadPreview" color="warning" :disabled="showPreview"/>
           </v-card-actions>
         </v-card>
-        <v-card v-if="showPreview" flat>
-          <iframe :src="`/api/file/raw?id=${id}&entry=${$store.state.entry}`" width="100%" height="640px"/>
+        <v-card v-show="showPreview" flat>
+          <iframe ref="iframe" width="100%" height="640px"/>
         </v-card>
       </v-flex>
     </v-layout>
@@ -73,21 +73,26 @@ export default {
       showPreview: false
     }
   },
-  mounted () {
-    this.$store.commit('toggleLoading', true)
-    request({
-      url: '/api/file',
-      params: { entry: this.$store.state.entry, id: this.id }
-    })
-      .then(file => {
-        this.file = file
-      })
-      .catch(e => {
-        this.$store.commit('updateMessage', e.message)
-      })
-      .finally(() => {
-        this.$store.commit('toggleLoading', false)
-      })
+  watch: {
+    id: {
+      immediate: true,
+      handler: function () {
+        this.$store.commit('toggleLoading', true)
+        request({
+          url: '/api/file',
+          params: { entry: this.$store.state.entry, id: this.id }
+        })
+          .then(file => {
+            this.file = file
+          })
+          .catch(e => {
+            this.$store.commit('updateMessage', e.message)
+          })
+          .finally(() => {
+            this.$store.commit('toggleLoading', false)
+          })
+      }
+    }
   },
   computed: {
     rendered: function () {
@@ -102,6 +107,9 @@ export default {
         method: 'GET',
         params: { entry: this.$store.state.entry, id: this.id },
         responseType: 'blob',
+        headers: {
+          'x-access-token': this.$store.state.token
+        },
         onDownloadProgress: e => {
           this.progress = Math.round((e.loaded * 100) / e.total)
         }
@@ -124,9 +132,26 @@ export default {
       }
     },
     loadPreview () {
-      if (confirm(this.$t('load_preview_may_cause_error'))) {
+      if (!confirm(this.$t('load_preview_may_cause_error'))) return
+      this.downloading = true
+      client({
+        url: '/api/file/raw',
+        method: 'GET',
+        params: { entry: this.$store.state.entry, id: this.id },
+        responseType: 'blob',
+        headers: {
+          'x-access-token': this.$store.state.token
+        },
+        onDownloadProgress: e => {
+          this.progress = Math.round((e.loaded * 100) / e.total)
+        }
+      }).then((response) => {
+        this.progress = 100 // OCD
+        this.downloading = false
         this.showPreview = true
-      }
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        this.$refs.iframe.src = url
+      })
     }
   }
 }

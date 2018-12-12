@@ -15,11 +15,10 @@
           <v-card-actions>
             <v-chip v-for="(tag, i) in problem.tags" :key="i">{{ tag }}</v-chip>
             <v-spacer />
-            <v-btn v-text="$t('show_submit_form')" color="primary" @click="showSubmit = true;" :disabled="showSubmit" v-if="problem.channel"/>
             <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id" />
           </v-card-actions>
         </v-card>
-        <v-card v-if="showSubmit">
+        <v-card v-if="!!problem.channel">
           <v-card-title>
             <div>
               <div class="headline" v-text="$t('submit')" />
@@ -76,25 +75,29 @@ export default {
       },
       solution: {
         data: {}
-      },
-      showSubmit: false
+      }
     }
   },
-  mounted () {
-    this.$store.commit('toggleLoading', true)
-    request({
-      url: '/api/problem',
-      params: { entry: this.$store.state.entry, id: this.id }
-    })
-      .then(problem => {
-        this.problem = problem
-      })
-      .catch(e => {
-        this.$store.commit('updateMessage', e.message)
-      })
-      .finally(() => {
-        this.$store.commit('toggleLoading', false)
-      })
+  watch: {
+    id: {
+      immediate: true,
+      handler: function () {
+        this.$store.commit('toggleLoading', true)
+        request({
+          url: '/api/problem',
+          params: { entry: this.$store.state.entry, id: this.id }
+        })
+          .then(problem => {
+            this.problem = problem
+          })
+          .catch(e => {
+            this.$store.commit('updateMessage', e.message)
+          })
+          .finally(() => {
+            this.$store.commit('toggleLoading', false)
+          })
+      }
+    }
   },
   computed: {
     rendered: function () {

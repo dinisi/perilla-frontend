@@ -10,6 +10,7 @@
     </v-toolbar-items>
     <v-spacer />
     <v-toolbar-items>
+      <v-btn flat to="/blank" v-text="$t('refresh')" />
       <template v-if="token">
         <v-menu open-on-hover bottom offset-y>
           <v-btn flat slot="activator" to="/logout" v-text="$t('logout')"/>

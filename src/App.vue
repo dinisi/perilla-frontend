@@ -56,7 +56,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar" bottom right :timeout="0">
+    <v-snackbar v-model="snackbar" bottom left :timeout="0">
       {{ errormsg }}
     </v-snackbar>
     <v-dialog v-model="showSelectEntry" width="300">

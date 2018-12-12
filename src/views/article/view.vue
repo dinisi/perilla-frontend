@@ -43,21 +43,26 @@ export default {
       }
     }
   },
-  mounted () {
-    this.$store.commit('toggleLoading', true)
-    request({
-      url: '/api/article',
-      params: { entry: this.$store.state.entry, id: this.id }
-    })
-      .then(article => {
-        this.article = article
-      })
-      .catch(e => {
-        this.$store.commit('updateMessage', e.message)
-      })
-      .finally(() => {
-        this.$store.commit('toggleLoading', false)
-      })
+  watch: {
+    id: {
+      immediate: true,
+      handler: function () {
+        this.$store.commit('toggleLoading', true)
+        request({
+          url: '/api/article',
+          params: { entry: this.$store.state.entry, id: this.id }
+        })
+          .then(article => {
+            this.article = article
+          })
+          .catch(e => {
+            this.$store.commit('updateMessage', e.message)
+          })
+          .finally(() => {
+            this.$store.commit('toggleLoading', false)
+          })
+      }
+    }
   },
   computed: {
     rendered: function () {

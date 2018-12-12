@@ -76,7 +76,7 @@ export default {
                 this.currentProgress = Math.round((e.loaded * 100) / e.total)
               }
             })
-            this.log += `${file.name} → <a href="/frontend/file/show/${id}" target="_blank">${id}</a><br/>`
+            this.log += `${file.name} → ${id}<br/>`
           } catch (e) {
             this.log += `${file.name} × ${e.message}<br/>`
           }
