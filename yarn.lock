@@ -8661,10 +8661,10 @@ vue@^2.5.16:
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
   integrity sha1-D4eJrXGL5oyhhyYpgy7VM1icato=
 
-vue@^2.5.18:
-  version "2.5.18"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.18.tgz#885586eda5c8efc77140a497500b73620e53c1dd"
-  integrity sha512-j4oT4jQdhBf3dUxzu1ogjkhzMU44AtwqtLz7oq/u7340/lmUUogTG6/D6P4/J2cCosoM21MqMIUsQchPKS4elg==
+vue@^2.5.21:
+  version "2.5.21"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.21.tgz#3d33dcd03bb813912ce894a8303ab553699c4a85"
+  integrity sha512-Aejvyyfhn0zjVeLvXd70h4hrE4zZDx1wfZqia6ekkobLmUZ+vNFQer53B4fu0EjWBSiqApxPejzkO1Znt3joxQ==
 
 vuetify-loader@^1.0.7:
   version "1.0.8"
@@ -8673,10 +8673,10 @@ vuetify-loader@^1.0.7:
   dependencies:
     loader-utils "^1.1.0"
 
-vuetify@^1.3.12:
-  version "1.3.12"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.3.12.tgz#a605a978e88385ace60301fc50502fe53ae940fb"
-  integrity sha512-CJccj0EQcda6Hj5p4P0SKsaN5rkNj5HkZOGkXJOl6v+NJRM2tibrbNtFIGlEBMl+b2j8AnnLVkN3Q5T2nfed8w==
+vuetify@^1.3.13:
+  version "1.3.13"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.3.13.tgz#fcbab9330bc5ff935043d69063065c52749bba2d"
+  integrity sha512-+gpoVArj8vk726cqbNllz1hAIoJZ0qg7kRl/FAVP/HyM4rPiRSy75xo1WeLhLxJoy3MMhjZMofSyIuoX0lk9TA==
 
 vuex-persistedstate@^2.5.4:
   version "2.5.4"
@@ -9169,7 +9169,7 @@ yorkie@^2.0.0:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-zmark@^0.0.2:
-  version "0.0.2"
-  resolved "http://registry.npm.taobao.org/zmark/download/zmark-0.0.2.tgz#4636c4825a1f71536349b984ad884673e8bc25e1"
-  integrity sha1-RjbEglofcVNjSbmErYhGc+i8JeE=
+zmark@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/zmark/-/zmark-0.0.3.tgz#b0d7c06d6647c013c7cfb83c3eeee7ac5d813651"
+  integrity sha512-pdvuoWwRi0NY7WyVcKU2KL213dKRjHOEI1WWL07Hkrq68heXyEhh5PxJ94en0BHpSR+NoUsRpcIYGRJWyVnwCw==
