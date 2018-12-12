@@ -32,13 +32,13 @@
         <v-subheader>{{ $t('information') }}</v-subheader>
         <v-list-tile>
           <v-list-tile-content>
-            <v-list-tile-title>{{ frontendVer }}</v-list-tile-title>
+            <v-list-tile-title>{{ frontendInfo.version }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ $t('frontend_version') }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile>
           <v-list-tile-content>
-            <v-list-tile-title>{{ serverVer }}</v-list-tile-title>
+            <v-list-tile-title>{{ serverInfo.version }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ $t('server_version') }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -79,8 +79,8 @@ import navbar from '@/components/navbar'
 import * as gravatar from 'gravatar'
 import { client, request } from '@/http'
 import selectAccessible from '@/components/selectaccessible'
-import { getStorage } from '@/storage'
-import { version as frontendVer } from '../package.json'
+import { getStorage, setStorage } from '@/storage'
+import frontendInfo from '../package.json'
 
 export default {
   name: 'App',
@@ -100,8 +100,8 @@ export default {
       disableInput: false,
       showSelectEntry: false,
       newEntry: null,
-      frontendVer,
-      serverVer: this.$t('fetching'),
+      frontendInfo,
+      serverInfo: this.$t('fetching'),
       snackbarRestTime: 0
     }
   },
@@ -133,13 +133,7 @@ export default {
         this.snackbar = false
       }
     }, 1000)
-    this.$i18n.locale = getStorage(localStorage, 'language') || this.$i18n.locale
-    client.defaults.baseURL = getStorage(localStorage, 'baseURL') || client.defaults.baseURL
-    request({ url: '/' }).then(info => {
-      this.serverVer = info.version
-    }).catch(e => {
-      this.$store.commit('updateMessage', e.message)
-    })
+    this.loadSettings()
   },
   computed: {
     token () {
@@ -185,6 +179,20 @@ export default {
         this.$router.push('/blank')
       }
       this.showSelectEntry = false
+    },
+    async loadSettings () {
+      this.$i18n.locale = getStorage(localStorage, 'language') || this.$i18n.locale
+      client.defaults.baseURL = getStorage(localStorage, 'baseURL') || prompt(this.$t('base_url'))
+      while (true) {
+        try {
+          this.serverInfo = await request({ url: '/' })
+          setStorage(localStorage, 'baseURL', client.defaults.baseURL)
+          break
+        } catch (e) {
+          this.$store.commit('updateMessage', e.message)
+          client.defaults.baseURL = prompt(this.$t('base_url'))
+        }
+      }
     }
   }
 }

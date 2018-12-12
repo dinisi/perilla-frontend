@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { setStorage } from './storage'
 import { parseJwt } from './utils'
 import createPersistedState from 'vuex-persistedstate'
 
@@ -29,7 +28,6 @@ export default new Vuex.Store({
     },
     changeEntry: (state, payload) => {
       state.entry = payload
-      setStorage(sessionStorage, 'entry', payload)
     },
     updateMessage: (state, val) => {
       console.log(val)

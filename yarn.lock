@@ -747,6 +747,17 @@
     "@types/uglify-js" "*"
     source-map "^0.6.0"
 
+"@types/webpack@^4.4.21":
+  version "4.4.21"
+  resolved "http://registry.npm.taobao.org/@types/webpack/download/@types/webpack-4.4.21.tgz#1a80de6d3e465f35067dd2f4533bf6e04c2e7187"
+  integrity sha1-GoDebT5GXzUGfdL0Uzv24EwucYc=
+  dependencies:
+    "@types/anymatch" "*"
+    "@types/node" "*"
+    "@types/tapable" "*"
+    "@types/uglify-js" "*"
+    source-map "^0.6.0"
+
 "@vue/babel-preset-app@^3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@vue/babel-preset-app/-/babel-preset-app-3.2.0.tgz#a443acdbd34f66d7645db271d9ac58fbe4fe870d"
@@ -8632,10 +8643,10 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.18:
-  version "2.5.18"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.18.tgz#8a346e477c5ada6efc890a2db4857090a2c54a05"
-  integrity sha512-WG2G+r5YxqkbTyJnbpkJuISTVI9MvYNGAZVKnmn8S4AoP0R0OufIKrHEV+GKwilLa+p3t/Plo8FzJXdhL9m4Sw==
+vue-template-compiler@^2.5.21:
+  version "2.5.21"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.5.21.tgz#a57ceb903177e8f643560a8d639a0f8db647054a"
+  integrity sha1-pXzrkDF36PZDVgqNY5oPjbZHBUo=
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"

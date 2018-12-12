@@ -1,9 +1,7 @@
 import Axios, { AxiosRequestConfig } from 'axios'
 import store from './store'
 
-export const client = Axios.create({
-  withCredentials: true
-})
+export const client = Axios.create({})
 
 export const request = async (config: AxiosRequestConfig) => {
   try {
