@@ -92,6 +92,7 @@ export default {
             data: form
           })
         } catch (e) {
+          // eslint-disable-next-line
           console.log(e.message)
         }
       }

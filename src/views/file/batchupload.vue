@@ -63,6 +63,7 @@ export default {
               }
             })
           } catch (e) {
+            // eslint-disable-next-line
             console.log(e.message)
           }
           this.tips = this.$t('creating', [file.name])

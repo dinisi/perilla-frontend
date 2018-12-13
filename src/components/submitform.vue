@@ -133,6 +133,7 @@ export default {
           }
         })
       } catch (e) {
+        // eslint-disable-next-line
         console.log(e.message)
       }
       this.$store.commit('updateMessage', this.$t('creating', [file.name]))

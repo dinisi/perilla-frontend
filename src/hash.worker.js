@@ -14,6 +14,7 @@ addEventListener('message', function (e) {
     fileReader.readAsArrayBuffer(file.slice(start, end))
   }
   fileReader.onload = function (e) {
+    // eslint-disable-next-line
     console.log(`reading chunk ${currentChunk + 1}/${chunks}`)
     keccak256.update(Buffer.from(e.target.result))
     currentChunk++
@@ -21,6 +22,7 @@ addEventListener('message', function (e) {
     if (currentChunk < chunks) {
       loadNext()
     } else {
+      // eslint-disable-next-line
       console.log('finished loading')
       postMessage({ result: keccak256.digest('hex') })
     }

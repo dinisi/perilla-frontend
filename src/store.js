@@ -30,6 +30,7 @@ export default new Vuex.Store({
       state.entry = payload
     },
     updateMessage: (state, val) => {
+      // eslint-disable-next-line
       console.log(val)
       state.message = val
       state.timestamp++
