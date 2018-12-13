@@ -16,6 +16,7 @@ if (process.env.NODE_ENV === 'production') {
       store.commit('updateMessage', 'No internet connection found. App is running in offline mode.')
     },
     error (error) {
+      // eslint-disable-next-line
       console.error('Error during service worker registration:', error)
     }
   })
