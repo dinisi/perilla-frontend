@@ -22,8 +22,29 @@
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
+        <template slot="actions-prepend">
+          <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
+        </template>
       </v-data-table>
     </v-layout>
+    <v-dialog v-model="showCondDialog">
+      <v-card>
+        <v-card-title class="headline" v-text="$t('condition')"/>
+        <v-card-text>
+          <v-text-field v-model="problem" :label="$t('problem')" type="number"/>
+          <v-select :items="statusItems" v-model="status" :label="$t('language')"/>
+          <v-text-field v-model="min" :label="$t('min')" type="number" min="0" max="100"/>
+          <v-text-field v-model="max" :label="$t('max')" type="number" min="0" max="100"/>
+          <v-text-field v-model="creator" :label="$t('creator')"/>
+          <v-text-field v-model="before" :label="$t('before')" mask="####/##/## ##:##" :return-masked-value="true"/>
+          <v-text-field v-model="after" :label="$t('after')" mask="####/##/## ##:##" :return-masked-value="true"/>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn color="primary" v-text="$t('apply')" @click="fetchData()"/>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -31,6 +52,7 @@
 import { request } from '../../http'
 import solutionResult from '../../components/solutionresult.vue'
 import { getStorage, setStorage } from '../../storage'
+import { resultDisplay, SolutionResult as results } from '../../interfaces'
 
 export default {
   name: 'SolutionList',
@@ -56,7 +78,16 @@ export default {
         totalItems: 0
       },
       total: 0,
-      loading: true
+      loading: true,
+      showCondDialog: false,
+      problem: null,
+      min: null,
+      max: null,
+      creator: null,
+      before: null,
+      after: null,
+      status: null,
+      statusItems: resultDisplay.map(x => this.$t(x.text)).concat(this.$t('all'))
     }
   },
   watch: {
@@ -73,13 +104,15 @@ export default {
       const { sortBy, descending, page, rowsPerPage } = this.pagination
       setStorage(localStorage, 'lastSolutionListRPP', rowsPerPage)
       const params = { sortBy, descending: descending || undefined }
+      const condition = this.getCondition()
       Promise.all([
         request({
           url: '/api/solution/list',
           params: Object.assign(
             { entry: this.$store.state.entry },
             { noexec: true },
-            params
+            params,
+            condition
           )
         }),
         request({
@@ -87,7 +120,8 @@ export default {
           params: Object.assign(
             { entry: this.$store.state.entry },
             { skip: (page - 1) * rowsPerPage, limit: rowsPerPage },
-            params
+            params,
+            condition
           )
         })
       ])
@@ -101,6 +135,31 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+    getCondition () {
+      let condition = {}
+      if (this.problem) {
+        condition.problem = parseInt(this.problem)
+      }
+      if (this.min && parseInt(this.min)) {
+        condition.min = parseInt(this.min)
+      }
+      if (this.max && parseInt(this.max)) {
+        condition.max = parseInt(this.max)
+      }
+      if (this.before && this.before.trim()) {
+        condition.before = +new Date(this.before)
+      }
+      if (this.after && this.after.trim()) {
+        condition.after = +new Date(this.after)
+      }
+      if (this.creator && this.creator.trim()) {
+        condition.creator = this.creator
+      }
+      if (results[this.status] !== undefined) {
+        condition.status = results[this.status]
+      }
+      return condition
     }
   },
   mounted () {
