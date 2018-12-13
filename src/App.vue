@@ -75,7 +75,7 @@
     <v-content>
       <router-view />
     </v-content>
-    <v-dialog v-model="loading" persistent width="300">
+    <v-dialog v-model="loading" persistent max-width="300">
       <v-card color="primary" dark>
         <v-card-text>
           {{ $t('please_wait') }}
@@ -86,7 +86,7 @@
     <v-snackbar v-model="snackbar" bottom left :timeout="0">
       {{ errormsg }}
     </v-snackbar>
-    <v-dialog v-model="showSelectEntry" width="300">
+    <v-dialog v-model="showSelectEntry" max-width="500">
       <v-card>
         <v-card-title class="headline" v-text="$t('select_entry')"/>
         <v-card-text>

@@ -26,7 +26,7 @@
         </template>
       </v-data-table>
     </v-layout>
-    <v-dialog v-model="showCondDialog">
+    <v-dialog v-model="showCondDialog" max-width="500px">
       <v-card>
         <v-card-title class="headline" v-text="$t('condition')"/>
         <v-card-text>

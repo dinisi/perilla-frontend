@@ -29,7 +29,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="showImport" width="500">
+    <v-dialog v-model="showImport" max-width="500">
       <v-card>
         <v-card-title class="headline" v-text="$t('import')"/>
         <v-card-text>

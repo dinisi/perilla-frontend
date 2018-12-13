@@ -35,7 +35,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="downloading" persistent width="300">
+    <v-dialog v-model="downloading" persistent max-width="300">
       <v-card color="primary" dark>
         <v-card-text>
           {{ $t('downloading') }}

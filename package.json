@@ -1,6 +1,6 @@
 {
   "name": "perilla-frontend",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "private": true,
   "main": "src/main.ts",
   "scripts": {
