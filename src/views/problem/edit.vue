@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import zJsonEditor from '../..//components/zjsoneditor.vue'
-import zMarkdownEditor from '../..//components/zmarkdowneditor.vue'
-import dataEdit from '../..//components/dataedit.vue'
-import { request } from '../..//http'
+import zJsonEditor from '../../components/zjsoneditor.vue'
+import zMarkdownEditor from '../../components/zmarkdowneditor.vue'
+import dataEdit from '../../components/dataedit.vue'
+import { request } from '../../http'
 
 export default {
   name: 'ProblemEdit',

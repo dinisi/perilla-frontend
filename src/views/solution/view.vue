@@ -21,7 +21,7 @@
                     <solution-result :result="props.item.status"/>
                   </td>
                   <td class="text-xs-right">{{ props.item.score }}</td>
-                  <td class="text-xs-right">{{ props.item.updated }}</td>
+                  <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
                   <td class="text-xs-right">{{ props.item.creator }}</td>
                 </tr>
               </template>
@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import { request } from '../..//http'
-import render from '../..//helpers/markdown'
-import zJsonEditor from '../..//components/zjsoneditor.vue'
-import solutionResult from '../..//components/solutionresult.vue'
+import { request } from '../../http'
+import render from '../../helpers/markdown'
+import zJsonEditor from '../../components/zjsoneditor.vue'
+import solutionResult from '../../components/solutionresult.vue'
 
 export default {
   name: 'SolutionView',

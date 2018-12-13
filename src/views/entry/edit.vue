@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import { request } from '../..//http'
-import zMarkdownEditor from '../..//components/zmarkdowneditor.vue'
-import { EntryType } from '../..//interfaces'
+import { request } from '../../http'
+import zMarkdownEditor from '../../components/zmarkdowneditor.vue'
+import { EntryType } from '../../interfaces'
 
 export default {
   name: 'adminEdit',

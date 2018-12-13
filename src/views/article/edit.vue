@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import zMarkdownEditor from '../..//components/zmarkdowneditor.vue'
-import { request } from '../..//http'
+import zMarkdownEditor from '../../components/zmarkdowneditor.vue'
+import { request } from '../../http'
 
 export default {
   name: 'articleEdit',

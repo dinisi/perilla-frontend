@@ -3,10 +3,6 @@
     <v-toolbar-side-icon v-if="token" @click="show = !show;" />
     <v-toolbar-items>
       <v-btn class="headline" flat to="/">Perilla</v-btn>
-      <v-btn flat to="/problem" v-text="$t('problem')" />
-      <v-btn flat to="/file" v-text="$t('file')" />
-      <v-btn flat to="/solution" v-text="$t('solution')" />
-      <v-btn flat to="/article" v-text="$t('article')" />
     </v-toolbar-items>
     <v-spacer />
     <v-toolbar-items>

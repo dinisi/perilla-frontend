@@ -49,7 +49,7 @@
 <script>
 import { client, request } from '../../http'
 import { resolveUrl } from '../../utils'
-import render from '../..//helpers/markdown'
+import render from '../../helpers/markdown'
 import copy from 'copy-to-clipboard'
 
 export default {

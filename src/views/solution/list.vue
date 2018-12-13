@@ -18,7 +18,7 @@
               <solution-result :result="props.item.status"/>
             </td>
             <td class="text-xs-right">{{ props.item.score }}</td>
-            <td class="text-xs-right">{{ props.item.updated }}</td>
+            <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import { request } from '../..//http'
-import solutionResult from '../..//components/solutionresult.vue'
-import { getStorage, setStorage } from '../..//storage'
+import { request } from '../../http'
+import solutionResult from '../../components/solutionresult.vue'
+import { getStorage, setStorage } from '../../storage'
 
 export default {
   name: 'SolutionList',

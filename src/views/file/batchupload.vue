@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import { request } from '../..//http'
-import { calcHash } from '../..//utils'
+import { request } from '../../http'
+import { calcHash } from '../../utils'
 
 export default {
   name: 'BatchUpload',

@@ -14,7 +14,7 @@
             <td class="text-xs-right">
               <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>
             </td>
-            <td class="text-xs-right">{{ props.item.updated }}</td>
+            <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
             <td class="text-xs-right">{{ props.item.creator }}</td>
           </tr>
         </template>
@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import { request } from '../..//http'
-import { getStorage, setStorage } from '../..//storage'
+import { request } from '../../http'
+import { getStorage, setStorage } from '../../storage'
 
 export default {
   name: 'FileList',

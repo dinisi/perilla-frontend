@@ -22,6 +22,28 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-divider/>
+        <v-subheader>{{ $t('navigation') }}</v-subheader>
+        <v-list-tile to="/problem">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('problem') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile to="/solution">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('solution') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile to="/article">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('article') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile to="/file">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('file') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider/>
         <v-subheader>{{ $t('general') }}</v-subheader>
         <v-list-tile @click="showSelectEntry = true">
           <v-list-tile-content>
