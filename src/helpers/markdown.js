@@ -7,6 +7,33 @@ import 'katex/dist/katex.css'
 import '../assets/github.css'
 import '../assets/github-markdown.css'
 
+function escape (html, encode) {
+  if (encode) {
+    if (escape.escapeTest.test(html)) {
+      return html.replace(escape.escapeReplace, function (ch) { return escape.replacements[ch] })
+    }
+  } else {
+    if (escape.escapeTestNoEncode.test(html)) {
+      return html.replace(escape.escapeReplaceNoEncode, function (ch) { return escape.replacements[ch] })
+    }
+  }
+
+  return html
+}
+
+escape.escapeTest = /[&<>"']/
+escape.escapeReplace = /[&<>"']/g
+escape.replacements = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+}
+
+escape.escapeTestNoEncode = /[<>"']|&(?!#?\w+;)/
+escape.escapeReplaceNoEncode = /[<>"']|&(?!#?\w+;)/g
+
 const renderer = new Renderer()
 
 const resolveUrl = (base, href) => {
@@ -19,7 +46,35 @@ const resolveUrl = (base, href) => {
   }
 }
 
-renderer.code = (code, language) => {
+renderer.link = function (href, title, text) {
+  if (this.options.sanitize) {
+    try {
+      var prot = decodeURIComponent(unescape(href))
+        .replace(/[^\w:]/g, '')
+        .toLowerCase()
+    } catch (e) {
+      return text
+    }
+    if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0 || prot.indexOf('data:') === 0) {
+      return text
+    }
+  }
+  if (href.startsWith('$')) {
+    let id = href.substr(1)
+    href = resolveUrl(client.defaults.baseURL, `/api/file/raw?id=${id}&entry=${store.state.entry}&access_token=${store.state.token}`)
+  }
+  try {
+    href = encodeURI(href).replace(/%25/g, '%')
+  } catch (e) {
+    return text
+  }
+  var out = `<a href="${escape(href)}"`
+  if (title) out += ` title="${title}"`
+  out += `>${text}</a>`
+  return out
+}
+
+renderer.code = function (code, language) {
   const validLang = !!(language && highlightjs.getLanguage(language))
   const highlighted = validLang
     ? highlightjs.highlight(language, code).value
@@ -27,7 +82,7 @@ renderer.code = (code, language) => {
   return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`
 }
 
-renderer.image = (href, title, text) => {
+renderer.image = function (href, title, text) {
   if (href.startsWith('$')) {
     let id = href.substr(1)
     href = resolveUrl(client.defaults.baseURL, `/api/file/raw?id=${id}&entry=${store.state.entry}&access_token=${store.state.token}`)
@@ -49,7 +104,7 @@ renderer.image = (href, title, text) => {
   if (width) out += ` width="${width}"`
   if (height) out += ` height="${height}"`
   if (title) out += ` title="${title.join(' ')}"`
-  out += '/>'
+  out += this.options.xhtml ? '/>' : '>'
   return out
 }
 

@@ -23,3 +23,13 @@ export const parseJwt = (token) => {
   let base64 = base64Url.replace('-', '+').replace('_', '/')
   return JSON.parse(window.atob(base64))
 }
+
+export const resolveUrl = (base, href) => {
+  if (href.slice(0, 2) === '//') {
+    return base.replace(/:[\s\S]*/, ':') + href
+  } else if (href.charAt(0) === '/') {
+    return base.replace(/(:\/*[^/]*)[\s\S]*/, '$1') + href
+  } else {
+    return base + href
+  }
+}

@@ -25,7 +25,7 @@
             <v-chip v-for="(tag, i) in file.tags" :key="i">{{ tag }}</v-chip>
             <v-spacer />
             <v-btn v-text="$t('download')" color="primary" @click="download"/>
-            <v-btn v-text="$t('link')" @click="safeCopy(`/api/file/raw?id=${id}&entry=${$store.state.entry}`)"/>
+            <v-btn v-text="$t('link')" @click="safeCopy(`[${file.name}]($${id})`)"/>
             <v-btn v-text="$t('edit')" :to="'/file/edit/' + id" />
             <v-btn v-text="$t('preview')" @click="loadPreview" color="warning" :disabled="showPreview"/>
           </v-card-actions>
@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import { client, request } from '../..//http'
+import { client, request } from '../../http'
+import { resolveUrl } from '../../utils'
 import render from '../..//helpers/markdown'
 import copy from 'copy-to-clipboard'
 
@@ -133,25 +134,8 @@ export default {
     },
     loadPreview () {
       if (!confirm(this.$t('load_preview_may_cause_error'))) return
-      this.downloading = true
-      client({
-        url: '/api/file/raw',
-        method: 'GET',
-        params: { entry: this.$store.state.entry, id: this.id },
-        responseType: 'blob',
-        headers: {
-          'x-access-token': this.$store.state.token
-        },
-        onDownloadProgress: e => {
-          this.progress = Math.round((e.loaded * 100) / e.total)
-        }
-      }).then((response) => {
-        this.progress = 100 // OCD
-        this.downloading = false
-        this.showPreview = true
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        this.$refs.iframe.src = url
-      })
+      let url = resolveUrl(client.defaults.baseURL, `/api/file/raw?entry=${this.$store.state.entry}&id=${this.id}&access_token=${this.$store.state.token}`)
+      this.$refs.iframe.src = url
     }
   }
 }

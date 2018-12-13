@@ -19,37 +19,42 @@ export default {
       details: 'fetching'
     }
   },
-  mounted () {
-    request({
-      url: '/api/solution/list',
-      params: {
-        entry: this.$store.state.entry,
-        creator: this.$store.state.user,
-        skip: 0,
-        limit: 1,
-        problem: this.id,
-        sortBy: 'id',
-        descending: true
-      }
-    }).then(result => {
-      if (result instanceof Array && result.length === 1) {
-        let status = result[0].status
-        this.outline = resultDisplay[status].outline
-        this.color = resultDisplay[status].color
-        this.details = resultDisplay[status].text
-        this.textColor = resultDisplay[status].textColor
-      } else {
-        this.outline = false
-        this.color = '#34495e'
-        this.details = 'no_data'
-        this.textColor = 'white'
-      }
-    }).catch(err => {
-      this.outline = false
-      this.color = '#e74c3c'
-      this.details = 'error'
-      this.textColor = 'white'
-    })
+  watch: {
+    'id': {
+      handler: function () {
+        request({
+          url: '/api/solution/list',
+          params: {
+            entry: this.$store.state.entry,
+            creator: this.$store.state.user,
+            skip: 0,
+            limit: 1,
+            problem: this.id,
+            sortBy: 'id',
+            descending: true
+          }
+        }).then(result => {
+          if (result instanceof Array && result.length === 1) {
+            let status = result[0].status
+            this.outline = resultDisplay[status].outline
+            this.color = resultDisplay[status].color
+            this.details = resultDisplay[status].text
+            this.textColor = resultDisplay[status].textColor
+          } else {
+            this.outline = false
+            this.color = '#34495e'
+            this.details = 'no_data'
+            this.textColor = 'white'
+          }
+        }).catch(err => {
+          this.outline = false
+          this.color = '#e74c3c'
+          this.details = 'error'
+          this.textColor = 'white'
+        })
+      },
+      immediate: true
+    }
   }
 }
 </script>

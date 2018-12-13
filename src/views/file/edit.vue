@@ -68,12 +68,17 @@ export default {
       isnew: false
     }
   },
-  async mounted () {
-    if (this.id) {
-      this.load()
-    } else {
-      this.isnew = true
-      this.loading = false
+  watch: {
+    'id': {
+      handler: function () {
+        if (this.id) {
+          this.load()
+        } else {
+          this.isnew = true
+          this.loading = false
+        }
+      },
+      immediate: true
     }
   },
   methods: {
