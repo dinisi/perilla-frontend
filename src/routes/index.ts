@@ -1,7 +1,6 @@
 import { problemRoutes } from './problem'
 import { RouteConfig } from 'vue-router'
 import home from '../views/home.vue'
-import about from '../views/about.vue'
 import login from '../views/login.vue'
 import logout from '../views/logout.vue'
 import error from '../views/error.vue'
@@ -19,11 +18,6 @@ let routes: RouteConfig[] = [
     path: '/',
     name: 'home',
     component: home
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: about
   },
   {
     path: '/login',

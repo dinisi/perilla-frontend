@@ -28,6 +28,11 @@
             <v-list-tile-title>{{ $t('change_entry') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile href="https://github.com/ZhangZisu/perilla-frontend" target="_blank">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('about') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-divider/>
         <v-subheader>{{ $t('information') }}</v-subheader>
         <v-list-tile>
@@ -187,8 +192,7 @@ export default {
           this.loadEntryAvatar()
           break
         } catch (e) {
-          this.$store.commit('updateMessage', e.message)
-          client.defaults.baseURL = prompt(this.$t('base_url'))
+          client.defaults.baseURL = prompt(this.$t('base_url_invalid', [e.message]))
         }
       }
     }
