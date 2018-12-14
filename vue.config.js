@@ -7,17 +7,8 @@ module.exports = {
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: false,
-  css: undefined,
-
-  devServer: {
-    proxy: {
-      '/api': {
-        target: process.env.TARGET || 'http://localhost:8680/'
-      },
-      '/auth': {
-        target: process.env.TARGET || 'http://localhost:8680/'
-      }
-    }
+  css: {
+    extract: false
   },
 
   configureWebpack: {

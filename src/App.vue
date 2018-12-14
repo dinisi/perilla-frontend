@@ -179,7 +179,7 @@ export default {
         params: { entry: this.user }
       })
         .then(res => {
-          this.userAvatar = gravatar.url(res.email)
+          this.userAvatar = gravatar.url(res.email, { d: 'mp' })
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)
@@ -192,7 +192,7 @@ export default {
         params: { entry: this.entry }
       })
         .then(res => {
-          this.entryAvatar = gravatar.url(res.email)
+          this.entryAvatar = gravatar.url(res.email, { d: 'mp' })
         })
         .catch(e => {
           this.$store.commit('updateMessage', e.message)
