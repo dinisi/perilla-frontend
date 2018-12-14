@@ -136,6 +136,7 @@ export default {
       if (!confirm(this.$t('load_preview_may_cause_error'))) return
       let url = resolveUrl(client.defaults.baseURL, `/api/file/raw?entry=${this.$store.state.entry}&id=${this.id}&access_token=${this.$store.state.token}`)
       this.$refs.iframe.src = url
+      this.showPreview = true
     }
   }
 }
