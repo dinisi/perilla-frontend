@@ -21,6 +21,6 @@ install:
   - yarn
 
 build_script:
-  - yarn electron:publish
+  - yarn electron:publish --max-old-space-size=4096
 
 test: off

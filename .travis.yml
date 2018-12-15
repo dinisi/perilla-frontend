@@ -1,14 +1,17 @@
+osx_image: xcode8.3
+
+os:
+  - linux
+  - osx
+
 language: node_js
 node_js:
   - "node"
 install:
   - yarn
 script:
-  - echo "Building frontend files"
   - yarn build
-  - echo "Building electron"
   - yarn electron:publish
-  - echo "done"
 
 after_success:
   - git config --global user.email "admin@zhangzisu.cn"
