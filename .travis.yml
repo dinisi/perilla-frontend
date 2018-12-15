@@ -10,20 +10,8 @@ node_js:
 install:
   - yarn
 script:
-  - yarn build
   - yarn electron:publish
 
-after_success:
-  - git config --global user.email "admin@zhangzisu.cn"
-  - git config --global user.name "ZhangZisu"
-  - git clone -b gh-pages https://$GH_TOKEN@github.com/ZhangZisu/perilla publish
-  - rm -rf publish/*
-  - cp -r dist/* publish
-  - cd publish
-  - echo "perilla.js.org" > CNAME
-  - git add .
-  - git commit -m 'Travis Build'
-  - git push -u origin gh-pages
 branches:
   only:
     - master
