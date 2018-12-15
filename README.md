@@ -7,7 +7,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 
 ## Deployment
-[![Build Status](https://travis-ci.com/ZhangZisu/perilla-frontend.svg?branch=master)](https://travis-ci.com/ZhangZisu/perilla-frontend)
+[![Build Status](https://travis-ci.com/ZhangZisu/perilla-frontend.svg?branch=master)](https://travis-ci.com/ZhangZisu/perilla-frontend) [![Greenkeeper badge](https://badges.greenkeeper.io/ZhangZisu/perilla-frontend.svg)](https://greenkeeper.io/)
 
 Download the frontend file and serves it anywhere.
 
