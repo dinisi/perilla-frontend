@@ -11,11 +11,4 @@ jobs:
       - run: yarn build
       - run: git config --global user.email "admin@zhangzisu.cn"
       - run: git config --global user.name "ZhangZisu"
-      - run: git clone -b gh-pages https://$GH_TOKEN@github.com/ZhangZisu/perilla publish
-      - run: rm -rf publish/*
-      - run: cp -r dist/* publish
-      - run: cd publish
-      - run: echo "perilla.js.org" > CNAME
-      - run: git add .
-      - run: git commit -m 'CircleCI Build'
-      - run: git push -u origin gh-pages
+      - run: sh gh-pages.sh
