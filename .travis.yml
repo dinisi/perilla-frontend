@@ -18,6 +18,6 @@ after_success:
   - git push -u origin gh-pages
 branches:
   only:
-    - master
+    - master    - /^greenkeeper/.*$/
 cache:
   yarn: true
