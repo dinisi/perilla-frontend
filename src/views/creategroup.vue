@@ -19,7 +19,9 @@
 </template>
 
 <script>
-import { request } from '../http'
+import { request } from '@/http'
+import Swal from 'sweetalert2'
+import { showToast } from '@/swal'
 
 export default {
   name: 'createGroup',
@@ -41,11 +43,11 @@ export default {
         data: this.form
       })
         .then(res => {
-          this.$store.commit('updateMessage', this.$t('succeeded'))
+          showToast('success', 'succeeded')
           this.$router.push('/')
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

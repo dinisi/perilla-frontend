@@ -34,6 +34,7 @@
 import { request } from '../../http'
 import render from '../../helpers/markdown'
 import { EntryType } from '../../interfaces'
+import { showToast } from '../../swal'
 
 export default {
   name: 'adminMain',
@@ -74,7 +75,7 @@ export default {
           this.entry = entry
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.$store.commit('toggleLoading', false)

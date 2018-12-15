@@ -51,7 +51,7 @@ import { client, request } from '../../http'
 import { resolveUrl } from '../../utils'
 import render from '../../helpers/markdown'
 import copy from 'copy-to-clipboard'
-import Swal from 'sweetalert2'
+import { showToast } from '../../swal'
 
 export default {
   name: 'FileView',
@@ -88,7 +88,7 @@ export default {
             this.file = file
           })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.$store.commit('toggleLoading', false)
@@ -128,9 +128,9 @@ export default {
     },
     safeCopy (str) {
       if (copy(str)) {
-        this.$store.commit('updateMessage', this.$t('copy_succeeded'))
+        showToast('success', 'copy_succeeded')
       } else {
-        this.$store.commit('updateMessage', this.$t('copy_failed'))
+        showToast('error', 'copy_failed')
       }
     },
     async loadPreview () {

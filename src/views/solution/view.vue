@@ -45,8 +45,9 @@
 <script>
 import { request } from '../../http'
 import render from '../../helpers/markdown'
-import zJsonEditor from '../../components/zjsoneditor.vue'
-import solutionResult from '../../components/solutionresult.vue'
+import zJsonEditor from '@/components/zjsoneditor.vue'
+import solutionResult from '@/components/solutionresult.vue'
+import { showToast } from '../../swal'
 
 export default {
   name: 'SolutionView',
@@ -128,7 +129,7 @@ export default {
           }
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
     },
     rejudge: function () {
@@ -139,11 +140,11 @@ export default {
         params: { entry: this.$store.state.entry, id: this.id }
       })
         .then(() => {
-          this.$store.commit('updateMessage', this.$t('rejudge_succeeded'))
+          showToast('success', 'rejudge_succeeded')
           this.enableAutoFetch()
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
     },
     remove: function () {
@@ -157,7 +158,7 @@ export default {
           this.$router.push('/solution')
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

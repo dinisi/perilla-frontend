@@ -45,6 +45,7 @@
 <script>
 import { request } from '../../http'
 import { getStorage, setStorage } from '../../storage'
+import { showToast } from '../../swal'
 
 export default {
   name: 'articleList',
@@ -115,7 +116,7 @@ export default {
           this.articles = items
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

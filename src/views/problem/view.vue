@@ -52,7 +52,8 @@
 <script>
 import { request } from '../../http'
 import render from '../../helpers/markdown'
-import submitForm from '../../components/submitform.vue'
+import submitForm from '@/components/submitform.vue'
+import { showToast } from '../../swal'
 
 export default {
   name: 'ProblemView',
@@ -91,7 +92,7 @@ export default {
             this.problem = problem
           })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.$store.commit('toggleLoading', false)
@@ -117,7 +118,7 @@ export default {
           this.$router.push('/solution/show/' + id)
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.$store.commit('toggleLoading', false)

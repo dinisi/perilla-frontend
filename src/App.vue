@@ -88,9 +88,6 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar" bottom left :timeout="0">
-      {{ errormsg }}
-    </v-snackbar>
     <v-dialog v-model="showSelectEntry" max-width="500">
       <v-card>
         <v-card-title class="headline" v-text="$t('select_entry')"/>
@@ -112,8 +109,9 @@ import * as gravatar from 'gravatar'
 import { client, request } from '@/http'
 import selectAccessible from '@/components/selectaccessible'
 import { getStorage, setStorage } from '@/storage'
-import frontendInfo from '../package.json'
+import frontendInfo from '@/../package.json'
 import Swal from 'sweetalert2'
+import { showToast } from '@/swal'
 
 export default {
   name: 'App',
@@ -125,7 +123,6 @@ export default {
     return {
       loading: false,
       showsidebar: false,
-      snackbar: false,
       errormsg: null,
       entryAvatar: '',
       userAvatar: '',
@@ -134,18 +131,12 @@ export default {
       showSelectEntry: false,
       newEntry: null,
       frontendInfo,
-      serverInfo: this.$t('fetching'),
-      snackbarRestTime: 0
+      serverInfo: this.$t('fetching')
     }
   },
   watch: {
     '$store.state.loading': function (val) {
       this.loading = val
-    },
-    '$store.state.timestamp': function () {
-      this.snackbarRestTime = 6
-      this.snackbar = true
-      this.errormsg = this.$store.state.message
     },
     '$store.state.entry': {
       handler: function (val) {
@@ -159,11 +150,6 @@ export default {
     }
   },
   created () {
-    setInterval(() => {
-      if (this.snackbarRestTime && !--this.snackbarRestTime) {
-        this.snackbar = false
-      }
-    }, 1000)
     this.loadSettings()
   },
   computed: {
@@ -188,7 +174,7 @@ export default {
           this.userAvatar = gravatar.url(res.email, { d: 'mp' })
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
     },
     loadEntryAvatar () {
@@ -201,7 +187,7 @@ export default {
           this.entryAvatar = gravatar.url(res.email, { d: 'mp' })
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
     },
     changeEntry () {

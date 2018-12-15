@@ -83,7 +83,7 @@ export default {
           }
           this.allProgress = (++count) * 100 / files.length
         }
-        this.$store.commit('updateMessage', this.$t('upload_finished'))
+        showToast('info', 'upload_finished')
       }
     }
   }

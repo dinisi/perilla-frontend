@@ -14,6 +14,7 @@
 
 <script>
 import { request } from '@/http'
+import { showToast } from '@/swal'
 
 export default {
   name: 'selectAccessible',
@@ -63,7 +64,7 @@ export default {
         this.items = items
       })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

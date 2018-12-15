@@ -34,6 +34,7 @@ import selectFile from '@/components/selectfile.vue'
 import { calcHash } from '@/utils'
 import { request } from '@/http'
 import { Languages } from 'perilla-languages'
+import { showToast } from '@/swal'
 
 const languages = []
 const vslanguage = {}
@@ -96,9 +97,9 @@ export default {
           language: this.realval.language
         }
         this.common.loading = false
-        this.$store.commit('updateMessage', this.$t('upload_finished'))
+        showToast('info', 'upload_finished', file.name)
       } else {
-        this.$store.commit('updateMessage', this.$t('invalid_operation'))
+        showToast('error', invalid_operation)
       }
     },
     async commonTextUpload () {
@@ -111,19 +112,18 @@ export default {
           language: this.realval.language
         }
         this.common.loading = false
-        this.$store.commit('updateMessage', this.$t('upload_finished'))
+        showToast('info', 'upload_finished', file.name)
       } else {
-        this.$store.commit('updateMessage', this.$t('invalid_operation'))
+        showToast('error', invalid_operation)
       }
     },
     async upload (file) {
-      this.$store.commit('updateMessage', this.$t('hashing', [file.name]))
+      showToast('info', 'processing', file.name)
       const hash = await calcHash(file)
       try {
         await request({ url: '/api/file/provide', params: { hash } })
         const form = new FormData()
         form.append('file', file)
-        this.$store.commit('updateMessage', this.$t('uploading', [file.name]))
         await request({
           url: '/api/file/provide',
           method: 'POST',
@@ -136,14 +136,17 @@ export default {
         // eslint-disable-next-line
         console.log(e.message)
       }
-      this.$store.commit('updateMessage', this.$t('creating', [file.name]))
-      const id = await request({
-        url: '/api/file',
-        params: { entry: this.$store.state.entry },
-        method: 'POST',
-        data: { hash, tags: ['SolutionData'], name: file.name }
-      })
-      return id
+      try {
+        const id = await request({
+          url: '/api/file',
+          params: { entry: this.$store.state.entry },
+          method: 'POST',
+          data: { hash, tags: ['SolutionData'], name: file.name }
+        })
+        return id
+      } catch (err) {
+        showToast('error', 'error', e.message)
+      }
     }
   }
 }

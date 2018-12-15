@@ -1,4 +1,4 @@
-import HashWorker from '@/hash.worker'
+import HashWorker from '@/hash.w'
 
 export const calcHash = async (file, cb) => {
   return new Promise((resolve, reject) => {

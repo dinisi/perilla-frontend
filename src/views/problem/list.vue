@@ -48,7 +48,8 @@
 <script>
 import { request } from '../../http'
 import { getStorage, setStorage } from '../../storage'
-import lastStatus from '../../components/laststatus.vue'
+import lastStatus from '@/components/laststatus.vue'
+import { showToast } from '../../swal'
 
 export default {
   name: 'ProblemList',
@@ -123,7 +124,7 @@ export default {
           this.problems = items
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

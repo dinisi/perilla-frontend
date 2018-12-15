@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import zMonacoEditor from './zmonacoeditor'
+import zMonacoEditor from '@/components//zmonacoeditor'
 import render from '@/helpers/markdown'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'

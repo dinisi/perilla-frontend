@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import zMonacoEditor from './zmonacoeditor'
+import zMonacoEditor from '@/components/zmonacoeditor'
 import { isEqual } from 'lodash'
 
 export default {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { parseJwt } from './utils'
+import { parseJwt } from '@/utils'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -10,9 +10,7 @@ export default new Vuex.Store({
     loading: false,
     token: null,
     user: null,
-    entry: null,
-    message: null,
-    timestamp: 0
+    entry: null
   },
   mutations: {
     toggleLoading: (state, payload) => {
@@ -28,12 +26,6 @@ export default new Vuex.Store({
     },
     changeEntry: (state, payload) => {
       state.entry = payload
-    },
-    updateMessage: (state, val) => {
-      // eslint-disable-next-line
-      console.log(val)
-      state.message = val
-      state.timestamp++
     }
   },
   actions: {},

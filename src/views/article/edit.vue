@@ -24,8 +24,9 @@
 </template>
 
 <script>
-import zMarkdownEditor from '../../components/zmarkdowneditor.vue'
+import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { request } from '../../http'
+import { showToast } from '../../swal'
 
 export default {
   name: 'articleEdit',
@@ -75,7 +76,7 @@ export default {
             this.$router.push('/article/show/' + id)
           })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.loading = false
@@ -88,7 +89,7 @@ export default {
           data: this.article
         })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.loading = false
@@ -103,7 +104,7 @@ export default {
         method: 'DELETE'
       })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.$router.push('/article')
@@ -119,7 +120,7 @@ export default {
           this.article = article
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

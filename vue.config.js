@@ -16,7 +16,7 @@ module.exports = {
     module: {
       rules: [
         {
-          test: /\.worker\.js$/,
+          test: /\.w\.js$/,
           use: {
             loader: 'worker-loader',
             options: { inline: true }

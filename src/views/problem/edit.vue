@@ -46,10 +46,11 @@
 </template>
 
 <script>
-import zJsonEditor from '../../components/zjsoneditor.vue'
-import zMarkdownEditor from '../../components/zmarkdowneditor.vue'
-import dataEdit from '../../components/dataedit.vue'
+import zJsonEditor from '@/components/zjsoneditor.vue'
+import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
+import dataEdit from '@/components/dataedit.vue'
 import { request } from '../../http'
+import { showToast } from '../../swal'
 
 export default {
   name: 'ProblemEdit',
@@ -106,7 +107,7 @@ export default {
             this.$router.push('/problem/show/' + id)
           })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.loading = false
@@ -119,7 +120,7 @@ export default {
           data: this.problem
         })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.loading = false
@@ -134,7 +135,7 @@ export default {
         method: 'DELETE'
       })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.$router.push('/problem')
@@ -150,7 +151,7 @@ export default {
           this.problem = problem
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

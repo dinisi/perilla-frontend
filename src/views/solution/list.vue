@@ -50,9 +50,10 @@
 
 <script>
 import { request } from '../../http'
-import solutionResult from '../../components/solutionresult.vue'
+import solutionResult from '@/components/solutionresult.vue'
 import { getStorage, setStorage } from '../../storage'
 import { resultDisplay, SolutionResult as results } from '../../interfaces'
+import { showToast } from '../../swal'
 
 export default {
   name: 'SolutionList',
@@ -130,7 +131,7 @@ export default {
           this.solutions = items
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

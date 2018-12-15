@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import { request } from '../http'
+import { request } from '@/http'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Register',
@@ -46,7 +47,7 @@ export default {
           this.$router.push('/login')
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

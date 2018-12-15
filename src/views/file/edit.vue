@@ -39,9 +39,10 @@
 </template>
 
 <script>
-import zMarkdownEditor from '../../components/zmarkdowneditor.vue'
+import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { request } from '../../http'
 import { calcHash } from '../../utils'
+import { showToast } from '../../swal'
 
 export default {
   name: 'FileEdit',
@@ -112,7 +113,7 @@ export default {
             this.$router.push('/file/show/' + id)
           })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.loading = false
@@ -127,7 +128,7 @@ export default {
           data: this.file
         })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.loading = false
@@ -143,7 +144,7 @@ export default {
         method: 'DELETE'
       })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.$router.push('/file')
@@ -159,7 +160,7 @@ export default {
           this.file = file
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false

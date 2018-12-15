@@ -16,6 +16,7 @@ import { calcHash } from '@/utils'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import { request } from '@/http'
 import { generateData as generateTrad } from '@/helpers/traditional'
+import { showToast } from '@/swal'
 
 export default {
   name: 'dataEdit',
@@ -75,21 +76,20 @@ export default {
             }
           }
           this.realval = raw
-          this.$store.commit('updateMessage', this.$t('upload_finished'))
+          showToast('info', 'upload_finished')
         } catch (e) {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         }
         this.trad.apply_loading = false
       }
     },
     async upload (file) {
-      this.$store.commit('updateMessage', this.$t('hashing', [file.name]))
+      showToast('info', 'processing', file.name)
       const hash = await calcHash(file)
       try {
         await request({ url: '/api/file/provide', params: { hash } })
         const form = new FormData()
         form.append('file', file)
-        this.$store.commit('updateMessage', this.$t('uploading', [file.name]))
         await request({
           url: '/api/file/provide',
           method: 'POST',
@@ -99,16 +99,19 @@ export default {
           }
         })
       } catch (e) {
-        this.$store.commit('updateMessage', e.message)
+        showToast('error', 'error', e.message)
       }
-      this.$store.commit('updateMessage', this.$t('creating', [file.name]))
-      const id = await request({
-        url: '/api/file',
-        params: { entry: this.$store.state.entry },
-        method: 'POST',
-        data: { hash, tags: ['TestData'], name: file.name }
-      })
-      return id
+      try {
+        const id = await request({
+          url: '/api/file',
+          params: { entry: this.$store.state.entry },
+          method: 'POST',
+          data: { hash, tags: ['TestData'], name: file.name }
+        })
+        return id
+      } catch (err) {
+        showToast('error', 'error', e.message)
+      }
     }
   }
 }

@@ -31,7 +31,8 @@
 
 <script>
 import { request } from '../../http'
-import selectEntry from '../../components/selectentry'
+import selectEntry from '@/components/selectentry'
+import { showToast } from '../../swal'
 
 export default {
   name: 'manage',
@@ -90,7 +91,7 @@ export default {
           this.maps = items
         })
         .catch(e => {
-          this.$store.commit('updateMessage', e.message)
+          showToast('error', 'error', e.message)
         })
         .finally(() => {
           this.loading = false
@@ -109,10 +110,10 @@ export default {
         method: 'POST',
         data: { admin: false }
       }).then(() => {
-        this.$store.commit('updateMessage', this.$t('succeeded'))
+        showToast('success', 'succeeded')
         this.fetchData()
       }).catch(e => {
-        this.$store.commit('updateMessage', e.message)
+        showToast('error', 'error', e.message)
         this.loading = false
       })
     },
@@ -124,10 +125,10 @@ export default {
         method: 'PUT',
         data: { admin: true }
       }).then(() => {
-        this.$store.commit('updateMessage', this.$t('succeeded'))
+        showToast('success', 'succeeded')
         this.fetchData()
       }).catch(e => {
-        this.$store.commit('updateMessage', e.message)
+        showToast('error', 'error', e.message)
         this.loading = false
       })
     },
@@ -139,10 +140,10 @@ export default {
         method: 'PUT',
         data: { admin: false }
       }).then(() => {
-        this.$store.commit('updateMessage', this.$t('succeeded'))
+        showToast('success', 'succeeded')
         this.fetchData()
       }).catch(e => {
-        this.$store.commit('updateMessage', e.message)
+        showToast('error', 'error', e.message)
         this.loading = false
       })
     },
@@ -153,10 +154,10 @@ export default {
         params: { entry: this.id, from },
         method: 'DELETE'
       }).then(() => {
-        this.$store.commit('updateMessage', this.$t('succeeded'))
+        showToast('success', 'succeeded')
         this.fetchData()
       }).catch(e => {
-        this.$store.commit('updateMessage', e.message)
+        showToast('error', 'error', e.message)
         this.loading = false
       })
     }

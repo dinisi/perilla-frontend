@@ -27,8 +27,9 @@
 
 <script>
 import { request } from '../../http'
-import zMarkdownEditor from '../../components/zmarkdowneditor.vue'
+import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { EntryType } from '../../interfaces'
+import { showToast } from '../../swal'
 
 export default {
   name: 'adminEdit',
@@ -60,7 +61,7 @@ export default {
             this.entry = entry
           })
           .catch(e => {
-            this.$store.commit('updateMessage', e.message)
+            showToast('error', 'error', e.message)
           })
           .finally(() => {
             this.$store.commit('toggleLoading', false)
@@ -78,9 +79,9 @@ export default {
         params: { entry: this.id },
         data: this.entry
       }).then(() => {
-        this.$store.commit('updateMessage', this.$t('succeeded'))
+        showToast('success', 'succeeded')
       }).catch(e => {
-        this.$store.commit('updateMessage', e.message)
+        showToast('error', 'error', e.message)
       }).finally(() => {
         this.$store.commit('toggleLoading', false)
       })
