@@ -50,6 +50,11 @@
             <v-list-tile-title>{{ $t('change_entry') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile to="/debugger">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('debugger') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile href="https://github.com/ZhangZisu/perilla-frontend" target="_blank">
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('about') }}</v-list-tile-title>

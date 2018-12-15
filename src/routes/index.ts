@@ -8,6 +8,7 @@ import register from '../views/register.vue'
 import createGroup from '../views/creategroup.vue'
 import settings from '../views/settings.vue'
 import blank from '../views/blank.vue'
+import debug from '../views/debug.vue'
 import { fileRoutes } from './file'
 import { solutionRoutes } from './solution'
 import { articleRoutes } from './article'
@@ -43,6 +44,11 @@ let routes: RouteConfig[] = [
     path: '/settings',
     name: 'settings',
     component: settings
+  },
+  {
+    path: '/debugger',
+    name: 'debugger',
+    component: debug
   },
   {
     path: '/blank',
