@@ -19,7 +19,7 @@
             <v-card>
               <v-card-text>
                 <select-entry v-model="newEntry" :type="0"/>
-                <v-btn flat v-text="$t('add')" color="primary" slot="activator" @click="addEntry"/>
+                <v-btn flat v-text="$t('add')" color="primary" slot="activator" @click="addClick"/>
               </v-card-text>
             </v-card>
           </v-menu>
@@ -96,17 +96,32 @@ export default {
           this.loading = false
         })
     },
-    addEntry () {
-      this.unsetAdmin(this.newEntry)
+    addClick () {
+      this.addMember(this.newEntry)
       this.newEntry = null
       this.showMenu = false
+    },
+    addMember (from) {
+      this.loading = true
+      request({
+        url: '/api/entrymap/',
+        params: { entry: this.id, from },
+        method: 'POST',
+        data: { admin: false }
+      }).then(() => {
+        this.$store.commit('updateMessage', this.$t('succeeded'))
+        this.fetchData()
+      }).catch(e => {
+        this.$store.commit('updateMessage', e.message)
+        this.loading = false
+      })
     },
     setAdmin (from) {
       this.loading = true
       request({
         url: '/api/entrymap/',
         params: { entry: this.id, from },
-        method: 'POST',
+        method: 'PUT',
         data: { admin: true }
       }).then(() => {
         this.$store.commit('updateMessage', this.$t('succeeded'))
@@ -121,7 +136,7 @@ export default {
       request({
         url: '/api/entrymap/',
         params: { entry: this.id, from },
-        method: 'POST',
+        method: 'PUT',
         data: { admin: false }
       }).then(() => {
         this.$store.commit('updateMessage', this.$t('succeeded'))
