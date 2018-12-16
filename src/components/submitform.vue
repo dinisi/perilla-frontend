@@ -133,8 +133,7 @@ export default {
           }
         })
       } catch (e) {
-        // eslint-disable-next-line
-        console.log(e.message)
+        // console.log(e.message)
       }
       try {
         const id = await request({

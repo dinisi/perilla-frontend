@@ -99,7 +99,7 @@ export default {
           }
         })
       } catch (e) {
-        showToast('error', 'error', e.message)
+        // showToast('error', 'error', e.message)
       }
       try {
         const id = await request({
