@@ -2,6 +2,10 @@ branches:
   only:
     - master
 
+environment:
+  GH_TOKEN:
+    secure: /BGde185RyklcrqzXMN4FCnFW9oOCYxbM0oHHWq/2C6vXKKCmJuj00eyo6etkcLt
+
 image: Visual Studio 2017
 
 platform:

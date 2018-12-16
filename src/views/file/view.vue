@@ -51,7 +51,7 @@ import { client, request } from '@/http'
 import { resolveUrl } from '@/utils'
 import render from '@/helpers/markdown'
 import copy from 'copy-to-clipboard'
-import { showToast } from '@/swal'
+import { showToast, showDialog } from '@/swal'
 
 export default {
   name: 'FileView',
@@ -134,7 +134,7 @@ export default {
       }
     },
     async loadPreview () {
-      if (!(await Swal({ title: this.$t('think_twice'), text: this.$t('load_preview_may_cause_error'), type: 'warning', showCancelButton: true })).value) return
+      if (!await showDialog('warning', 'think_twice', this.$t('load_preview_may_cause_error'))) return
       let url = resolveUrl(client.defaults.baseURL, `/api/file/raw?entry=${this.$store.state.entry}&id=${this.id}&access_token=${this.$store.state.token}`)
       this.$refs.iframe.src = url
       this.showPreview = true
