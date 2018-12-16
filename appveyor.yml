@@ -10,7 +10,7 @@ platform:
 cache:
   - node_modules
   - '%USERPROFILE%\.electron'
-  - '%LOCALAPPDATA%\\Yarn'
+  - '%LOCALAPPDATA%\Yarn'
 
 init:
   - git config --global core.autocrlf input
