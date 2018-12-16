@@ -49,8 +49,8 @@
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import dataEdit from '@/components/dataedit.vue'
-import { request } from '../../http'
-import { showToast } from '../../swal'
+import { request } from '@/http'
+import { showToast } from '@/swal'
 
 export default {
   name: 'ProblemEdit',

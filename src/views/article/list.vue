@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import { request } from '../../http'
-import { getStorage, setStorage } from '../../storage'
-import { showToast } from '../../swal'
+import { request } from '@/http'
+import { getStorage, setStorage } from '@/storage'
+import { showToast } from '@/swal'
 
 export default {
   name: 'articleList',

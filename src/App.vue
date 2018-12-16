@@ -110,8 +110,7 @@ import { client, request } from '@/http'
 import selectAccessible from '@/components/selectaccessible'
 import { getStorage, setStorage } from '@/storage'
 import frontendInfo from '@/../package.json'
-import Swal from 'sweetalert2'
-import { showToast } from '@/swal'
+import { showToast, showDialog } from '@/swal'
 
 export default {
   name: 'App',
@@ -206,7 +205,7 @@ export default {
           this.loadEntryAvatar()
           break
         } catch (e) {
-          client.defaults.baseURL = (await Swal({ type: 'error', title: this.$t('input_base_url'), text: this.$t('base_url_invalid', [e.message]), input: 'text', allowOutsideClick: false, allowEscapeKey: false })).value
+          client.defaults.baseURL = await showDialog('error', 'input_base_url', this.$t('base_url_invalid', [e.message]), true, 'text')
         }
       }
     }

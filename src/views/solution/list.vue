@@ -49,11 +49,11 @@
 </template>
 
 <script>
-import { request } from '../../http'
+import { request } from '@/http'
 import solutionResult from '@/components/solutionresult.vue'
-import { getStorage, setStorage } from '../../storage'
-import { resultDisplay, SolutionResult as results } from '../../interfaces'
-import { showToast } from '../../swal'
+import { getStorage, setStorage } from '@/storage'
+import { resultDisplay, SolutionResult as results } from '@/interfaces'
+import { showToast } from '@/swal'
 
 export default {
   name: 'SolutionList',

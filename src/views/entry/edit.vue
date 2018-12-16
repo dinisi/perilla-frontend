@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import { request } from '../../http'
+import { request } from '@/http'
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
-import { EntryType } from '../../interfaces'
-import { showToast } from '../../swal'
+import { EntryType } from '@/interfaces'
+import { showToast } from '@/swal'
 
 export default {
   name: 'adminEdit',

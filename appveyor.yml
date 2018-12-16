@@ -17,6 +17,8 @@ init:
 
 install:
   - ps: Install-Product node '' x64
+  - npm i -g npm
+  - npm i -g yarn
   - yarn
 
 build_script:

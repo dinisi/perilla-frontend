@@ -21,7 +21,7 @@
 
 <script>
 import { request } from '@/http'
-import Swal from 'sweetalert2'
+import { showToast } from '@/swal'
 
 export default {
   name: 'Register',

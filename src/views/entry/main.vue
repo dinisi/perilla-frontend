@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import { request } from '../../http'
-import render from '../../helpers/markdown'
-import { EntryType } from '../../interfaces'
-import { showToast } from '../../swal'
+import { request } from '@/http'
+import render from '@/helpers/markdown'
+import { EntryType } from '@/interfaces'
+import { showToast } from '@/swal'
 
 export default {
   name: 'adminMain',

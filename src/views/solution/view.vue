@@ -43,11 +43,11 @@
 </template>
 
 <script>
-import { request } from '../../http'
-import render from '../../helpers/markdown'
+import { request } from '@/http'
+import render from '@/helpers/markdown'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import solutionResult from '@/components/solutionresult.vue'
-import { showToast } from '../../swal'
+import { showToast } from '@/swal'
 
 export default {
   name: 'SolutionView',

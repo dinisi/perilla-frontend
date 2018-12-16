@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import { request } from '../../http'
-import render from '../../helpers/markdown'
-import { showToast } from '../../swal'
+import { request } from '@/http'
+import render from '@/helpers/markdown'
+import { showToast } from '@/swal'
 
 export default {
   name: 'articleView',

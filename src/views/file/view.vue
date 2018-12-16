@@ -47,11 +47,11 @@
 </template>
 
 <script>
-import { client, request } from '../../http'
-import { resolveUrl } from '../../utils'
-import render from '../../helpers/markdown'
+import { client, request } from '@/http'
+import { resolveUrl } from '@/utils'
+import render from '@/helpers/markdown'
 import copy from 'copy-to-clipboard'
-import { showToast } from '../../swal'
+import { showToast } from '@/swal'
 
 export default {
   name: 'FileView',

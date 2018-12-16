@@ -1,6 +1,6 @@
 {
   "name": "perilla-frontend",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -18,6 +18,7 @@
     "gravatar": "^1.8.0",
     "highlight.js": "^9.13.1",
     "html2canvas": "^1.0.0-alpha.12",
+    "izitoast": "^1.4.0",
     "jspdf": "^1.4.1",
     "katex": "^0.10.0",
     "keccak": "^1.4.0",

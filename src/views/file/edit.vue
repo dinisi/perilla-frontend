@@ -40,9 +40,9 @@
 
 <script>
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
-import { request } from '../../http'
-import { calcHash } from '../../utils'
-import { showToast } from '../../swal'
+import { request } from '@/http'
+import { calcHash } from '@/utils'
+import { showToast } from '@/swal'
 
 export default {
   name: 'FileEdit',

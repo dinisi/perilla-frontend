@@ -49,6 +49,7 @@ export default {
       try {
         const { client, request } = require('@/http')
         const swal = require('sweetalert2')
+        const iziToast = require('izitoast')
         // eslint-disable-next-line no-eval
         this.returnVal = JSON.stringify(eval(this.code)) || 'undefined'
         showToast('success', 'succeeded')

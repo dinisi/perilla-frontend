@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import { request } from '../../http'
-import { getStorage, setStorage } from '../../storage'
+import { request } from '@/http'
+import { getStorage, setStorage } from '@/storage'
 import lastStatus from '@/components/laststatus.vue'
-import { showToast } from '../../swal'
+import { showToast } from '@/swal'
 
 export default {
   name: 'ProblemList',

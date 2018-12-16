@@ -1,5 +1,5 @@
 import { register } from 'register-service-worker'
-import { showToast } from './swal'
+import { showToast } from '@/swal'
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {

@@ -50,10 +50,10 @@
 </template>
 
 <script>
-import { request } from '../../http'
-import render from '../../helpers/markdown'
+import { request } from '@/http'
+import render from '@/helpers/markdown'
 import submitForm from '@/components/submitform.vue'
-import { showToast } from '../../swal'
+import { showToast } from '@/swal'
 
 export default {
   name: 'ProblemView',

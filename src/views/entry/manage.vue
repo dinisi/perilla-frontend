@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import { request } from '../../http'
+import { request } from '@/http'
 import selectEntry from '@/components/selectentry'
-import { showToast } from '../../swal'
+import { showToast } from '@/swal'
 
 export default {
   name: 'manage',
