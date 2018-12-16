@@ -12,6 +12,10 @@ export const request = async (config: AxiosRequestConfig) => {
     const response = await client(config)
     if (response.data.status !== 'success') {
       const errorMsg = typeof response.data.payload === 'string' ? response.data.payload : 'Failed'
+      if (response.data.payload === 'jwt expired') {
+        // force logout user
+        store.commit('logout')
+      }
       throw new Error(errorMsg)
     } else {
       return response.data.payload
