@@ -2,6 +2,8 @@
 
 import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
+import { autoUpdater } from "electron-updater"
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -10,7 +12,7 @@ let win: BrowserWindow = null
 
 // Standard scheme must be registered before the app is ready
 protocol.registerStandardSchemes(['app'], { secure: true })
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({ width: 800, height: 600 })
   win.show()
@@ -51,9 +53,13 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
-    await installVueDevtools()
+  if (!process.env.IS_TEST) {
+    if (isDevelopment) {
+      // Install Vue Devtools
+      await installVueDevtools()
+    } else {
+      autoUpdater.checkForUpdatesAndNotify()
+    }
   }
   createWindow()
 })
