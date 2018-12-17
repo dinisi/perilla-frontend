@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { parseJwt } from '@/utils'
 import createPersistedState from 'vuex-persistedstate'
+import { showToast } from './swal'
 
 Vue.use(Vuex)
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
       state.token = payload
       state.user = parseJwt(payload)._id
       state.entry = state.user
+      showToast('success', 'welcome', state.user)
     },
     logout: state => {
       state.token = state.user = state.entry = null
