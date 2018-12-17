@@ -24,10 +24,52 @@ import zMonacoEditor from '@/components/zmonacoeditor.vue'
 import { showToast } from '@/swal'
 
 const defaultCode = `// This is a place to run your own code
-// client: AxiosClient
+// client: AxiosClient https://www.npmjs.com/package/axios
 // request: A wrapped function to send request with x-auth-token
-// swal: SweetAlert2
+// swal: SweetAlert2 https://www.npmjs.com/package/sweetalert2
+// iziToast: iziToast https://www.npmjs.com/package/izitoast
 // Have fun!
+
+const rejudgeAll = (entry, id) => {
+    return request({
+        url: '/api/problem/rejudge',
+        params: {
+            entry,
+            id
+        },
+        method: 'POST'
+    })
+}
+
+const listSystemAdministrators = (skip, limit) => {
+    return request({
+        url: '/api/systemmap/list',
+        params: {
+            skip,
+            limit
+        }
+    })
+}
+
+const setSystemAdministrator = (user) => {
+    return request({
+        url: '/api/systemmap',
+        params: {
+            user
+        },
+        method: 'POST'
+    })
+}
+
+const unsetSystemAdministrator = (user) => {
+    return request({
+        url: '/api/systemmap',
+        params: {
+            user
+        },
+        method: 'DELETE'
+    })
+}
 `
 
 export default {
