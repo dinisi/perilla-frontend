@@ -89,7 +89,7 @@ export default {
     },
     async run () {
       try {
-        const { client, request } = require('@/http')
+        const { client, request } = require('@/helpers/http')
         const swal = require('sweetalert2')
         const iziToast = require('izitoast')
         // eslint-disable-next-line no-eval

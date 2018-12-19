@@ -14,7 +14,7 @@
 <script>
 import { calcHash } from '@/utils'
 import zJsonEditor from '@/components/zjsoneditor.vue'
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import { generateData as generateTrad } from '@/helpers/traditional'
 import { showToast } from '@/swal'
 

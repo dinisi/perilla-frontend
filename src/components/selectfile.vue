@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import { showToast } from '@/swal'
 
 export default {

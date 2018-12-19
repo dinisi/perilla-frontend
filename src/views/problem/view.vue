@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
 import submitForm from '@/components/submitform.vue'
 import { showToast } from '@/swal'

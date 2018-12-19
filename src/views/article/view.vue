@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
 import { showToast } from '@/swal'
 

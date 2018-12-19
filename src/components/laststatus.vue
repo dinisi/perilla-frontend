@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { request } from '@/http'
-import { resultDisplay } from '@/interfaces'
+import { request } from '@/helpers/http'
+import { resultDisplay } from '@/helpers/misc'
 
 export default {
   name: 'lastStatus',

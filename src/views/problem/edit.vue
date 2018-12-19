@@ -49,7 +49,7 @@
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import dataEdit from '@/components/dataedit.vue'
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import { showToast } from '@/swal'
 
 export default {

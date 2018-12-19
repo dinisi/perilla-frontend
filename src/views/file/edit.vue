@@ -40,7 +40,7 @@
 
 <script>
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import { calcHash } from '@/utils'
 import { showToast } from '@/swal'
 

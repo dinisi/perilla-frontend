@@ -5,12 +5,12 @@ import i18n from '@/i18n'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import './registerServiceWorker'
-import { client } from '@/http'
+import { client } from '@/helpers/http'
 import Vuetify from 'vuetify'
 import './styles/vuetify.styl'
 import './styles/main.styl'
 import App from '@/App.vue'
-import { getStorage } from '@/storage'
+import { getStorage } from '@/helpers/storage'
 
 Vue.config.productionTip = false
 

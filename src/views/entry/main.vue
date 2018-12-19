@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
-import { EntryType } from '@/interfaces'
+import { EntryType } from '@/helpers/misc'
 import { showToast } from '@/swal'
 
 export default {

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import selectEntry from '@/components/selectentry'
 import { showToast } from '@/swal'
 

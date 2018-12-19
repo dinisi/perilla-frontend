@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { SolutionResult, resultDisplay } from '@/interfaces'
+import { SolutionResult, resultDisplay } from '@/helpers/misc'
 
 export default {
   name: 'solutionResult',

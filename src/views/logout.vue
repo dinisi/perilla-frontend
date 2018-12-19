@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 
 export default {
   name: 'Logout',

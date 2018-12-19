@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import { client } from '@/http'
-import { setStorage } from '@/storage'
+import { client } from '@/helpers/http'
+import { setStorage } from '@/helpers/storage'
 
 export default {
   name: 'settings',

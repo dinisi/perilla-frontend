@@ -49,10 +49,10 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import solutionResult from '@/components/solutionresult.vue'
-import { getStorage, setStorage } from '@/storage'
-import { resultDisplay, SolutionResult as results } from '@/interfaces'
+import { getStorage, setStorage } from '@/helpers/storage'
+import { resultDisplay, SolutionResult as results } from '@/helpers/misc'
 import { showToast } from '@/swal'
 
 export default {
@@ -71,10 +71,10 @@ export default {
         { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       solutions: [],
-      pagination: {
+      pagination: getStorage(localStorage, 'solutionPagination') || {
         descending: true,
         page: 1,
-        rowsPerPage: getStorage(localStorage, 'lastSolutionListRPP') || 15,
+        rowsPerPage: 15,
         sortBy: 'id',
         totalItems: 0
       },
@@ -94,6 +94,7 @@ export default {
   watch: {
     pagination: {
       handler: function () {
+        setStorage(localStorage, 'solutionPagination', this.pagination)
         this.fetchData()
       },
       deep: true
@@ -103,7 +104,6 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
-      setStorage(localStorage, 'lastSolutionListRPP', rowsPerPage)
       const params = { sortBy, descending: descending || undefined }
       const condition = this.getCondition()
       Promise.all([

@@ -1,7 +1,7 @@
 import katex from 'katex'
 import zmark, { Renderer } from 'zmark'
 import highlightjs from 'highlight.js'
-import { client } from '@/http'
+import { client } from '@/helpers/http'
 import store from '@/store'
 import 'katex/dist/katex.css'
 import '../assets/github.css'

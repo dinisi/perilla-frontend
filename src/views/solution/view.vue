@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import solutionResult from '@/components/solutionresult.vue'

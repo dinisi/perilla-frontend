@@ -32,7 +32,7 @@ import zJsonEditor from '@/components/zjsoneditor.vue'
 import zMonacoEditor from '@/components/zmonacoeditor.vue'
 import selectFile from '@/components/selectfile.vue'
 import { calcHash } from '@/utils'
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import { Languages } from 'perilla-languages'
 import { showToast } from '@/swal'
 

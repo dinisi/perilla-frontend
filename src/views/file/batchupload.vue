@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { request } from '@/http'
+import { request } from '@/helpers/http'
 import { calcHash } from '@/utils'
 
 export default {

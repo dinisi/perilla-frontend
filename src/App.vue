@@ -106,9 +106,9 @@
 <script>
 import navbar from '@/components/navbar'
 import * as gravatar from 'gravatar'
-import { client, request } from '@/http'
+import { client, request } from '@/helpers/http'
 import selectAccessible from '@/components/selectaccessible'
-import { getStorage, setStorage } from '@/storage'
+import { getStorage, setStorage } from '@/helpers/storage'
 import frontendInfo from '@/../package.json'
 import { showToast, showDialog } from '@/swal'
 

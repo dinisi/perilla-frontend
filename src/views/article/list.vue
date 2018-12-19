@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import { request } from '@/http'
-import { getStorage, setStorage } from '@/storage'
+import { request } from '@/helpers/http'
+import { getStorage, setStorage } from '@/helpers/storage'
 import { showToast } from '@/swal'
 
 export default {
@@ -59,10 +59,10 @@ export default {
         { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
       ],
       articles: [],
-      pagination: {
+      pagination: getStorage(localStorage, 'articlePagination') || {
         descending: false,
         page: 1,
-        rowsPerPage: getStorage(localStorage, 'lastArticleListRPP') || 15,
+        rowsPerPage: 15,
         sortBy: 'id',
         totalItems: 0
       },
@@ -79,6 +79,7 @@ export default {
   watch: {
     pagination: {
       handler: function () {
+        setStorage(localStorage, 'articlePagination', this.pagination)
         this.fetchData()
       },
       deep: true
@@ -88,7 +89,6 @@ export default {
     fetchData () {
       this.loading = true
       const { sortBy, descending, page, rowsPerPage } = this.pagination
-      setStorage(localStorage, 'lastArticleListRPP', rowsPerPage)
       const params = { sortBy, descending: descending || undefined }
       const condition = this.getCondition()
       Promise.all([
