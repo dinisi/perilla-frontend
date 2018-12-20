@@ -22,7 +22,7 @@
     "izitoast": "^1.4.0",
     "jspdf": "^1.4.1",
     "katex": "^0.10.0",
-    "keccak": "^1.4.0",
+    "keccak": "^2.0.0",
     "lodash": "^4.17.11",
     "material-design-icons-iconfont": "^4.0.2",
     "monaco-editor": "^0.15.6",
