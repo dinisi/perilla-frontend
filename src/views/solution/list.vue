@@ -1,31 +1,35 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="solutions" :pagination.sync="pagination" :total-items="total" :loading="loading">
-        <template slot="items" slot-scope="props">
-          <tr>
-            <td>
-              <router-link  :to="'/solution/show/' + props.item.id">
-                {{ props.item.id }}
-              </router-link>
-            </td>
-            <td class="text-xs-right">
-              <router-link :to="'/problem/show/'+ props.item.problem">
-                {{ props.item.problem }}
-              </router-link>
-            </td>
-            <td class="text-xs-right">
-              <solution-result :result="props.item.status"/>
-            </td>
-            <td class="text-xs-right">{{ props.item.score }}</td>
-            <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
-            <td class="text-xs-right">{{ props.item.creator }}</td>
-          </tr>
-        </template>
-        <template slot="actions-prepend">
-          <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
-        </template>
-      </v-data-table>
+      <v-flex sm12>
+        <v-card>
+          <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="solutions" :pagination.sync="pagination" :total-items="total" :loading="loading">
+            <template slot="items" slot-scope="props">
+              <tr>
+                <td>
+                  <router-link  :to="'/solution/show/' + props.item.id">
+                    {{ props.item.id }}
+                  </router-link>
+                </td>
+                <td class="text-xs-right">
+                  <router-link :to="'/problem/show/'+ props.item.problem">
+                    {{ props.item.problem }}
+                  </router-link>
+                </td>
+                <td class="text-xs-right">
+                  <solution-result :result="props.item.status"/>
+                </td>
+                <td class="text-xs-right">{{ props.item.score }}</td>
+                <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
+                <td class="text-xs-right">{{ props.item.creator }}</td>
+              </tr>
+            </template>
+            <template slot="actions-prepend">
+              <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-flex>
     </v-layout>
     <v-dialog v-model="showCondDialog" max-width="500px">
       <v-card>

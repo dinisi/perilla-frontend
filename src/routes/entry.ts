@@ -2,6 +2,12 @@ import { RouteConfig } from 'vue-router'
 
 export const entryRoutes: RouteConfig[] = [
   {
+    path: '/entry',
+    name: 'entryList',
+    component: () =>
+      import(/* webpackChunkName: "entry" */ '@/views/entry/list.vue')
+  },
+  {
     path: '/entry/show/:id',
     name: 'entryView',
     component: () =>

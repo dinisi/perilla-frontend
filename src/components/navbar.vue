@@ -23,6 +23,12 @@
               </v-list-tile-avatar>
               <v-list-tile-title v-text="$t('create_group')"/>
             </v-list-tile>
+            <v-list-tile to="/entry">
+              <v-list-tile-avatar>
+                <v-icon>local_library</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('entry_list')"/>
+            </v-list-tile>
           </v-list>
         </v-menu>
       </template>

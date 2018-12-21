@@ -1,27 +1,31 @@
 <template>
   <v-container fluid>
     <v-layout align-center justify-center>
-      <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="articles" :pagination.sync="pagination" :total-items="total" :loading="loading">
-        <template slot="items" slot-scope="props">
-          <tr>
-            <td>
-              <router-link  :to="'/article/show/' + props.item.id">
-                {{ props.item.id }}
-              </router-link>
-            </td>
-            <td class="text-xs-right">{{ props.item.title }}</td>
-            <td class="text-xs-right">
-              <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>
-            </td>
-            <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
-            <td class="text-xs-right">{{ props.item.creator }}</td>
-          </tr>
-        </template>
-        <template slot="actions-prepend">
-          <v-btn flat v-text="$t('new')" to="/article/new" color="primary" />
-          <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
-        </template>
-      </v-data-table>
+      <v-flex sm12>
+        <v-card>
+          <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="articles" :pagination.sync="pagination" :total-items="total" :loading="loading">
+            <template slot="items" slot-scope="props">
+              <tr>
+                <td>
+                  <router-link  :to="'/article/show/' + props.item.id">
+                    {{ props.item.id }}
+                  </router-link>
+                </td>
+                <td class="text-xs-right">{{ props.item.title }}</td>
+                <td class="text-xs-right">
+                  <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>
+                </td>
+                <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
+                <td class="text-xs-right">{{ props.item.creator }}</td>
+              </tr>
+            </template>
+            <template slot="actions-prepend">
+              <v-btn flat v-text="$t('new')" to="/article/new" color="primary" />
+              <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-flex>
     </v-layout>
     <v-dialog v-model="showCondDialog" max-width="500px">
       <v-card>

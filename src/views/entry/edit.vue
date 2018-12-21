@@ -17,6 +17,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
+            <v-btn v-text="$t('remove')" color="warning" @click="remove"/>
             <v-btn v-text="$t('save')" color="primary" @click="update"/>
           </v-card-actions>
         </v-card>
@@ -29,7 +30,7 @@
 import { request } from '@/helpers/http'
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { EntryType } from '@/helpers/misc'
-import { showToast } from '@/swal'
+import { showToast, showDialog } from '@/swal'
 
 export default {
   name: 'adminEdit',
@@ -78,6 +79,21 @@ export default {
         method: 'PUT',
         params: { entry: this.id },
         data: this.entry
+      }).then(() => {
+        showToast('success', 'succeeded')
+      }).catch(e => {
+        showToast('error', 'error', e.message)
+      }).finally(() => {
+        this.$store.commit('toggleLoading', false)
+      })
+    },
+    async remove () {
+      if (!await showDialog('warning', 'think_twice', this.$t('all_user_data_will_be_removed_and_cannot_be_recovered'))) return
+      this.$store.commit('toggleLoading', true)
+      request({
+        url: '/api/entry',
+        method: 'DELETE',
+        params: { entry: this.id }
       }).then(() => {
         showToast('success', 'succeeded')
       }).catch(e => {

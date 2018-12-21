@@ -3,26 +3,20 @@
     <v-layout align-center justify-center>
       <v-flex sm12>
         <v-card>
-          <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="files" :pagination.sync="pagination" :total-items="total" :loading="loading">
+          <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="entries" :pagination.sync="pagination" :total-items="total" :loading="loading">
             <template slot="items" slot-scope="props">
               <tr>
                 <td>
-                  <router-link  :to="'/file/show/' + props.item.id">
-                    {{ props.item.id }}
+                  <router-link  :to="'/entry/show/' + props.item._id">
+                    {{ props.item._id }}
                   </router-link>
                 </td>
-                <td class="text-xs-right">{{ props.item.name }}</td>
-                <td class="text-xs-right">{{ props.item.type }}</td>
-                <td class="text-xs-right">
-                  <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>
-                </td>
-                <td class="text-xs-right">{{ new Date(props.item.updated).toLocaleString() }}</td>
-                <td class="text-xs-right">{{ props.item.creator }}</td>
+                <td class="text-xs-right">{{ props.item.email }}</td>
+                <td class="text-xs-right">{{ $t(EntryType[props.item.type]) }}</td>
+                <td class="text-xs-right">{{ new Date(props.item.created).toLocaleString() }}</td>
               </tr>
             </template>
             <template slot="actions-prepend">
-              <v-btn flat to="/file/new" v-text="$t('new')" color="primary" />
-              <v-btn flat to="/file/upload" v-text="$t('upload')" />
               <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
             </template>
           </v-data-table>
@@ -34,9 +28,7 @@
         <v-card-title class="headline" v-text="$t('condition')"/>
         <v-card-text>
           <v-text-field v-model="search" :label="$t('search')"/>
-          <v-text-field v-model="type" :label="$t('type')"/>
-          <v-combobox v-model="tags" :label="$t('tags')" hide-selected multiple chips clearable/>
-          <v-text-field v-model="creator" :label="$t('creator')"/>
+          <v-select v-model="type" :items="[$t('all'), $t('user'), $t('group')]" :label="$t('type')"/>
           <v-text-field v-model="before" :label="$t('before')" mask="####/##/## ##:##" :return-masked-value="true"/>
           <v-text-field v-model="after" :label="$t('after')" mask="####/##/## ##:##" :return-masked-value="true"/>
         </v-card-text>
@@ -53,42 +45,40 @@
 import { request } from '@/helpers/http'
 import { getStorage, setStorage } from '@/helpers/storage'
 import { showToast } from '@/swal'
+import { EntryType } from '@/helpers/misc'
 
 export default {
   name: 'FileList',
   data () {
     return {
       headers: [
-        { text: this.$t('ID'), align: 'left', sortable: true, value: 'id' },
-        { text: this.$t('name'), value: 'name', sortable: true, class: 'text-xs-right' },
+        { text: this.$t('ID'), align: 'left', sortable: true, value: '_id' },
+        { text: this.$t('email'), value: 'email', sortable: false, class: 'text-xs-right' },
         { text: this.$t('type'), value: 'type', sortable: false, class: 'text-xs-right' },
-        { text: this.$t('tags'), value: 'tags', sortable: false, class: 'text-xs-right' },
-        { text: this.$t('updated'), value: 'updated', sortable: true, class: 'text-xs-right' },
-        { text: this.$t('creator'), value: 'creator', sortable: false, class: 'text-xs-right' }
+        { text: this.$t('created'), value: 'created', sortable: true, class: 'text-xs-right' }
       ],
-      files: [],
-      pagination: getStorage(localStorage, 'filePagination') || {
+      entries: [],
+      pagination: getStorage(localStorage, 'entryPagination') || {
         descending: true,
         page: 1,
         rowsPerPage: 15,
-        sortBy: 'id',
+        sortBy: 'created',
         totalItems: 0
       },
       total: 0,
       loading: true,
       search: null,
       type: null,
-      tags: null,
       before: null,
       after: null,
-      creator: null,
-      showCondDialog: false
+      showCondDialog: false,
+      EntryType
     }
   },
   watch: {
     pagination: {
       handler: function () {
-        setStorage(localStorage, 'filePagination', this.pagination)
+        setStorage(localStorage, 'entryPagination', this.pagination)
         this.fetchData()
       },
       deep: true
@@ -102,7 +92,7 @@ export default {
       const condition = this.getCondition()
       Promise.all([
         request({
-          url: '/api/file/list',
+          url: '/api/entry/list',
           params: Object.assign(
             { entry: this.$store.state.entry },
             { noexec: true },
@@ -111,7 +101,7 @@ export default {
           )
         }),
         request({
-          url: '/api/file/list',
+          url: '/api/entry/list',
           params: Object.assign(
             { entry: this.$store.state.entry },
             { skip: (page - 1) * rowsPerPage, limit: rowsPerPage },
@@ -122,7 +112,7 @@ export default {
       ])
         .then(([count, items]) => {
           this.total = count
-          this.files = items
+          this.entries = items
         })
         .catch(e => {
           showToast('error', 'error', e.message)
@@ -137,19 +127,17 @@ export default {
         condition.search = this.search
       }
       if (this.type && this.type.trim()) {
-        condition.type = this.type
-      }
-      if (this.tags && this.tags.length) {
-        condition.tags = this.tags
+        if (this.type === this.$t('user')) {
+          condition.type = 0
+        } else if (this.type === this.$t('group')) {
+          condition.type = 1
+        }
       }
       if (this.before && this.before.trim()) {
         condition.before = +new Date(this.before)
       }
       if (this.after && this.after.trim()) {
         condition.after = +new Date(this.after)
-      }
-      if (this.creator && this.creator.trim()) {
-        condition.creator = this.creator
       }
       return condition
     }
