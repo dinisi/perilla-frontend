@@ -97,7 +97,7 @@ export default {
           language: this.realval.language
         }
         this.common.loading = false
-        showToast('info', 'upload_finished', file.name)
+        showToast('success', 'upload_finished', file.name)
       } else {
         showToast('error', invalid_operation)
       }
@@ -112,13 +112,12 @@ export default {
           language: this.realval.language
         }
         this.common.loading = false
-        showToast('info', 'upload_finished', file.name)
+        showToast('success', 'upload_finished', file.name)
       } else {
         showToast('error', invalid_operation)
       }
     },
     async upload (file) {
-      showToast('info', 'processing', file.name)
       const hash = await calcHash(file)
       try {
         await request({ url: '/api/file/provide', params: { hash } })

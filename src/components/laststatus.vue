@@ -43,7 +43,7 @@ export default {
           } else {
             this.outline = false
             this.color = '#34495e'
-            this.details = 'no_data'
+            this.details = 'no_solution'
             this.textColor = 'white'
           }
         }).catch(err => {

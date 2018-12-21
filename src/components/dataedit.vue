@@ -76,7 +76,7 @@ export default {
             }
           }
           this.realval = raw
-          showToast('info', 'upload_finished')
+          showToast('success', 'upload_finished')
         } catch (e) {
           showToast('error', 'error', e.message)
         }
@@ -84,7 +84,6 @@ export default {
       }
     },
     async upload (file) {
-      showToast('info', 'processing', file.name)
       const hash = await calcHash(file)
       try {
         await request({ url: '/api/file/provide', params: { hash } })
