@@ -7,7 +7,7 @@
             <v-toolbar-title v-text="$t('edit_article', [article.id])" />
             <v-spacer />
             <v-toolbar-items>
-              <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
+              <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="error"/>
               <v-btn flat v-text="$t('save')" @click="save" color="primary" /><v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/article/show/' + id"/>
             </v-toolbar-items>
           </v-toolbar>
@@ -26,7 +26,7 @@
 <script>
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { request } from '@/helpers/http'
-import { showToast } from '@/swal'
+import { showToast, showDialog } from '@/swal'
 
 export default {
   name: 'articleEdit',
@@ -96,7 +96,8 @@ export default {
           })
       }
     },
-    remove () {
+    async remove () {
+      if (!await showDialog('warning', 'think_twice')) return
       this.loading = true
       request({
         url: '/api/article',

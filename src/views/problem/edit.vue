@@ -12,7 +12,7 @@
             </v-toolbar-items>
             <v-spacer />
             <v-toolbar-items>
-              <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
+              <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="error"/>
               <v-btn flat v-text="$t('save')" @click="save" color="primary" /><v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/problem/show/' + id"/>
             </v-toolbar-items>
           </v-toolbar>
@@ -50,7 +50,7 @@ import zJsonEditor from '@/components/zjsoneditor.vue'
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import dataEdit from '@/components/dataedit.vue'
 import { request } from '@/helpers/http'
-import { showToast } from '@/swal'
+import { showToast, showDialog } from '@/swal'
 
 export default {
   name: 'ProblemEdit',
@@ -127,7 +127,8 @@ export default {
           })
       }
     },
-    remove () {
+    async remove () {
+      if (!await showDialog('warning', 'think_twice')) return
       this.loading = true
       request({
         url: '/api/problem',

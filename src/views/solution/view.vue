@@ -33,7 +33,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn v-text="$t('remove')" @click="remove" />
+            <v-btn v-text="$t('remove')" @click="remove" color="error"/>
             <v-btn color="primary" v-text="$t('rejudge')" @click="rejudge" />
           </v-card-actions>
         </v-card>
@@ -47,7 +47,7 @@ import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import solutionResult from '@/components/solutionresult.vue'
-import { showToast } from '@/swal'
+import { showToast, showDialog } from '@/swal'
 
 export default {
   name: 'SolutionView',
@@ -147,7 +147,8 @@ export default {
           showToast('error', 'error', e.message)
         })
     },
-    remove: function () {
+    remove: async function () {
+      if (!await showDialog('warning', 'think_twice')) return
       this.loading = true
       request({
         url: '/api/solution',
