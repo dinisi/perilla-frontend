@@ -6,12 +6,8 @@
           <v-data-table :rows-per-page-items="[5, 10, 15, 25, 50]" class="fullwidth" :headers="headers" :items="files" :pagination.sync="pagination" :total-items="total" :loading="loading">
             <template slot="items" slot-scope="props">
               <tr>
-                <td>
-                  <router-link  :to="'/file/show/' + props.item.id">
-                    {{ props.item.id }}
-                  </router-link>
-                </td>
-                <td class="text-xs-right">{{ props.item.name }}</td>
+                <td>{{ props.item.id }}</td>
+                <td class="text-xs-right"><router-link :to="'/file/show/' + props.item.id">{{ props.item.name }}</router-link></td>
                 <td class="text-xs-right">{{ props.item.type }}</td>
                 <td class="text-xs-right">
                   <v-chip v-for="(tag, i) in props.item.tags" :key="i">{{ tag }}</v-chip>

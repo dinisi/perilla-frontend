@@ -11,7 +11,7 @@
             </v-toolbar-items>
             <v-spacer />
             <v-toolbar-items>
-              <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="accent"/>
+              <v-btn flat v-text="$t('remove')" :disabled="isnew" @click="remove" color="error"/>
               <v-btn flat v-text="$t('save')" @click="save" color="primary" />
               <v-btn flat v-text="$t('show')" :disabled="isnew" :to="'/file/show/' + id"/>
             </v-toolbar-items>
@@ -42,7 +42,7 @@
 import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import { request } from '@/helpers/http'
 import { calcHash } from '@/utils'
-import { showToast } from '@/swal'
+import { showToast, showDialog } from '@/swal'
 
 export default {
   name: 'FileEdit',
@@ -136,7 +136,8 @@ export default {
           })
       }
     },
-    remove () {
+    async remove () {
+      if (!await showDialog('warning', 'think_twice')) return
       this.loading = true
       request({
         url: '/api/file',
