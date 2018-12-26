@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="$store.state.darkTheme">
     <v-navigation-drawer v-model="showsidebar" app v-if="!!$store.state.token">
       <v-list subheader>
         <v-subheader>{{ $t('logged_in_as') }}</v-subheader>
@@ -76,7 +76,60 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <navbar v-model="showsidebar" />
+    <v-toolbar app :color="$store.state.adminMode ? 'error' : undefined">
+      <v-toolbar-side-icon v-if="$store.state.token" @click="showsidebar = !showsidebar" />
+      <v-toolbar-items>
+        <v-btn class="headline" flat to="/">Perilla</v-btn>
+      </v-toolbar-items>
+      <v-spacer />
+      <v-toolbar-items>
+        <v-btn flat to="/blank" v-text="$t('refresh')" />
+        <template v-if="$store.state.token">
+          <v-menu open-on-hover bottom offset-y>
+            <v-btn flat slot="activator" to="/logout" v-text="$t('logout')"/>
+            <v-list>
+              <v-list-tile to="/settings">
+                <v-list-tile-avatar>
+                  <v-icon>settings</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-title v-text="$t('settings')"/>
+              </v-list-tile>
+              <v-list-tile to="/creategroup">
+                <v-list-tile-avatar>
+                  <v-icon>group_add</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-title v-text="$t('create_group')"/>
+              </v-list-tile>
+              <v-list-tile to="/entry">
+                <v-list-tile-avatar>
+                  <v-icon>local_library</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-title v-text="$t('entry_list')"/>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+        </template>
+        <template v-else>
+          <v-menu open-on-hover bottom offset-y>
+            <v-btn slot="activator" depressed to="/login" color="primary" v-text="$t('login')"/>
+            <v-list>
+              <v-list-tile to="/settings">
+                <v-list-tile-avatar>
+                  <v-icon>settings</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-title v-text="$t('settings')"/>
+              </v-list-tile>
+              <v-list-tile to="/register">
+                <v-list-tile-avatar>
+                  <v-icon>person_add</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-title v-text="$t('register')"/>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+        </template>
+      </v-toolbar-items>
+    </v-toolbar>
     <v-content>
       <router-view />
     </v-content>
@@ -105,7 +158,6 @@
 </template>
 
 <script>
-import navbar from '@/components/navbar'
 import * as gravatar from 'gravatar'
 import { client, request } from '@/helpers/http'
 import selectAccessible from '@/components/selectaccessible'
@@ -117,7 +169,6 @@ import { showToast, showDialog } from '@/swal'
 export default {
   name: 'App',
   components: {
-    navbar,
     selectAccessible,
     selectEntry
   },

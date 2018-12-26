@@ -12,11 +12,15 @@ export default new Vuex.Store({
     token: null,
     user: null,
     entry: null,
-    adminMode: false
+    adminMode: false,
+    darkTheme: false
   },
   mutations: {
     toggleAdmin: (state, payload) => {
       state.adminMode = payload
+    },
+    toggleDark: (state, payload) => {
+      state.darkTheme = payload
     },
     toggleLoading: (state, payload) => {
       state.loading = payload

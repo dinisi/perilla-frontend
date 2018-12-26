@@ -8,6 +8,7 @@
             <v-select v-model="language" :items="languages" :label="$t('language')"/>
             <v-text-field v-model="baseURL" :label="$t('base_url')" :placeholder="$t('leave_blank_to_use_default')"/>
             <v-switch v-model="adminMode" :label="$t('admin_mode')"/>
+            <v-switch v-model="darkTheme" :label="$t('dark_theme')"/>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -49,6 +50,14 @@ export default {
       },
       get: function () {
         return this.$store.state.adminMode
+      }
+    },
+    darkTheme: {
+      set: function (val) {
+        this.$store.commit('toggleDark', val)
+      },
+      get: function () {
+        return this.$store.state.darkTheme
       }
     }
   }
