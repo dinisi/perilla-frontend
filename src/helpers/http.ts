@@ -9,6 +9,9 @@ export const request = async (config: AxiosRequestConfig) => {
       config.headers = config.headers || {}
       config.headers['x-access-token'] = store.state.token
     }
+    if (store.state.adminMode) {
+      config.params.forced = true
+    }
     const response = await client(config)
     if (response.data.status !== 'success') {
       const errorMsg = typeof response.data.payload === 'string' ? response.data.payload : 'Failed'

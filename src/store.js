@@ -11,9 +11,13 @@ export default new Vuex.Store({
     loading: false,
     token: null,
     user: null,
-    entry: null
+    entry: null,
+    adminMode: false
   },
   mutations: {
+    toggleAdmin: (state, payload) => {
+      state.adminMode = payload
+    },
     toggleLoading: (state, payload) => {
       state.loading = payload
     },

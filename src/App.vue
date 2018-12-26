@@ -1,24 +1,24 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="showsidebar" app v-if="!!token">
+    <v-navigation-drawer v-model="showsidebar" app v-if="!!$store.state.token">
       <v-list subheader>
         <v-subheader>{{ $t('logged_in_as') }}</v-subheader>
-        <v-list-tile avatar :to="'/entry/show/' + user">
+        <v-list-tile avatar :to="'/entry/show/' + $store.state.user">
           <v-list-tile-avatar>
             <img :src="userAvatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{ user }}</v-list-tile-title>
+            <v-list-tile-title>{{ $store.state.user }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider/>
         <v-subheader>{{ $t('current_entry') }}</v-subheader>
-        <v-list-tile avatar :to="'/entry/show/' + entry">
+        <v-list-tile avatar :to="'/entry/show/' + $store.state.entry">
           <v-list-tile-avatar>
             <img :src="entryAvatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{ entry }}</v-list-tile-title>
+            <v-list-tile-title>{{ $store.state.entry }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider/>
@@ -92,7 +92,8 @@
       <v-card>
         <v-card-title class="headline" v-text="$t('select_entry')"/>
         <v-card-text>
-          <select-accessible v-model="newEntry"/>
+          <select-entry v-if="$store.state.adminMode" v-model="newEntry"/>
+          <select-accessible v-else v-model="newEntry"/>
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
@@ -108,6 +109,7 @@ import navbar from '@/components/navbar'
 import * as gravatar from 'gravatar'
 import { client, request } from '@/helpers/http'
 import selectAccessible from '@/components/selectaccessible'
+import selectEntry from '@/components/selectentry'
 import { getStorage, setStorage } from '@/helpers/storage'
 import frontendInfo from '@/../package.json'
 import { showToast, showDialog } from '@/swal'
@@ -116,7 +118,8 @@ export default {
   name: 'App',
   components: {
     navbar,
-    selectAccessible
+    selectAccessible,
+    selectEntry
   },
   data () {
     return {
@@ -151,23 +154,12 @@ export default {
   created () {
     this.loadSettings()
   },
-  computed: {
-    token () {
-      return this.$store.state.token
-    },
-    entry () {
-      return this.$store.state.entry
-    },
-    user () {
-      return this.$store.state.user
-    }
-  },
   methods: {
     loadUserAvatar () {
-      if (!this.user) return
+      if (!this.$store.state.user) return
       request({
         url: '/api/entry',
-        params: { entry: this.user }
+        params: { entry: this.$store.state.user }
       })
         .then(res => {
           this.userAvatar = gravatar.url(res.email, { d: 'mp' })
@@ -177,10 +169,10 @@ export default {
         })
     },
     loadEntryAvatar () {
-      if (!this.entry) return
+      if (!this.$store.state.entry) return
       request({
         url: '/api/entry',
-        params: { entry: this.entry }
+        params: { entry: this.$store.state.entry }
       })
         .then(res => {
           this.entryAvatar = gravatar.url(res.email, { d: 'mp' })
@@ -190,7 +182,7 @@ export default {
         })
     },
     changeEntry () {
-      if (this.newEntry && this.newEntry !== this.entry) {
+      if (this.newEntry && this.newEntry !== this.$store.state.entry) {
         this.$store.commit('changeEntry', this.newEntry)
         this.$router.push('/blank')
       }

@@ -7,6 +7,7 @@
           <v-card-text>
             <v-select v-model="language" :items="languages" :label="$t('language')"/>
             <v-text-field v-model="baseURL" :label="$t('base_url')" :placeholder="$t('leave_blank_to_use_default')"/>
+            <v-switch v-model="adminMode" :label="$t('admin_mode')"/>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -39,6 +40,16 @@ export default {
     'baseURL': function (val) {
       client.defaults.baseURL = val
       setStorage(localStorage, 'baseURL', val)
+    }
+  },
+  computed: {
+    adminMode: {
+      set: function (val) {
+        this.$store.commit('toggleAdmin', val)
+      },
+      get: function () {
+        return this.$store.state.adminMode
+      }
     }
   }
 }
