@@ -18,6 +18,7 @@
             <v-btn v-text="$t('edit')" :to="'/problem/edit/' + id" />
           </v-card-actions>
         </v-card>
+
         <v-card v-if="!!problem.channel">
           <v-card-title>
             <div>
@@ -26,7 +27,8 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <submit-form v-model="solution.data" :channel="problem.channel"/>
+            <traditional-submit v-if="['traditional', 'bzoj', 'uoj', 'poj', 'hdu', 'loj'].includes(problem.channel)" v-model="solution.data" :valid.sync="valid"/>
+            <z-json-editor v-else v-model="solution.data" :valid.sync="valid"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -41,7 +43,7 @@
                 </v-list-tile>
               </v-list>
             </v-menu>
-            <v-btn v-text="$t('submit')" @click="submit" color="primary" />
+            <v-btn v-text="$t('submit')" @click="submit" color="primary" :disabled="!valid"/>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -52,14 +54,16 @@
 <script>
 import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
-import submitForm from '@/components/submitform.vue'
+import traditionalSubmit from '@/components/traditionalsubmit.vue'
+import zJsonEditor from '@/components/zjsoneditor.vue'
 import { showToast } from '@/swal'
 
 export default {
   name: 'ProblemView',
   props: ['id'],
   components: {
-    submitForm
+    traditionalSubmit,
+    zJsonEditor
   },
   data () {
     return {
@@ -76,7 +80,8 @@ export default {
       },
       solution: {
         data: {}
-      }
+      },
+      valid: false
     }
   },
   watch: {
