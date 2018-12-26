@@ -1,5 +1,5 @@
 <template>
-  <z-monaco-editor class="z-json-editor" v-model="content" language="json" :readonly="readonly"/>
+  <z-monaco-editor class="z-json-editor" v-model="content" language="json" :readonly="readonly" :theme="$store.state.darkTheme ? 'vs-dark': 'vs'"/>
 </template>
 
 <script>

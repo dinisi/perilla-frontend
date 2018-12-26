@@ -12,7 +12,7 @@
         <v-btn color="primary" @click="commonFileUpload" v-text="$t('upload')" :loading="loading"/>
       </v-tab-item>
       <v-tab-item :key="2">
-        <z-monaco-editor class="editor" v-model="editorContent" :language="selectedLanguage.syntaxPattern"/>
+        <z-monaco-editor class="editor" v-model="editorContent" :language="selectedLanguage.syntaxPattern" :theme="$store.state.darkTheme ? 'vs-dark': 'vs'"/>
         <v-btn color="primary" @click="commonTextUpload" v-text="$t('upload')" :loading="loading"/>
       </v-tab-item>
     </v-tabs>
