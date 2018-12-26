@@ -10,6 +10,7 @@ export const request = async (config: AxiosRequestConfig) => {
       config.headers['x-access-token'] = store.state.token
     }
     if (store.state.adminMode) {
+      config.params = config.params || {}
       config.params.forced = true
     }
     const response = await client(config)
