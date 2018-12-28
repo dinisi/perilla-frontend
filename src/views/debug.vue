@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title class="headline" v-text="$t('debugger')"/>
           <v-card-text>
-            <z-monaco-editor v-model="code" language="javascript" class="debug-editor"/>
+            <z-monaco-editor v-model="code" language="javascript" class="debug-editor" :theme="$store.state.darkTheme ? 'vs-dark': 'vs'"/>
           </v-card-text>
           <v-card-actions>
             <code>{{ returnVal }}</code>

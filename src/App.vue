@@ -24,21 +24,33 @@
         <v-divider/>
         <v-subheader>{{ $t('navigation') }}</v-subheader>
         <v-list-tile to="/problem">
+          <v-list-tile-avatar>
+            <v-icon>assignment</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('problem') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to="/solution">
+          <v-list-tile-avatar>
+            <v-icon>assignment_turned_in</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('solution') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to="/article">
+          <v-list-tile-avatar>
+            <v-icon>description</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('article') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to="/file">
+          <v-list-tile-avatar>
+            <v-icon>folder</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('file') }}</v-list-tile-title>
           </v-list-tile-content>
@@ -46,16 +58,25 @@
         <v-divider/>
         <v-subheader>{{ $t('general') }}</v-subheader>
         <v-list-tile @click="showSelectEntry = true">
+          <v-list-tile-avatar>
+            <v-icon>people</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('change_entry') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to="/debugger">
+          <v-list-tile-avatar>
+            <v-icon>bug_report</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('debugger') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile href="https://github.com/ZhangZisu/perilla-frontend" target="_blank">
+          <v-list-tile-avatar>
+            <v-icon>star</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('about') }}</v-list-tile-title>
           </v-list-tile-content>
@@ -83,51 +104,60 @@
       </v-toolbar-items>
       <v-spacer />
       <v-toolbar-items>
-        <v-btn flat to="/blank" v-text="$t('refresh')" />
-        <template v-if="$store.state.token">
-          <v-menu open-on-hover bottom offset-y>
-            <v-btn flat slot="activator" to="/logout" v-text="$t('logout')"/>
-            <v-list>
-              <v-list-tile to="/settings">
-                <v-list-tile-avatar>
-                  <v-icon>settings</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-title v-text="$t('settings')"/>
-              </v-list-tile>
-              <v-list-tile to="/creategroup">
-                <v-list-tile-avatar>
-                  <v-icon>group_add</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-title v-text="$t('create_group')"/>
-              </v-list-tile>
-              <v-list-tile to="/entry">
-                <v-list-tile-avatar>
-                  <v-icon>local_library</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-title v-text="$t('entry_list')"/>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-        </template>
-        <template v-else>
-          <v-menu open-on-hover bottom offset-y>
-            <v-btn slot="activator" depressed to="/login" color="primary" v-text="$t('login')"/>
-            <v-list>
-              <v-list-tile to="/settings">
-                <v-list-tile-avatar>
-                  <v-icon>settings</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-title v-text="$t('settings')"/>
-              </v-list-tile>
-              <v-list-tile to="/register">
-                <v-list-tile-avatar>
-                  <v-icon>person_add</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-title v-text="$t('register')"/>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-        </template>
+        <v-btn icon to="/blank">
+          <v-icon>refresh</v-icon>
+        </v-btn>
+        <v-menu bottom offset-y>
+          <v-btn icon slot="activator">
+            <v-icon>more_horiz</v-icon>
+          </v-btn>
+          <v-list v-if="$store.state.token">
+            <v-list-tile to="/settings">
+              <v-list-tile-avatar>
+                <v-icon>settings</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('settings')"/>
+            </v-list-tile>
+            <v-list-tile to="/creategroup">
+              <v-list-tile-avatar>
+                <v-icon>group_add</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('create_group')"/>
+            </v-list-tile>
+            <v-list-tile to="/entry">
+              <v-list-tile-avatar>
+                <v-icon>local_library</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('entry_list')"/>
+            </v-list-tile>
+            <v-list-tile to="/logout">
+              <v-list-tile-avatar>
+                <v-icon>exit_to_app</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('logout')"/>
+            </v-list-tile>
+          </v-list>
+          <v-list v-else>
+            <v-list-tile to="/login">
+              <v-list-tile-avatar>
+                <v-icon>open_in_browser</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('login')"/>
+            </v-list-tile>
+            <v-list-tile to="/register">
+              <v-list-tile-avatar>
+                <v-icon>person_add</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('register')"/>
+            </v-list-tile>
+            <v-list-tile to="/settings">
+              <v-list-tile-avatar>
+                <v-icon>settings</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-title v-text="$t('settings')"/>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
