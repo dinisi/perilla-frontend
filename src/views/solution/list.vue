@@ -36,7 +36,7 @@
         <v-card-title class="headline" v-text="$t('condition')"/>
         <v-card-text>
           <v-text-field v-model="problem" :label="$t('problem')" type="number"/>
-          <v-select :items="statusItems" v-model="status" :label="$t('language')"/>
+          <v-select :items="statusItems" v-model="status" :label="$t('status')" item-text="text" item-value="id"/>
           <v-text-field v-model="min" :label="$t('min')" type="number" min="0" max="100"/>
           <v-text-field v-model="max" :label="$t('max')" type="number" min="0" max="100"/>
           <v-text-field v-model="creator" :label="$t('creator')"/>
@@ -56,7 +56,7 @@
 import { request } from '@/helpers/http'
 import solutionResult from '@/components/solutionresult.vue'
 import { getStorage, setStorage } from '@/helpers/storage'
-import { resultDisplay, SolutionResult as results } from '@/helpers/misc'
+import { resultDisplay } from '@/helpers/misc'
 import { showToast } from '@/swal'
 
 export default {
@@ -92,7 +92,7 @@ export default {
       before: null,
       after: null,
       status: null,
-      statusItems: resultDisplay.map(x => this.$t(x.text)).concat(this.$t('all'))
+      statusItems: resultDisplay.map((x, i) => ({ text: this.$t(x.text), id: i })).concat({ text: this.$t('all'), id: null })
     }
   },
   watch: {
@@ -161,8 +161,8 @@ export default {
       if (this.creator && this.creator.trim()) {
         condition.creator = this.creator
       }
-      if (results[this.status] !== undefined) {
-        condition.status = results[this.status]
+      if (this.status !== undefined) {
+        condition.status = this.status
       }
       return condition
     }
