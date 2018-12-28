@@ -16,7 +16,7 @@
         <v-btn color="primary" @click="commonTextUpload" v-text="$t('upload')" :loading="loading"/>
       </v-tab-item>
     </v-tabs>
-    <v-select :items="Languages" v-model="selectedLanguage" :hint="selectedLanguage.description" item-text="name" item-value="name" return-object persistent-hint :label="$t('language')"/>
+    <v-select :items="Languages" v-model="selectedLanguage" :hint="selectedLanguage.name" item-text="description" item-value="name" return-object persistent-hint :label="$t('language')"/>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ import { calcHash } from '@/utils'
 import { request } from '@/helpers/http'
 import { Languages } from 'perilla-languages'
 import { showToast } from '@/swal'
+import { getStorage, setStorage } from '@/helpers/storage'
 
 export default {
   name: 'traditionalSubmit',
@@ -45,7 +46,7 @@ export default {
       loading: false,
       tab: 2,
       editorContent: '',
-      selectedLanguage: {
+      selectedLanguage: getStorage(localStorage, 'traditionalSubmitLanguage') || {
         name: 'cpp17',
         description: 'C++ 17',
         syntaxPattern: 'cpp',
@@ -65,6 +66,7 @@ export default {
     },
     selectedLanguage: {
       handler: function (val) {
+        setStorage(localStorage, 'traditionalSubmitLanguage', this.selectedLanguage)
         this.$emit('updateValue', { file: this.selectedFile, language: val.name })
         this.validate()
       },
