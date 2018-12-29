@@ -1,6 +1,6 @@
 <template>
   <v-app :dark="$store.state.darkTheme">
-    <v-navigation-drawer v-model="showsidebar" app v-if="!!$store.state.token">
+    <v-navigation-drawer v-model="showsidebar" app v-if="!!$store.state.token" :mini-variant="minisidebar">
       <v-list subheader>
         <v-subheader>{{ $t('logged_in_as') }}</v-subheader>
         <v-list-tile avatar :to="'/entry/show/' + $store.state.user">
@@ -63,6 +63,14 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('change_entry') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="minisidebar = !minisidebar">
+          <v-list-tile-avatar>
+            <v-icon v-html="minisidebar ? 'keyboard_arrow_right' : 'keyboard_arrow_left'"/>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('mini_sidebar') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to="/debugger">
@@ -206,6 +214,7 @@ export default {
     return {
       loading: false,
       showsidebar: false,
+      minisidebar: false,
       errormsg: null,
       entryAvatar: '',
       userAvatar: '',
