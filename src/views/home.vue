@@ -8,16 +8,21 @@
         <hitokoto/>
       </v-flex>
     </v-layout>
+    <v-layout row v-if="!$store.state.token">
+      <login/>
+    </v-layout>
   </v-container>
 </template>
 
 <script>
 import hitokoto from '@/components/hitokoto'
+import login from '@/views/login.vue'
 
 export default {
   name: 'home',
   components: {
-    hitokoto
+    hitokoto,
+    login
   }
 }
 </script>

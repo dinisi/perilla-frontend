@@ -108,7 +108,10 @@
     <v-toolbar app :color="$store.state.adminMode ? 'error' : undefined">
       <v-toolbar-side-icon v-if="$store.state.token" @click="showsidebar = !showsidebar" />
       <v-toolbar-items>
-        <v-btn class="headline" flat to="/">Perilla</v-btn>
+        <v-btn flat to="/">
+          <span class="headline font-weight-medium">Perilla</span>
+          <span class="headline font-weight-thin">2019</span>
+        </v-btn>
       </v-toolbar-items>
       <v-spacer />
       <v-toolbar-items>
