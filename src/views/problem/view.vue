@@ -27,7 +27,7 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <traditional-submit v-if="['traditional', 'bzoj', 'uoj', 'poj', 'hdu', 'loj'].includes(problem.channel)" v-model="solution.data" :valid.sync="valid"/>
+            <traditional-submit v-if="['traditional', 'bzoj', 'uoj', 'poj', 'hdu', 'loj', 'atcoder'].includes(problem.channel)" v-model="solution.data" :valid.sync="valid"/>
             <z-json-editor v-else v-model="solution.data" :valid.sync="valid"/>
           </v-card-text>
           <v-card-actions>
