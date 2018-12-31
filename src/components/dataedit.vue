@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div v-if="channel === 'bzoj' || channel === 'uoj' || channel === 'loj' || channel === 'hdu' || channel === 'poj'">
-      <v-text-field v-model="remote_id" :label="$t('id')" type="number"/>
+    <div v-if="['traditional', 'bzoj', 'uoj', 'poj', 'hdu', 'loj'].includes(channel)">
+      <v-text-field v-model="remote_id_num" :label="$t('id')" type="number"/>
+    </div>
+    <div v-else-if="['codeforces', 'atcoder'].includes(channel)">
+      <v-text-field v-model="remote_id_str" :label="$t('id')"/>
     </div>
     <div v-else-if="channel === 'traditional'">
       <input type="file" multiple ref="files">
@@ -33,7 +36,8 @@ export default {
       realval: {
         //
       },
-      remote_id: null,
+      remote_id_num: null,
+      remote_id_str: null,
       trad: {
         apply_loading: false
       }
@@ -55,11 +59,14 @@ export default {
       },
       deep: true
     },
-    remote_id: function (val) {
+    remote_id_num: function (val) {
       val = parseInt(val)
       if (typeof val === 'number') {
         this.realval = { id: val }
       }
+    },
+    remote_id_str: function (val) {
+      this.realval = { id: val }
     }
   },
   methods: {
