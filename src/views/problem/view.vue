@@ -10,7 +10,7 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <article class="markdown-body" v-html="rendered" />
+            <z-markdown :content="rendered"/>
           </v-card-text>
           <v-card-actions>
             <v-chip v-for="(tag, i) in problem.tags" :key="i">{{ tag }}</v-chip>
@@ -57,13 +57,15 @@ import render from '@/helpers/markdown'
 import traditionalSubmit from '@/components/traditionalsubmit.vue'
 import zJsonEditor from '@/components/zjsoneditor.vue'
 import { showToast } from '@/swal'
+import zMarkdown from '@/components/zmarkdown'
 
 export default {
   name: 'ProblemView',
   props: ['id'],
   components: {
     traditionalSubmit,
-    zJsonEditor
+    zJsonEditor,
+    zMarkdown
   },
   data () {
     return {

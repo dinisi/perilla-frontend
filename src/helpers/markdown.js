@@ -4,8 +4,10 @@ import highlightjs from 'highlight.js'
 import { client } from '@/helpers/http'
 import store from '@/store'
 import 'katex/dist/katex.css'
-import '../assets/github.css'
-import '../assets/github-markdown.css'
+import '../styles/hljslight.css'
+import '../styles/hljsdark.css'
+import '../styles/mdlight.css'
+import '../styles/mddark.css'
 
 function escape (html, encode) {
   if (encode) {

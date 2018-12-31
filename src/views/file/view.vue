@@ -19,7 +19,7 @@
             <b>{{ $t("type") }}:</b>
             <pre>{{ file.type }}</pre>
             <br/>
-            <article class="markdown-body" v-html="rendered" />
+            <z-markdown :content="rendered"/>
           </v-card-text>
           <v-card-actions>
             <v-chip v-for="(tag, i) in file.tags" :key="i">{{ tag }}</v-chip>
@@ -52,10 +52,14 @@ import { resolveUrl } from '@/utils'
 import render from '@/helpers/markdown'
 import copy from 'copy-to-clipboard'
 import { showToast, showDialog } from '@/swal'
+import zMarkdown from '@/components/zmarkdown'
 
 export default {
   name: 'FileView',
   props: ['id'],
+  components: {
+    zMarkdown
+  },
   data () {
     return {
       file: {

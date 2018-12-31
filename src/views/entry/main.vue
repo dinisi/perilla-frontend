@@ -17,7 +17,7 @@
             <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ entry.created }}</pre>
             <br/>
             <b>{{ $t("description") }}:</b>
-            <article class="markdown-body" v-html="rendered" />
+            <z-markdown :content="rendered"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -35,10 +35,14 @@ import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
 import { EntryType } from '@/helpers/misc'
 import { showToast } from '@/swal'
+import zMarkdown from '@/components/zmarkdown'
 
 export default {
   name: 'adminMain',
   props: ['id'],
+  components: {
+    zMarkdown
+  },
   data () {
     return {
       entry: {

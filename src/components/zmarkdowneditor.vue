@@ -3,31 +3,23 @@
     <div class="z-markdown-editor-main">
       <z-monaco-editor :class="`z-markdown-editor-${view}`" v-model="content" language="markdown" :theme="$store.state.darkTheme ? 'vs-dark': 'vs'"/>
       <div :class="`z-markdown-preview-${view}`">
-        <article id="rendered" class="markdown-body" v-html="rendered" />
+        <z-markdown ref="rendered" :content="rendered"/>
       </div>
     </div>
-    <v-menu :close-on-content-click="false" offset-x>
-      <v-btn slot="activator" color="primary" v-text="$t('operations')" />
-      <v-card>
-        <v-card-text>
-          <v-slider v-model="view" :tick-labels="ticksLabels" :max="2" step="1" ticks="always"/>
-          <v-btn color="primary" v-text="$t('export_to_pdf')" @click="pdf" :disabled="view === 0"/>
-        </v-card-text>
-      </v-card>
-    </v-menu>
+    <v-slider v-model="view" :tick-labels="ticksLabels" :max="2" step="1" ticks="always"/>
   </div>
 </template>
 
 <script>
-import zMonacoEditor from '@/components//zmonacoeditor'
+import zMonacoEditor from '@/components/zmonacoeditor'
+import zMarkdown from '@/components/zmarkdown'
 import render from '@/helpers/markdown'
-import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
 
 export default {
   name: 'zMarkdownEditor',
   components: {
-    zMonacoEditor
+    zMonacoEditor,
+    zMarkdown
   },
   props: ['value'],
   model: {
@@ -81,39 +73,6 @@ export default {
           }, 500)
         }
       }
-    },
-    pdf () {
-      html2canvas(document.getElementById('rendered'), {
-        background: '#fff',
-        allowTaint: true
-      }).then(canvas => {
-        let imgData = canvas.toDataURL('image/jpeg')
-        let img = new Image()
-        img.src = imgData
-        img.onload = function () {
-          let doc = null
-          if (this.width > this.height) {
-            doc = new jsPDF('l', 'mm', [
-              this.width * 0.225,
-              this.height * 0.225
-            ])
-          } else {
-            doc = new jsPDF('p', 'mm', [
-              this.width * 0.225,
-              this.height * 0.225
-            ])
-          }
-          doc.addImage(
-            imgData,
-            'jpeg',
-            0,
-            0,
-            this.width * 0.225,
-            this.height * 0.225
-          )
-          doc.save('export.pdf')
-        }
-      })
     }
   }
 }

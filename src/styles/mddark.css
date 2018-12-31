@@ -1,0 +1,54 @@
+.markdown-body-dark a {
+  color: #61AFEF;
+}
+
+.markdown-body-dark h1,
+.markdown-body-dark h2,
+.markdown-body-dark h3,
+.markdown-body-dark h4,
+.markdown-body-dark h5,
+.markdown-body-dark h6 {
+  font-weight: 600;
+  color: #E06C75;
+}
+
+.markdown-body-dark,
+.markdown-body-dark pre code {
+  color: #ABB2BF;
+}
+
+.markdown-body-dark code {
+  color: #90C378;
+}
+
+.markdown-body-dark pre:not(.hljs),
+.markdown-body-dark code>div {
+  background-color: #2C323C;
+}
+
+.markdown-body-dark table>thead>tr>th {
+  border-color: #2C323C;
+}
+
+.markdown-body-dark h1,
+.markdown-body-dark hr,
+.markdown-body-dark table>tbody>tr+tr>td {
+  border-color: #2C323C;
+}
+
+.markdown-body-dark blockquote {
+  color: #5C6370;
+  font-style: italic;
+  background: transparent;
+  border-color: #2C323C;
+}
+
+.markdown-body-dark img {
+  opacity: 0.5;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body-dark img:hover {
+  opacity: 1;
+}

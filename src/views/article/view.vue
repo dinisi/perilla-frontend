@@ -10,7 +10,7 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <article class="markdown-body" v-html="rendered" />
+            <z-markdown :content="rendered"/>
           </v-card-text>
           <v-card-actions>
             <v-chip v-for="(tag, i) in article.tags" :key="i">{{ tag }}</v-chip>
@@ -27,10 +27,14 @@
 import { request } from '@/helpers/http'
 import render from '@/helpers/markdown'
 import { showToast } from '@/swal'
+import zMarkdown from '@/components/zmarkdown'
 
 export default {
   name: 'articleView',
   props: ['id'],
+  components: {
+    zMarkdown
+  },
   data () {
     return {
       article: {

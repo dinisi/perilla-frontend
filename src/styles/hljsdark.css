@@ -1,0 +1,115 @@
+/*
+ * Visual Studio 2015 dark style
+ * Author: Nicolas LLOBERA <nllobera@gmail.com>
+ */
+
+ .markdown-body-dark .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #1E1E1E;
+  color: #DCDCDC;
+}
+
+.markdown-body-dark .hljs-keyword,
+.markdown-body-dark .hljs-literal,
+.markdown-body-dark .hljs-symbol,
+.markdown-body-dark .hljs-name {
+  color: #569CD6;
+}
+.markdown-body-dark .hljs-link {
+  color: #569CD6;
+  text-decoration: underline;
+}
+
+.markdown-body-dark .hljs-built_in,
+.markdown-body-dark .hljs-type {
+  color: #4EC9B0;
+}
+
+.markdown-body-dark .hljs-number,
+.markdown-body-dark .hljs-class {
+  color: #B8D7A3;
+}
+
+.markdown-body-dark .hljs-string,
+.markdown-body-dark .hljs-meta-string {
+  color: #D69D85;
+}
+
+.markdown-body-dark .hljs-regexp,
+.markdown-body-dark .hljs-template-tag {
+  color: #9A5334;
+}
+
+.markdown-body-dark .hljs-subst,
+.markdown-body-dark .hljs-function,
+.markdown-body-dark .hljs-title,
+.markdown-body-dark .hljs-params,
+.markdown-body-dark .hljs-formula {
+  color: #DCDCDC;
+}
+
+.markdown-body-dark .hljs-comment,
+.markdown-body-dark .hljs-quote {
+  color: #57A64A;
+  font-style: italic;
+}
+
+.markdown-body-dark .hljs-doctag {
+  color: #608B4E;
+}
+
+.markdown-body-dark .hljs-meta,
+.markdown-body-dark .hljs-meta-keyword,
+.markdown-body-dark .hljs-tag {
+  color: #9B9B9B;
+}
+
+.markdown-body-dark .hljs-variable,
+.markdown-body-dark .hljs-template-variable {
+  color: #BD63C5;
+}
+
+.markdown-body-dark .hljs-attr,
+.markdown-body-dark .hljs-attribute,
+.markdown-body-dark .hljs-builtin-name {
+  color: #9CDCFE;
+}
+
+.markdown-body-dark .hljs-section {
+  color: gold;
+}
+
+.markdown-body-dark .hljs-emphasis {
+  font-style: italic;
+}
+
+.markdown-body-dark .hljs-strong {
+  font-weight: bold;
+}
+
+/*.markdown-body-dark .hljs-code {
+  font-family:'Monospace';
+}*/
+
+.markdown-body-dark .hljs-bullet,
+.markdown-body-dark .hljs-selector-tag,
+.markdown-body-dark .hljs-selector-id,
+.markdown-body-dark .hljs-selector-class,
+.markdown-body-dark .hljs-selector-attr,
+.markdown-body-dark .hljs-selector-pseudo {
+  color: #D7BA7D;
+}
+
+.markdown-body-dark .hljs-addition {
+  background-color: #144212;
+  display: inline-block;
+  width: 100%;
+}
+
+.markdown-body-dark .hljs-deletion {
+  background-color: #600;
+  display: inline-block;
+  width: 100%;
+}

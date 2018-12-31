@@ -1,0 +1,68 @@
+/*
+
+Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+
+*/
+.markdown-body-light .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: white;
+  color: black;
+}
+
+.markdown-body-light .hljs-comment,
+.markdown-body-light .hljs-quote,
+.markdown-body-light .hljs-variable {
+  color: #008000;
+}
+
+.markdown-body-light .hljs-keyword,
+.markdown-body-light .hljs-selector-tag,
+.markdown-body-light .hljs-built_in,
+.markdown-body-light .hljs-name,
+.markdown-body-light .hljs-tag {
+  color: #00f;
+}
+
+.markdown-body-light .hljs-string,
+.markdown-body-light .hljs-title,
+.markdown-body-light .hljs-section,
+.markdown-body-light .hljs-attribute,
+.markdown-body-light .hljs-literal,
+.markdown-body-light .hljs-template-tag,
+.markdown-body-light .hljs-template-variable,
+.markdown-body-light .hljs-type,
+.markdown-body-light .hljs-addition {
+  color: #a31515;
+}
+
+.markdown-body-light .hljs-deletion,
+.markdown-body-light .hljs-selector-attr,
+.markdown-body-light .hljs-selector-pseudo,
+.markdown-body-light .hljs-meta {
+  color: #2b91af;
+}
+
+.markdown-body-light .hljs-doctag {
+  color: #808080;
+}
+
+.markdown-body-light .hljs-attr {
+  color: #f00;
+}
+
+.markdown-body-light .hljs-symbol,
+.markdown-body-light .hljs-bullet,
+.markdown-body-light .hljs-link {
+  color: #00b0e8;
+}
+
+
+.markdown-body-light .hljs-emphasis {
+  font-style: italic;
+}
+
+.markdown-body-light .hljs-strong {
+  font-weight: bold;
+}
