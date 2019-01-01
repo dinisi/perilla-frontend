@@ -3,7 +3,7 @@ const MonocoEditorPlugin = require('monaco-editor-webpack-plugin')
 module.exports = {
   outputDir: undefined,
   baseUrl: '',
-  assetsDir: undefined,
+  assetsDir: 'assets',
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: false,
@@ -12,14 +12,18 @@ module.exports = {
   },
 
   configureWebpack: {
-    plugins: [new MonocoEditorPlugin()],
+    plugins: [new MonocoEditorPlugin({
+      output: 'assets'
+    })],
     module: {
       rules: [
         {
           test: /\.w\.js$/,
           use: {
             loader: 'worker-loader',
-            options: { inline: true }
+            options: {
+              publicPath: 'assets'
+            }
           }
         }
       ]

@@ -284,7 +284,7 @@ export default {
     async loadSettings () {
       while (true) {
         try {
-          this.serverInfo = await request({ url: '/' })
+          this.serverInfo = await request({ url: '/version' })
           setStorage(localStorage, 'baseURL', client.defaults.baseURL)
           this.loadUserAvatar()
           this.loadEntryAvatar()
