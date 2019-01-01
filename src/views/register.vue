@@ -7,7 +7,7 @@
           <v-card-text>
             <v-text-field :label="$t('username')" v-model="form.username" />
             <v-text-field :label="$t('password')" v-model="form.password" type="password"/>
-            <v-text-field :label="$t('email')" v-model="form.email" type="email" />
+            <v-text-field :label="$t('email')" v-model="form.email" @keyup.native.enter="register" type="email" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -44,7 +44,7 @@ export default {
         data: this.form
       })
         .then(res => {
-          this.$router.push('/login')
+          showToast('success', 'welcome', res)
         })
         .catch(e => {
           showToast('error', 'error', e.message)
