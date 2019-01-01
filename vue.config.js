@@ -40,6 +40,14 @@ module.exports = {
   pwa: {
     name: 'Perilla',
     themeColor: '#4A4A4A',
-    msTileColor: '#4A90E2'
+    msTileColor: '#4A90E2',
+    workboxOptions: {
+      runtimeCaching: [
+        {
+          urlPattern: /\/api\//,
+          handler: 'networkFirst'
+        }
+      ]
+    }
   }
 }
