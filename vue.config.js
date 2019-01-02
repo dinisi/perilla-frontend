@@ -20,10 +20,7 @@ module.exports = {
         {
           test: /\.w\.js$/,
           use: {
-            loader: 'worker-loader',
-            options: {
-              publicPath: 'assets'
-            }
+            loader: 'worker-loader'
           }
         }
       ]
