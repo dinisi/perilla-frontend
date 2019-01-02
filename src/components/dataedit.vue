@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="['traditional', 'bzoj', 'uoj', 'poj', 'hdu', 'loj'].includes(channel)">
+    <div v-if="['bzoj', 'uoj', 'poj', 'hdu', 'loj'].includes(channel)">
       <v-text-field v-model="remote_id_num" :label="$t('id')" type="number"/>
     </div>
     <div v-else-if="['codeforces', 'atcoder'].includes(channel)">
