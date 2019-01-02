@@ -7,6 +7,7 @@
 [![GitHub license](https://img.shields.io/github/license/ZhangZisu/perilla-frontend.svg?style=flat-square)](https://github.com/ZhangZisu/perilla-frontend/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/ZhangZisu/perilla-frontend.svg?style=flat-square)](https://github.com/ZhangZisu/perilla-frontend)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ZhangZisu/perilla-frontend.svg?style=flat-square)](https://greenkeeper.io/)
+[![](https://img.shields.io/badge/project-Perilla-8e44ad.svg?style=flat-square)](https://github.com/ZhangZisu/perilla)
 
 ## Deployment
 
