@@ -3,6 +3,7 @@ import zmark, { Renderer } from 'zmark'
 import highlightjs from 'highlight.js'
 import { client } from '@/helpers/http'
 import store from '@/store'
+import { resolveUrl } from '@/utils'
 import 'katex/dist/katex.css'
 import '../styles/hljslight.css'
 import '../styles/hljsdark.css'
@@ -37,16 +38,6 @@ escape.escapeTestNoEncode = /[<>"']|&(?!#?\w+;)/
 escape.escapeReplaceNoEncode = /[<>"']|&(?!#?\w+;)/g
 
 const renderer = new Renderer()
-
-const resolveUrl = (base, href) => {
-  if (href.slice(0, 2) === '//') {
-    return base.replace(/:[\s\S]*/, ':') + href
-  } else if (href.charAt(0) === '/') {
-    return base.replace(/(:\/*[^/]*)[\s\S]*/, '$1') + href
-  } else {
-    return base + href
-  }
-}
 
 renderer.link = function (href, title, text) {
   if (this.options.sanitize) {

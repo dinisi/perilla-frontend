@@ -25,6 +25,7 @@ export const parseJwt = (token) => {
 }
 
 export const resolveUrl = (base, href) => {
+  base = base || location.origin
   if (href.slice(0, 2) === '//') {
     return base.replace(/:[\s\S]*/, ':') + href
   } else if (href.charAt(0) === '/') {

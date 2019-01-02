@@ -11,12 +11,15 @@ export const showToast = (type, title, message) => {
 }
 
 export const showDialog = async (type, title, text, permanent, input) => {
-  return (await Swal({
+  const option = {
     type,
     title: i18n.t(title).toString(),
     text,
-    input,
     allowEscapeKey: !permanent,
     allowOutsideClick: !permanent
-  })).value
+  }
+  if (input) {
+    option.input = input
+  }
+  return (await Swal(option)).value
 }
