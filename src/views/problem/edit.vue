@@ -23,7 +23,9 @@
             <v-combobox v-model="problem.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
           </v-card-text>
           <v-card-text v-show="view === 1">
-            <v-text-field :label="$t('channel')" v-model="problem.channel" />
+            <v-combobox :label="$t('channel')" :items="supportedChannels" v-model="problem.channel">
+              <a slot="append" :href="`https://github.com/dinisi/perilla-judger-plugin-${problem.channel}`" v-if="supportedChannels.includes(problem.channel)">{{ $t('help') }}</a>
+            </v-combobox>
             <data-edit v-model="problem.data" :channel="problem.channel"/>
           </v-card-text>
           <v-card-text v-show="view === 2">
@@ -69,7 +71,8 @@ export default {
       loading: true,
       view: 0,
       isnew: false,
-      jsonObj: {}
+      jsonObj: {},
+      supportedChannels: ['traditional', 'codeforces', 'atcoder', 'bzoj', 'uoj', 'poj', 'hdu', 'loj']
     }
   },
   watch: {

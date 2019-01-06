@@ -21,6 +21,7 @@ import zJsonEditor from '@/components/zjsoneditor.vue'
 import { request } from '@/helpers/http'
 import { generateData as generateTrad } from '@/helpers/traditional'
 import { showToast } from '@/swal'
+import Vue from 'vue'
 
 export default {
   name: 'dataEdit',
@@ -37,8 +38,6 @@ export default {
       realval: {
         //
       },
-      remote_id_num: null,
-      remote_id_str: null,
       trad: {
         apply_loading: false,
         hint_text: null
@@ -60,15 +59,24 @@ export default {
         this.realval = val || {}
       },
       deep: true
-    },
-    remote_id_num: function (val) {
-      val = parseInt(val)
-      if (typeof val === 'number') {
-        this.realval = { id: val }
+    }
+  },
+  computed: {
+    remote_id_num: {
+      get () {
+        return this.realval.id
+      },
+      set (val) {
+        Vue.set(this.realval, 'id', parseInt(val) || this.realval.id)
       }
     },
-    remote_id_str: function (val) {
-      this.realval = { id: val }
+    remote_id_str: {
+      get () {
+        return this.realval.id
+      },
+      set (val) {
+        Vue.set(this.realval, 'id', val || this.realval.id)
+      }
     }
   },
   methods: {
