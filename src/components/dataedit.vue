@@ -121,7 +121,7 @@ export default {
           data: { hash, tags: ['TestData'], name: file.name }
         })
         return id
-      } catch (err) {
+      } catch (e) {
         showToast('error', 'error', e.message)
       }
     }

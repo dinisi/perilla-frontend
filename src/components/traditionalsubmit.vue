@@ -129,7 +129,7 @@ export default {
           data: { hash, tags: ['SolutionData'], name: file.name }
         })
         return id
-      } catch (err) {
+      } catch (e) {
         showToast('error', 'error', e.message)
       }
     }
