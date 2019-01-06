@@ -10,13 +10,13 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <b>{{ $t("hash") }}:</b>
+            <div class="body-1">{{ $t("hash") }}:</div>
             <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre>
             <br/>
-            <b>{{ $t("size") }}:</b>
+            <div class="body-1">{{ $t("size") }}:</div>
             <pre>{{ file.size }}</pre>
             <br/>
-            <b>{{ $t("type") }}:</b>
+            <div class="body-1">{{ $t("type") }}:</div>
             <pre>{{ file.type }}</pre>
             <br/>
             <z-markdown :content="rendered"/>
@@ -64,13 +64,13 @@ export default {
     return {
       file: {
         id: null,
-        name: 'Loading',
+        name: 'Loading...',
         type: '',
         description: '',
         hash: '',
         size: 0,
         updated: null,
-        tags: ['Untagged'],
+        tags: [],
         owner: null,
         creator: null
       },

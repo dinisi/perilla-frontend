@@ -9,6 +9,7 @@
     <div v-else-if="channel === 'traditional'">
       <input type="file" multiple ref="files">
       <v-btn color="primary" @click="applyTrad" v-text="$t('apply')" :loading="trad.apply_loading"/>
+      <span class="body-1">{{ trad.hint_text }}</span>
     </div>
     <z-json-editor v-model="realval"/>
   </div>
@@ -39,7 +40,8 @@ export default {
       remote_id_num: null,
       remote_id_str: null,
       trad: {
-        apply_loading: false
+        apply_loading: false,
+        hint_text: null
       }
     }
   },
@@ -76,10 +78,14 @@ export default {
         try {
           let raw = await generateTrad(this.$refs.files.files)
           if (raw.spj) raw.spj.file = await this.upload(raw.spj.file)
+          const all = raw.subtasks.reduce((r, c) => r + c.runcases.length, 0)
+          let current = 0
+          this.trad.hint_text = `${current} / ${all}`
           for (let subtask of raw.subtasks) {
             for (let runcase of subtask.runcases) {
               runcase.input = await this.upload(runcase.input)
               runcase.output = await this.upload(runcase.output)
+              this.trad.hint_text = `${++current} / ${all}`
             }
           }
           this.realval = raw

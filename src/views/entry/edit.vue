@@ -11,7 +11,7 @@
           </v-card-title>
           <v-card-text>
             <v-text-field type="email" v-model="entry.email" :label="$t('email')"/>
-            <b>{{ $t("description") }}:</b>
+            <div class="body-1">{{ $t("description") }}:</div>
             <z-markdown-editor v-model="entry.description"/>
             <v-text-field type="password" v-if="entry.type === 0" v-model="entry.password" :label="$t('password')" :placeholder="$t('leave_blank_to_remain_unchanged')"/>
           </v-card-text>

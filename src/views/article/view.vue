@@ -39,9 +39,9 @@ export default {
     return {
       article: {
         id: null,
-        title: 'New article',
+        title: 'Loading...',
         content: null,
-        tags: ['Untagged'],
+        tags: [],
         updated: null,
         owner: null,
         creator: null

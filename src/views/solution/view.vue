@@ -26,9 +26,9 @@
                 </tr>
               </template>
             </v-data-table>
-            <b>{{ $t("details") }}:</b><br >
+            <div class="body-1">{{ $t("details") }}:</div><br >
             <z-json-editor v-model="solution.details" :readonly="true" />
-            <b>{{ $t("data") }}:</b><br >
+            <div class="body-1">{{ $t("data") }}:</div><br >
             <z-json-editor v-model="solution.data" :readonly="true" />
           </v-card-text>
           <v-card-actions>

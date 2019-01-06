@@ -24,10 +24,10 @@
             <v-combobox v-model="file.tags" :label="$t('tags')" hide-selected multiple chips clearable/>
           </v-card-text>
           <v-card-text v-show="view === 1">
-            <b>{{ $t("hash") }}:</b>
+            <div class="body-1">{{ $t("hash") }}:</div>
             <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ file.hash }}</pre>
             <br/>
-            <b>{{ $t("size") }}:</b>
+            <div class="body-1">{{ $t("size") }}:</div>
             <pre>{{ file.size }}</pre>
             <br/>
             <input ref="file" type="file"/>

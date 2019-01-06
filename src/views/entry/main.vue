@@ -10,13 +10,13 @@
             </div>
           </v-card-title>
           <v-card-text>
-            <b>{{ $t("email") }}:</b>
+            <div class="body-1">{{ $t("email") }}:</div>
             <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ entry.email }}</pre>
             <br/>
-            <b>{{ $t("created") }}:</b>
+            <div class="body-1">{{ $t("created") }}:</div>
             <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ entry.created }}</pre>
             <br/>
-            <b>{{ $t("description") }}:</b>
+            <div class="body-1">{{ $t("description") }}:</div>
             <z-markdown :content="rendered"/>
           </v-card-text>
           <v-card-actions>

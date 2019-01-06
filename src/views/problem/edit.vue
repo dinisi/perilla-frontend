@@ -6,9 +6,9 @@
           <v-toolbar>
             <v-toolbar-title v-text="$t('edit_problem', [problem.id])" />
             <v-toolbar-items>
-              <v-btn flat v-text="$t('edit')" :disabled="view === 0" @click="view = 0;"/>
-              <v-btn flat v-text="$t('data')" :disabled="view === 1" @click="view = 1;"/>
-              <v-btn flat v-text="$t('import')" @click="showImport = 1"/>
+              <v-btn flat v-text="$t('edit')" :disabled="view === 0" @click="view = 0"/>
+              <v-btn flat v-text="$t('data')" :disabled="view === 1" @click="view = 1"/>
+              <v-btn flat v-text="$t('port')" :disabled="view === 2" @click="view = 2"/>
             </v-toolbar-items>
             <v-spacer />
             <v-toolbar-items>
@@ -26,22 +26,14 @@
             <v-text-field :label="$t('channel')" v-model="problem.channel" />
             <data-edit v-model="problem.data" :channel="problem.channel"/>
           </v-card-text>
+          <v-card-text v-show="view === 2">
+            <z-json-editor v-model="jsonObj"/>
+            <v-btn color="primary" v-text="$t('import')" @click="doImport"/>
+            <v-btn color="primary" v-text="$t('export')" @click="doExport"/>
+          </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="showImport" max-width="500">
-      <v-card>
-        <v-card-title class="headline" v-text="$t('import')"/>
-        <v-card-text>
-          <z-json-editor v-model="importObj"/>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer/>
-          <v-btn v-text="$t('cancel')" @click="showImport = 0"/>
-          <v-btn color="primary" v-text="$t('apply')" @click="doImport"/>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
@@ -51,6 +43,7 @@ import zMarkdownEditor from '@/components/zmarkdowneditor.vue'
 import dataEdit from '@/components/dataedit.vue'
 import { request } from '@/helpers/http'
 import { showToast, showDialog } from '@/swal'
+import { cloneDeep } from 'lodash'
 
 export default {
   name: 'ProblemEdit',
@@ -76,8 +69,7 @@ export default {
       loading: true,
       view: 0,
       isnew: false,
-      showImport: false,
-      importObj: {}
+      jsonObj: {}
     }
   },
   watch: {
@@ -159,12 +151,15 @@ export default {
         })
     },
     doImport () {
-      this.problem.title = this.importObj.title || this.problem.title
-      this.problem.content = this.importObj.content || this.problem.content
-      this.problem.data = this.importObj.data || this.problem.data
-      this.problem.channel = this.importObj.channel || this.problem.channel
-      this.problem.tags = this.importObj.tags || this.problem.tags
-      this.showImport = false
+      this.problem.title = this.jsonObj.title || this.problem.title
+      this.problem.content = this.jsonObj.content || this.problem.content
+      this.problem.data = this.jsonObj.data || this.problem.data
+      this.problem.channel = this.jsonObj.channel || this.problem.channel
+      this.problem.tags = this.jsonObj.tags || this.problem.tags
+      this.view = 0
+    },
+    doExport () {
+      this.jsonObj = cloneDeep(this.problem)
     }
   }
 }

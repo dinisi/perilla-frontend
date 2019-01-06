@@ -71,11 +71,11 @@ export default {
     return {
       problem: {
         id: null,
-        title: 'Loading',
+        title: 'Loading...',
         content: '',
         data: {},
         channel: null,
-        tags: ['Untagged'],
+        tags: [],
         updated: null,
         owner: null,
         creator: null
