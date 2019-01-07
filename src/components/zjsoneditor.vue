@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted () {
-    this.content = JSON.stringify(this.value || {}, null, '\t')
+    this.content = JSON.stringify(this.value, null, '\t') || ''
   },
   watch: {
     content: function () {
@@ -35,8 +35,12 @@ export default {
     },
     value: {
       handler: function () {
-        if (!isEqual(this.value || {}, JSON.parse(this.content))) {
-          this.content = JSON.stringify(this.value, null, '\t')
+        try {
+          if (!isEqual(this.value, JSON.parse(this.content))) {
+            this.content = JSON.stringify(this.value, null, '\t') || ''
+          }
+        } catch (e) {
+          this.content = JSON.stringify(this.value, null, '\t') || ''
         }
       },
       deep: true

@@ -7,7 +7,7 @@ import register from '@/views/register.vue'
 import createGroup from '@/views/creategroup.vue'
 import settings from '@/views/settings.vue'
 import blank from '@/views/blank.vue'
-import debug from '@/views/debug.vue'
+import tool from '@/views/tool.vue'
 import { fileRoutes } from '@/routes/file'
 import { solutionRoutes } from '@/routes/solution'
 import { articleRoutes } from '@/routes/article'
@@ -46,9 +46,9 @@ let routes: RouteConfig[] = [
     component: settings
   },
   {
-    path: '/debugger',
-    name: 'debugger',
-    component: debug
+    path: '/tool',
+    name: 'tool',
+    component: tool
   },
   {
     path: '/blank',

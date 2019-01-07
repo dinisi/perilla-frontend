@@ -3,16 +3,19 @@
     <v-layout fill-height>
       <v-flex sm12>
         <v-card>
-          <v-card-title class="headline" v-text="$t('debugger')"/>
-          <v-card-text>
-            <z-monaco-editor v-model="code" language="javascript" class="debug-editor" :theme="$store.state.darkTheme ? 'vs-dark': 'vs'"/>
-          </v-card-text>
-          <v-card-actions>
-            <code>{{ returnVal }}</code>
-            <v-spacer/>
-            <v-btn color="warning" v-text="$t('reset')" @click="reset"/>
-            <v-btn color="primary" v-text="$t('run')" @click="run"/>
-          </v-card-actions>
+          <v-tabs v-model="tab">
+            <v-tab :key="0" ripple>{{ $t('debugger') }}</v-tab>
+            <v-tab :key="1" ripple>{{ $t('diff') }}</v-tab>
+            <v-tab-item :key="0">
+              <z-monaco-editor v-model="code" language="javascript" class="debug-editor" :theme="$store.state.darkTheme ? 'vs-dark': 'vs'"/>
+              <v-btn color="warning" v-text="$t('reset')" @click="reset"/>
+              <v-btn color="primary" v-text="$t('run')" @click="run"/>
+              <code>{{ returnVal }}</code>
+            </v-tab-item>
+            <v-tab-item :key="1">
+              <!-- Not implemented -->
+            </v-tab-item>
+          </v-tabs>
         </v-card>
       </v-flex>
     </v-layout>
@@ -80,7 +83,8 @@ export default {
   data () {
     return {
       code: defaultCode,
-      returnVal: undefined
+      returnVal: undefined,
+      tab: 0
     }
   },
   methods: {

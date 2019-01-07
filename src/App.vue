@@ -73,12 +73,12 @@
             <v-list-tile-title>{{ $t('mini_sidebar') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile to="/debugger">
+        <v-list-tile to="/tool">
           <v-list-tile-avatar>
-            <v-icon>bug_report</v-icon>
+            <v-icon>build</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{ $t('debugger') }}</v-list-tile-title>
+            <v-list-tile-title>{{ $t('tool') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile href="https://github.com/ZhangZisu/perilla-frontend" target="_blank">
