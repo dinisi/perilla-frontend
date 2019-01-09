@@ -16,8 +16,12 @@
               </tr>
             </template>
             <template slot="actions-prepend">
-              <v-btn flat v-text="$t('new')" to="/article/new" color="primary" />
-              <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
+              <v-btn icon to="/article/new" color="primary">
+                <v-icon>add</v-icon>
+              </v-btn>
+              <v-btn icon @click="showCondDialog = true">
+                <v-icon>search</v-icon>
+              </v-btn>
             </template>
           </v-data-table>
         </v-card>

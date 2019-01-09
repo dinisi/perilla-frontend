@@ -17,9 +17,15 @@
               </tr>
             </template>
             <template slot="actions-prepend">
-              <v-btn flat to="/file/new" v-text="$t('new')" color="primary" />
-              <v-btn flat to="/file/upload" v-text="$t('upload')" />
-              <v-btn flat v-text="$t('condition')" @click="showCondDialog = true"/>
+              <v-btn icon to="/file/upload" color="primary">
+                <v-icon>cloud_upload</v-icon>
+              </v-btn>
+              <v-btn icon to="/file/new">
+                <v-icon>add</v-icon>
+              </v-btn>
+              <v-btn icon @click="showCondDialog = true">
+                <v-icon>search</v-icon>
+              </v-btn>
             </template>
           </v-data-table>
         </v-card>
