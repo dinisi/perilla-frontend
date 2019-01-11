@@ -4,7 +4,7 @@
       <v-flex>
         <v-card>
           <v-card-title>
-            <div>
+            <div class="headline primary white--text">
               <div class="headline" v-text="entry._id" />
               <div class="subheading">{{ $t(EntryType[entry.type]) }}</div>
             </div>

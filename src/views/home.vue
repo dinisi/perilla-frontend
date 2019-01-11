@@ -1,11 +1,13 @@
 <template>
-  <v-container fluid>
+  <v-container fluid grid-list-md>
     <v-layout row justify-space-between>
       <v-flex sm3>
-        <img style="margin-left: auto; margin-right:auto; display:block;" width="64px" height="64px" src="@/assets/logo.svg"/>
+        <v-card style="height: 150px;" class="pa-2">
+          <img width="100%" height="100%" src="@/assets/logo.svg"/>
+        </v-card>
       </v-flex>
       <v-flex sm9>
-        <hitokoto/>
+        <hitokoto style="height: 150px;" class="pa-2"/>
       </v-flex>
     </v-layout>
     <v-layout row v-if="!$store.state.token">

@@ -1,9 +1,9 @@
 <template>
-  <div class="hitokoto">
-    <h1>“{{ content }}”</h1>
+  <v-card class="hitokoto">
+    <h1>{{ content }}</h1>
     <blockquote>—— {{ from }}</blockquote>
     <v-btn icon :loading="loading" @click="load"><v-icon>refresh</v-icon></v-btn>
-  </div>
+  </v-card>
 </template>
 
 <script>

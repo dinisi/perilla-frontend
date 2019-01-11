@@ -3,7 +3,7 @@
     <v-layout fill-height>
       <v-flex sm12>
         <v-card>
-          <v-card-title>
+          <v-card-title class="headline primary white--text">
             <div>
               <div class="headline" v-text="article.title" />
               <div class="subheading">{{ article.creator }}</div>
