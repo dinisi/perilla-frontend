@@ -3,8 +3,8 @@
     <v-layout fill-height>
       <v-flex>
         <v-card>
-          <v-card-title>
-            <div class="headline primary white--text">
+          <v-card-title class="headline primary white--text">
+            <div>
               <div class="headline" v-text="entry._id" />
               <div class="subheading">{{ $t(EntryType[entry.type]) }}</div>
             </div>
