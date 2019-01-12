@@ -1,5 +1,5 @@
 <template>
-  <v-card class="hitokoto">
+  <v-card class="hitokoto" hover>
     <h2>{{ content }}</h2>
     <blockquote>—— {{ from }}</blockquote>
     <v-btn icon :loading="loading" @click="load"><v-icon>refresh</v-icon></v-btn>

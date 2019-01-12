@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card hover :to="`/entry/manage/${$store.state.entry}`">
     <v-card-title class="subheading" v-text="$t('user')"/>
     <v-card-text style="text-align: center;" class="headline">
       <v-progress-circular indeterminate v-if="loading"/>

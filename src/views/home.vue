@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md>
     <v-layout row justify-space-between>
       <v-flex xs3>
-        <v-card class="pa-2 first-line">
+        <v-card class="pa-2 first-line" hover>
           <img width="100%" height="100%" src="@/assets/logo.svg"/>
         </v-card>
       </v-flex>
@@ -27,7 +27,7 @@
         <user-count class="second-line"/>
       </v-flex>
       <v-flex xs4 sm2>
-        <v-card class="second-line">
+        <v-card class="second-line" hover>
           <v-card-title class="subheading" v-text="$t('link')"/>
           <v-card-text>
             <ul>
