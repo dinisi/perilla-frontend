@@ -6,7 +6,7 @@
           <v-card-title class="headline primary white--text" v-text="$t('create_group')"/>
           <v-card-text>
             <v-text-field :label="$t('name')" v-model="form.name" />
-            <v-text-field :label="$t('email')" v-model="form.email" type="email" />
+            <v-text-field :label="$t('email')" v-model="form.email" type="email" @keyup.native.enter="register" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -37,12 +37,12 @@ export default {
     register () {
       this.loading = true
       request({
-        url: '/api/misc/creategroup',
+        url: '/auth/creategroup',
         method: 'POST',
         data: this.form
       })
         .then(res => {
-          showToast('success', 'succeeded')
+          showToast('success', 'succeeded', res)
           this.$router.push('/')
         })
         .catch(e => {
