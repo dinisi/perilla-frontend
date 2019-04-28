@@ -770,10 +770,10 @@
     "@types/uglify-js" "*"
     source-map "^0.6.0"
 
-"@types/webpack@^4.4.22":
-  version "4.4.22"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.22.tgz#c4a5ea8b74a31b579537515bcfe86d2b2a34382c"
-  integrity sha512-PxAAzli3krZX9rCeONSR5Z9v4CR/2HPsKsiVRFNDo9OZefN+dTemteMHZnYkddOu4bqoYqJTJ724gLy0ZySXOw==
+"@types/webpack@^4.4.29":
+  version "4.4.29"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.29.tgz#d2a1c1d8c071b06521d32cee1c6b33d704b54b2c"
+  integrity sha512-8KVp+cNy9OPYsa4jU6vWsBemn5ixJ0Durh95Cw/YpEKm5ks2ODhdXc4FG3Xc46KIbPrJolwY7mSZFNn1aU3hKg==
   dependencies:
     "@types/anymatch" "*"
     "@types/node" "*"
@@ -10039,10 +10039,15 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-class-component@^6.0.0, vue-class-component@^6.2.0:
+vue-class-component@^6.2.0:
   version "6.3.2"
   resolved "http://registry.npm.taobao.org/vue-class-component/download/vue-class-component-6.3.2.tgz#e6037e84d1df2af3bde4f455e50ca1b9eec02be6"
   integrity sha1-5gN+hNHfKvO95PRV5Qyhue7AK+Y=
+
+vue-class-component@^7.0.0:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.0.2.tgz#c5f35a91c0e9341532392b84d606a84911fb13bc"
+  integrity sha512-8xw/wkZI2tgHcwvkSRC1ax7GeP1CG27wKhedvOAdjdASm05VU4RijGsCYti6s6CzBioBL5BQUmntQQTCsp1wnQ==
 
 vue-cli-plugin-electron-builder@^1.0.0-rc.10:
   version "1.0.0-rc.10"
