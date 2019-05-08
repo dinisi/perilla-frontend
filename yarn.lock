@@ -10039,10 +10039,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-class-component@^6.0.0, vue-class-component@^6.2.0:
-  version "6.3.2"
-  resolved "http://registry.npm.taobao.org/vue-class-component/download/vue-class-component-6.3.2.tgz#e6037e84d1df2af3bde4f455e50ca1b9eec02be6"
-  integrity sha1-5gN+hNHfKvO95PRV5Qyhue7AK+Y=
+vue-class-component@^7.0.0, vue-class-component@^7.0.1:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.0.2.tgz#c5f35a91c0e9341532392b84d606a84911fb13bc"
+  integrity sha512-8xw/wkZI2tgHcwvkSRC1ax7GeP1CG27wKhedvOAdjdASm05VU4RijGsCYti6s6CzBioBL5BQUmntQQTCsp1wnQ==
 
 vue-cli-plugin-electron-builder@^1.0.0-rc.10:
   version "1.0.0-rc.10"
@@ -10133,12 +10133,12 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-property-decorator@^7.0.0:
-  version "7.2.0"
-  resolved "http://registry.npm.taobao.org/vue-property-decorator/download/vue-property-decorator-7.2.0.tgz#8e6b0f4dcc630c357135f76366ba7bd91f1db015"
-  integrity sha1-jmsPTcxjDDVxNfdjZrp72R8dsBU=
+vue-property-decorator@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-8.1.1.tgz#80dadbe5ffa0e7eb6a0ba0a07036365471a7d5ee"
+  integrity sha512-K+PUT17ZEMWyhrKZnl4Fc9qMyFpMcjVbZJBwx4BpA8BXfaspaTeFdoHuk1aywC/+4G86sxIr/5n4IQUQLecSWw==
   dependencies:
-    vue-class-component "^6.2.0"
+    vue-class-component "^7.0.1"
 
 vue-router@^3.0.2:
   version "3.0.2"
