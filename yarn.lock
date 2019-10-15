@@ -10039,10 +10039,15 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-class-component@^6.0.0, vue-class-component@^6.2.0:
+vue-class-component@^6.2.0:
   version "6.3.2"
   resolved "http://registry.npm.taobao.org/vue-class-component/download/vue-class-component-6.3.2.tgz#e6037e84d1df2af3bde4f455e50ca1b9eec02be6"
   integrity sha1-5gN+hNHfKvO95PRV5Qyhue7AK+Y=
+
+vue-class-component@^7.0.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.1.0.tgz#b33efcb10e17236d684f70b1e96f1946ec793e87"
+  integrity sha512-G9152NzUkz0i0xTfhk0Afc8vzdXxDR1pfN4dTwE72cskkgJtdXfrKBkMfGvDuxUh35U500g5Ve4xL8PEGdWeHg==
 
 vue-cli-plugin-electron-builder@^1.0.0-rc.10:
   version "1.0.0-rc.10"
@@ -10183,10 +10188,10 @@ vuetify-loader@^1.1.0:
   dependencies:
     loader-utils "^1.1.0"
 
-vuetify@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.4.0.tgz#ad5446a319cf4b090d3e14f9c3ee2ac53d545415"
-  integrity sha512-Q6b5VrkGIhPTN+r/uw6P5UTYVQy0h3d4vRW5363qHTgzQfyYQk8BDlJNCTJj0Zu/z3aBq79zbyF88jbLlV9vxQ==
+vuetify@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.1.4.tgz#0ea1a7bb25a8aab2ff0ec680f3f6bb7e74f7f890"
+  integrity sha512-w01a9Gn75QnUZt54MIVJ1A93IgaMleTt+ZHJfFwH6w6CGn4lD6P2cxMiGUe1uXB6DRpx8Bb131wPPmdrbIeCUg==
 
 vuex-persistedstate@^2.5.4:
   version "2.5.4"
