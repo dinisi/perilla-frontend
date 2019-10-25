@@ -39,7 +39,7 @@
     "zmark": "^0.0.3"
   },
   "devDependencies": {
-    "@types/semver": "^5.5.0",
+    "@types/semver": "^6.2.0",
     "@types/webpack": "^4.4.22",
     "@vue/cli-plugin-babel": "^3.2.2",
     "@vue/cli-plugin-eslint": "^3.2.2",
